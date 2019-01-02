@@ -42,7 +42,7 @@ export const addUser = (name) => {
 export const receiveData = (data) => {
     return {
         ...RECEIVE_DATA,
-        dataState,
+        data,
         isLoading: false
     }
 }
