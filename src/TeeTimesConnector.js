@@ -13,6 +13,9 @@ const mapDispatchToProps = (dispatch) => {
         addUser: (name, password) => {
             dispatch(actions.addUser(name, password))
         },
+        addTeeTime: (teeTime) => {
+            dispatch(actions.addTeeTime(teeTime))
+        },
         loginUser: (name, password) => {
             dispatch(actions.loginUser(name, password))
         },

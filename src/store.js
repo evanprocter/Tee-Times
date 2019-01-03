@@ -13,6 +13,10 @@ const ADD_USER = {
     type: 'ADD_USER'
 }
 
+const ADD_TEETIME = {
+    type: 'ADD_TEETIME'
+}
+
 const LOGIN_USER = {
     type: 'LOGIN_USER'
 }
@@ -24,6 +28,7 @@ const LOGOUT_USER = {
 const REQUEST_DATA = {
     type: 'REQUEST_DATA'
 }
+
 
 // RETRIEVE USER DATA
 const RECEIVE_DATA = {
@@ -53,6 +58,23 @@ export const addUser = (name, password) => {
     .then(data => store.dispatch(receiveData(data)))
     return {
         ...ADD_USER,
+        isLoading: true
+    }
+}
+
+export const addTeeTime = (teeTime) => {
+    fetch('/teetime', {
+        method: 'post',
+        body: JSON.stringify({teeTime}),
+        headers: {'Content-Type' : 'application/json'}
+    })
+    .then(res => {
+        console.log(res)
+        return res.json()
+    })
+    .then(data => store.dispatch(receiveData(data)))
+    return {
+        ...ADD_TEETIME,
         isLoading: true
     }
 }
