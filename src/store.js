@@ -33,10 +33,10 @@ const DELETE_USER = {
     type: 'DELETE_USER'
 }
 
-export const addUser = (name) => {
-    fetch('/user', {
+export const addUser = (name, password) => {
+    fetch('/register', {
         method: 'post',
-        body: JSON.stringify({name}),
+        body: JSON.stringify({name, password}),
         headers: {'Content-Type': 'application/json'}
     })
     .then(res => res.json())
@@ -47,10 +47,10 @@ export const addUser = (name) => {
     }
 }
 
-export const loginUser = (name) => {
+export const loginUser = (name, password) => {
     fetch('/login', {
         method: 'post',
-        body: JSON.stringify({name}),
+        body: JSON.stringify({name, password}),
         headers: {'Content-Type' : 'application/json'}
     })
     .then(res => res.json())
