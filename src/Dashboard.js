@@ -4,7 +4,6 @@ export default function Dashboard(props) {
     return (
         <div className="Dashboard">
             <h1>{props.data.user.name}</h1>
-            // add logout button
         </div>
     )
 }
