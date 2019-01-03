@@ -10,6 +10,14 @@ const ADD_USER = {
     type: 'ADD_USER'
 }
 
+const LOGIN_USER = {
+    type: 'LOGIN_USER'
+}
+
+const LOGOUT_USER = {
+    type: 'LOGOUT_USER'
+}
+
 // RETRIEVE USER DATA
 const RECEIVE_DATA = {
     type: 'RECEIVE_DATA'
@@ -35,6 +43,30 @@ export const addUser = (name) => {
     .then(data => store.dispatch(receiveData(data)))
     return {
         ...ADD_USER,
+        isLoading: true
+    }
+}
+
+export const loginUser = (name) => {
+    fetch('/login', {
+        method: 'post',
+        body: JSON.stringify({name}),
+        headers: {'Content-Type' : 'application/json'}
+    })
+    .then(res => res.json())
+    .then(data => store.dispatch(receiveData(data)))
+    return {
+        ...LOGIN_USER,
+        isLoading: true
+    }
+}
+
+export const logoutUser = (name) => {
+    fetch('/logout')
+    .then(res => res.json())
+    .then(data => store.dispatch(receiveData(data)))
+    return {
+        ...LOGOUT_USER,
         isLoading: true
     }
 }
@@ -83,6 +115,16 @@ const teeTimes = (state=defaultState, action) => {
     switch (action.type){
         // CREATE
         case ADD_USER.type:
+        return {
+            ...state,
+            isLoading: action.isLoading
+        }
+        case LOGIN_USER.type:
+        return {
+            ...state,
+            isLoading: action.isLoading
+        }
+        case LOGOUT_USER.type:
         return {
             ...state,
             isLoading: action.isLoading
