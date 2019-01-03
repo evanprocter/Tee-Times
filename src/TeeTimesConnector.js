@@ -16,16 +16,18 @@ const mapDispatchToProps = (dispatch) => {
         loginUser: (name, password) => {
             dispatch(actions.loginUser(name, password))
         },
+        requestData: () => {
+            dispatch(actions.requestData())
+        },
         logoutUser: () => {
             dispatch(actions.logoutUser())
         },
-        updateUser: (name) => {
-            dispatch(actions.updateUser(name))
+        updateUser: (user) => {
+            dispatch(actions.updateUser(user))
         },
-        deleteUser: (name) => {
-            dispatch(actions.updateUser(name))
+        deleteUser: (user) => {
+            dispatch(actions.updateUser(user))
         },
-
     }
 }
 

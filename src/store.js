@@ -1,7 +1,10 @@
 import { createStore } from 'redux';
 
 const defaultState = {
-    data: {},
+    data: {
+        user: {},
+        teeTimes: [],
+    },
     isLoading: false
 }
 
@@ -16,6 +19,10 @@ const LOGIN_USER = {
 
 const LOGOUT_USER = {
     type: 'LOGOUT_USER'
+}
+
+const REQUEST_DATA = {
+    type: 'REQUEST_DATA'
 }
 
 // RETRIEVE USER DATA
@@ -39,7 +46,10 @@ export const addUser = (name, password) => {
         body: JSON.stringify({name, password}),
         headers: {'Content-Type': 'application/json'}
     })
-    .then(res => res.json())
+    .then(res => {
+        console.log(res)
+        return res.json()
+    })
     .then(data => store.dispatch(receiveData(data)))
     return {
         ...ADD_USER,
@@ -53,7 +63,10 @@ export const loginUser = (name, password) => {
         body: JSON.stringify({name, password}),
         headers: {'Content-Type' : 'application/json'}
     })
-    .then(res => res.json())
+    .then(res => {
+        console.log(res)
+        return res.json()
+    })
     .then(data => store.dispatch(receiveData(data)))
     return {
         ...LOGIN_USER,
@@ -61,12 +74,22 @@ export const loginUser = (name, password) => {
     }
 }
 
-export const logoutUser = (name) => {
+export const logoutUser = () => {
     fetch('/logout')
     .then(res => res.json())
     .then(data => store.dispatch(receiveData(data)))
     return {
         ...LOGOUT_USER,
+        isLoading: true
+    }
+}
+
+export const requestData = () => {
+    fetch('/')
+    .then(res => res.json())
+    .then(data => store.dispatch(receiveData(data)))
+    return {
+        ...REQUEST_DATA,
         isLoading: true
     }
 }
@@ -80,7 +103,7 @@ export const receiveData = (data) => {
 }
 
 export const updateUser = (user) => {
-    fetch('/updateUser', {
+    fetch('/', {
         method: 'post',
         body: JSON.stringify(user),
         headers: {'Content-Type': 'application.json'}
@@ -139,10 +162,16 @@ const teeTimes = (state=defaultState, action) => {
             ...state,
             isLoading: action.isLoading
         }
+        case REQUEST_DATA.type:
+        return {
+            ...state,
+            isLoading: action.isLoading
+        }
         case RECEIVE_DATA.type:
         return {
             ...state,
-            data: action.data
+            isLoading: action.isLoading,
+            data: action.data,
         }
         default:
         return state   
@@ -153,5 +182,7 @@ const store = createStore(
     teeTimes,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
+
+store.dispatch(requestData())
 
 export default store;
