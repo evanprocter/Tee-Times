@@ -16,3 +16,8 @@ code {
 .LoginPage {
   background:skyblue;
 }
+
+.Dashboard > ul {
+  display: flex;
+  flex-direction: column;
+}
