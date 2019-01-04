@@ -29,11 +29,11 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(actions.updateUser(user))
         },
         deleteUser: (user) => {
-            dispatch(actions.updateUser(user))
+            dispatch(actions.deleteUser(user))
         },
         deleteTeeTime: (teeTime) => {
             // double check
-            dispatch(actions.updateUser(teeTime))
+            dispatch(actions.deleteTeeTime(teeTime))
         } 
     }
 }
