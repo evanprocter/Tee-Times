@@ -10,7 +10,7 @@ export default function Dashboard(props) {
             <ul>{props.data.user.teeTimes.map(teeTime => <li>{teeTime.date}</li>)}</ul>
             <input type="button" value="logout" onClick={event => {
                logoutUser(props.data.user)}}/>
-                <TeeTimeForm {...props}/>
+            <TeeTimeForm {...props}/>
             <input type="button" value="Remove Tee Time" onClick={event => { 
                 deleteTeeTime()
             }}
