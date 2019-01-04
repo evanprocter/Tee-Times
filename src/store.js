@@ -45,6 +45,10 @@ const DELETE_USER = {
     type: 'DELETE_USER'
 }
 
+const DELETE_TEE_TIME = {
+    type: 'DELETE_TEE_TIME'
+}
+
 export const addUser = (name, password) => {
     fetch('/register', {
         method: 'post',
@@ -148,6 +152,20 @@ export const deleteUser = (user) => {
     .then(data => store.dispatch(receiveData(data)))
     return {
         ...DELETE_USER,
+        isLoading: true
+    }
+}
+
+export const deleteTeeTime = (user) => {
+    fetch('/', {
+        method: 'delete',
+        body: JSON.stringify(user),
+        headers: {'Content-Type' : 'application.json'}
+    })
+    .then(res => res.json())
+    .then(data => store.dispatch(receiveData(data)))
+    return {
+        ...DELETE_TEE_TIME,
         isLoading: true
     }
 }
