@@ -3,7 +3,9 @@ import { createStore } from 'redux';
 const defaultState = {
     data: {
         user: {},
-        teeTimes: [],
+        userTeeTimes: [],
+        allUsers: [],
+        allTeeTimes: []
     },
     isLoading: false
 }
