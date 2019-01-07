@@ -19,7 +19,7 @@ export default function Dashboard(props) {
                     minute: 'numeric'
                   }
                 const dateString = new Intl.DateTimeFormat('en-US', dateOptions).format(teeDate)
-                return <li key={teeTime._id} className={`teeTime${editClassName}`}>{dateString}</li>
+                return <li key={teeTime._id} className={`teeTime${editClassName}`} onClick={event => props.selectTeeTime(teeTime)}>{dateString}</li>
             })}</ul>
             <input type="button" value="logout" onClick={event => {
                logoutUser(props.data.user)}}/>
