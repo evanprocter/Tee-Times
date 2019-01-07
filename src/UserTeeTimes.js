@@ -13,7 +13,7 @@ export default function UserTeeTimes(props) {
                 weekday: 'short',
                 hour: 'numeric',
                 minute: 'numeric'
-              }
+            }
             const dateString = new Intl.DateTimeFormat('en-US', dateOptions).format(teeDate)
             return <li key={teeTime._id} className={`teeTime${editClassName}`} onClick={event => props.selectTeeTime(teeTime)}>{dateString}</li>
         })}

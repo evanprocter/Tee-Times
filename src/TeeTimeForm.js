@@ -10,6 +10,14 @@ export default function TeeTimeForm(props) {
     const cutOffDayString =  currentDate.getDate() > 9 ? `${currentDate.getDate() + 2}` : `0${currentDate.getDate() + 2}`
     const currentDateString = `${currentDate.getFullYear()}-${monthString}-${dayString}T${hourString}:${minString}`
     const cutOffDateString = `${currentDate.getFullYear()}-${monthString}-${cutOffDayString}T${hourString}:${minString}`
+
+    const selectedTeeTimeDate = props.selectedTeeTime._id ? new Date(props.selectedTeeTime.date) : new Date()
+    selectedTeeTimeDate.setMinutes(selectedTeeTimeDate.getMinutes() - (selectedTeeTimeDate.getMinutes() % 5))
+    const selectedTeeTimeMonthString = selectedTeeTimeDate.getMonth() + 1 > 9 ? `${selectedTeeTimeDate.getMonth() + 1}`: `0${selectedTeeTimeDate.getMonth() + 1}`
+    const selectedTeeTimeDayString =  selectedTeeTimeDate.getDate() > 9 ? `${selectedTeeTimeDate.getDate()}` : `0${selectedTeeTimeDate.getDate()}`
+    const selectedTeeTimeHourString = selectedTeeTimeDate.getHours() > 9 ? `${selectedTeeTimeDate.getHours()}` : `0${selectedTeeTimeDate.getHours()}`
+    const selectedTeeTimeMinString = selectedTeeTimeDate.getMinutes() > 9 ? `${selectedTeeTimeDate.getMinutes()}` : `0${selectedTeeTimeDate.getMinutes()}`
+    const selectedTeeTimeDateString = `${selectedTeeTimeDate.getFullYear()}-${selectedTeeTimeMonthString}-${selectedTeeTimeDayString}T${selectedTeeTimeHourString}:${selectedTeeTimeMinString}`
     return (
         <form className="TeeTimeForm" onSubmit={event => {
                 event.preventDefault()
@@ -23,15 +31,16 @@ export default function TeeTimeForm(props) {
                 const newTeeTime = { date, golfers }
                 props.selectedTeeTime._id ? props.updateTeeTime({...props.selectedTeeTime, ...newTeeTime}) : props.addTeeTime(newTeeTime)
             }}>
-            <input type="datetime-local" name="teeDate" id="myDate" 
-                defaultValue={currentDateString} 
+            <input type="datetime-local" name="teeDate" key={props.selectedTeeTime._id}
+                defaultValue={props.selectedTeeTime._id ? selectedTeeTimeDateString : currentDateString} 
                 max={cutOffDateString} 
                 min={currentDateString}
                 step={300}/>
             <label>
                 Select other golfers:
-                <select name="golfers" multiple>
-                    {props.data.allUsers.map(user => <option key={user._id} value={user._id}>{`${user.name}`}</option>)}
+                {/* give select element a key tied to state to update default values */}
+                <select name="golfers" multiple key={props.selectedTeeTime._id} defaultValue={props.selectedTeeTime._id ? props.selectedTeeTime.golfers.filter(golfer => golfer._id !== props.data.user._id).map(golfer => golfer._id) : []}>
+                    {props.data.allUsers.filter(user => user._id !== props.data.user._id).map(user => <option key={user._id} value={user._id}>{`${user.name}`}</option>)}
                 </select>
             </label>
             <input type="submit" value="Request Tee Time"/>
