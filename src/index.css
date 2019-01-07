@@ -22,6 +22,11 @@ code {
   flex-direction: column;
 }
 
+.teeTime {
+  display: flex;
+  justify-content: space-around;
+}
+
 .teeTimeEdit {
   background-color: aquamarine;
 }
