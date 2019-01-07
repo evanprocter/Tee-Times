@@ -18,6 +18,7 @@ export default function TeeTimeForm(props) {
     const selectedTeeTimeHourString = selectedTeeTimeDate.getHours() > 9 ? `${selectedTeeTimeDate.getHours()}` : `0${selectedTeeTimeDate.getHours()}`
     const selectedTeeTimeMinString = selectedTeeTimeDate.getMinutes() > 9 ? `${selectedTeeTimeDate.getMinutes()}` : `0${selectedTeeTimeDate.getMinutes()}`
     const selectedTeeTimeDateString = `${selectedTeeTimeDate.getFullYear()}-${selectedTeeTimeMonthString}-${selectedTeeTimeDayString}T${selectedTeeTimeHourString}:${selectedTeeTimeMinString}`
+    // const selectedTeeTimeDateString = selectedTeeTimeDate.toISOString().split('').slice(0, selectedTeeTimeDate.toISOString().length - 1).join('')
     return (
         <form className="TeeTimeForm" onSubmit={event => {
                 event.preventDefault()
