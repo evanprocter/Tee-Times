@@ -7,7 +7,19 @@ export default function Dashboard(props) {
         <div className="Dashboard">
             <h1>{props.data.user.name}</h1>
             <div>Here is a list of your current and previous tee times!</div>
-            <ul>{props.data.userTeeTimes.map(teeTime => <li>{teeTime.date}</li>)}</ul>
+            <ul>{props.data.userTeeTimes.map(teeTime => {
+                const teeDate = new Date(teeTime.date)
+                const dateOptions = {
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric',
+                    weekday: 'short',
+                    hour: 'numeric',
+                    minute: 'numeric'
+                  }
+                const dateString = new Intl.DateTimeFormat('en-US', dateOptions).format(teeDate)
+                return <li key={teeTime._id}>{dateString}</li>
+            })}</ul>
             <input type="button" value="logout" onClick={event => {
                logoutUser(props.data.user)}}/>
             <TeeTimeForm {...props}/>
