@@ -2,6 +2,7 @@ import React from 'react'
 
 export default function TeeTimeForm(props) {
     const currentDate= new Date()
+    currentDate.setMinutes(currentDate.getMinutes() - (currentDate.getMinutes() % 5))
     const monthString = currentDate.getMonth() + 1 > 9 ? `${currentDate.getMonth() + 1}`: `0${currentDate.getMonth() + 1}`
     const dayString =  currentDate.getDate() > 9 ? `${currentDate.getDate()}` : `0${currentDate.getDate()}`
     const hourString = currentDate.getHours() > 9 ? `${currentDate.getHours()}` : `0${currentDate.getHours()}`
@@ -16,8 +17,12 @@ export default function TeeTimeForm(props) {
                 const newTeeTime = { date, golfers: [props.data.user] }
                 props.addTeeTime(newTeeTime)
             }}>
-        <input type="datetime-local" name="teeDate" id="myDate" defaultValue={currentDateString} max={cutOffDateString} min={currentDateString}/>
-        <input type="submit" value="Request Tee Time"/>
+            <input type="datetime-local" name="teeDate" id="myDate" 
+            defaultValue={currentDateString} 
+            max={cutOffDateString} 
+            min={currentDateString}
+            step={300}/>
+            <input type="submit" value="Request Tee Time"/>
         </form>
     )
 }
