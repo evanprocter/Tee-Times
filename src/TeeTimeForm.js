@@ -9,9 +9,9 @@ export default function TeeTimeForm(props) {
     const cutOffDateString = `${currentDate.getFullYear()}-${monthString}-${cutOffDayString}T${currentDate.getHours()}:${currentDate.getMinutes()}`
     return (
         <form className="TeeTimeForm" onSubmit={event => {
-            event.preventDefault()
-            const teeDate = event.target.teeDate.value
-                const newTeeTime = new Date(teeDate)
+                event.preventDefault()
+                const teeDate = event.target.teeDate.value
+                const newTeeTime = { date: new Date(teeDate), golfers: [props.data.user] }
                 props.addTeeTime(newTeeTime)
             }}>
         <input type="datetime-local" name="teeDate" id="myDate" defaultValue={currentDateString} max={cutOffDateString} min={currentDateString}/>
