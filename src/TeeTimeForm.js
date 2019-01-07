@@ -14,14 +14,26 @@ export default function TeeTimeForm(props) {
         <form className="TeeTimeForm" onSubmit={event => {
                 event.preventDefault()
                 const date = new Date(event.target.teeDate.value)
-                const newTeeTime = { date, golfers: [props.data.user] }
+                const selectedGolferIDs = []
+                for (let selectedGolfer of event.target.golfers.selectedOptions) {
+                    selectedGolferIDs.push(selectedGolfer.value)
+                }
+                const golfers = props.data.allUsers.filter(user => selectedGolferIDs.includes(user._id) && user._id !== props.data.user._id)
+                golfers.push(props.data.user)
+                const newTeeTime = { date, golfers }
                 props.selectedTeeTime._id ? props.updateTeeTime({...props.selectedTeeTime, ...newTeeTime}) : props.addTeeTime(newTeeTime)
             }}>
             <input type="datetime-local" name="teeDate" id="myDate" 
-            defaultValue={currentDateString} 
-            max={cutOffDateString} 
-            min={currentDateString}
-            step={300}/>
+                defaultValue={currentDateString} 
+                max={cutOffDateString} 
+                min={currentDateString}
+                step={300}/>
+            <label>
+                Select other golfers:
+                <select name="golfers" multiple>
+                    {props.data.allUsers.map(user => <option key={user._id} value={user._id}>{`${user.name}`}</option>)}
+                </select>
+            </label>
             <input type="submit" value="Request Tee Time"/>
         </form>
     )
