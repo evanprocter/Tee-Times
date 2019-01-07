@@ -15,7 +15,7 @@ export default function TeeTimeForm(props) {
                 event.preventDefault()
                 const date = new Date(event.target.teeDate.value)
                 const newTeeTime = { date, golfers: [props.data.user] }
-                props.addTeeTime(newTeeTime)
+                props.selectedTeeTime._id ? props.updateTeeTime({...props.selectedTeeTime, ...newTeeTime}) : props.addTeeTime(newTeeTime)
             }}>
             <input type="datetime-local" name="teeDate" id="myDate" 
             defaultValue={currentDateString} 

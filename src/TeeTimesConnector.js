@@ -28,6 +28,12 @@ const mapDispatchToProps = (dispatch) => {
         updateUser: (user) => {
             dispatch(actions.updateUser(user))
         },
+        selectTeeTime: (teeTime) => {
+            dispatch(actions.selectTeeTime(teeTime))
+        },
+        updateTeeTime: (teeTime) => {
+            dispatch(actions.updateTeeTime(teeTime))
+        },
         deleteUser: (user) => {
             dispatch(actions.deleteUser(user))
         },
