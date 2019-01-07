@@ -31,7 +31,7 @@ export default function TeeTimeForm(props) {
             <label>
                 Select other golfers:
                 <select name="golfers" multiple>
-                    {props.data.allUsers.map(user => <option key={user._id} value={user._id}>{`${user.name}`}</option>)}
+                    {props.data.allUsers.filter(user => user._id !== props.data.user._id).map(user => <option key={user._id} value={user._id}>{`${user.name}`}</option>)}
                 </select>
             </label>
             <input type="submit" value="Request Tee Time"/>
