@@ -121,7 +121,7 @@ export const logoutUser = () => {
 }
 
 export const requestData = () => {
-    fetch('/')
+    fetch('/data')
     .then(res => res.json())
     .then(data => store.dispatch(receiveData(data)))
     return {

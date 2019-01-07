@@ -6,7 +6,7 @@ import Dashboard from './Dashboard'
 
 export default class TeeTimes extends Component {
     componentDidMount() {
-        // this.props.requestData()
+        this.props.requestData()
     }
 
     render() {
