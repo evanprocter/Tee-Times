@@ -1,25 +1,13 @@
 import React from 'react'
 import TeeTimeForm from './TeeTimeForm'
+import UserTeeTimes from './UserTeeTimes'
 
 export default function Dashboard(props) {
     return (
         <div className="Dashboard">
             <h1>{props.data.user.name}</h1>
             <div>Here is a list of your current and previous tee times!</div>
-            <ul>{props.data.userTeeTimes.map(teeTime => {
-                const editClassName = teeTime._id === props.selectedTeeTime._id ? ' teeTimeEdit' : ''
-                const teeDate = new Date(teeTime.date)
-                const dateOptions = {
-                    year: 'numeric', 
-                    month: 'short', 
-                    day: 'numeric',
-                    weekday: 'short',
-                    hour: 'numeric',
-                    minute: 'numeric'
-                  }
-                const dateString = new Intl.DateTimeFormat('en-US', dateOptions).format(teeDate)
-                return <li key={teeTime._id} className={`teeTime${editClassName}`} onClick={event => props.selectTeeTime(teeTime)}>{dateString}</li>
-            })}</ul>
+            <UserTeeTimes {...props}/>
             <input type="button" value="logout" onClick={event => props.logoutUser(props.data.user)}/>
             <TeeTimeForm {...props}/>
             <input type="button" value="Remove Tee Time" onClick={event => props.deleteTeeTime(props.selectedTeeTime)}/>
