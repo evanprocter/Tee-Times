@@ -241,7 +241,7 @@ const teeTimes = (state=defaultState, action) => {
         case SELECT_TEE_TIME.type:
         return {
             ...state,
-            selectedTeeTime: action.teeTime
+            selectedTeeTime: action.teeTime._id !== state.selectedTeeTime._id ? action.teeTime : {}
         }
         case UPDATE_TEE_TIME.type:
         return {
