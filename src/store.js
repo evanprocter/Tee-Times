@@ -16,8 +16,8 @@ const ADD_USER = {
     type: 'ADD_USER'
 }
 
-const ADD_TEETIME = {
-    type: 'ADD_TEETIME'
+const ADD_TEE_TIME = {
+    type: 'ADD_TEE_TIME'
 }
 
 const LOGIN_USER = {
@@ -88,7 +88,7 @@ export const addTeeTime = (teeTime) => {
     })
     .then(data => store.dispatch(receiveData(data)))
     return {
-        ...ADD_TEETIME,
+        ...ADD_TEE_TIME,
         isLoading: true
     }
 }
@@ -141,7 +141,7 @@ export const receiveData = (data) => {
 export const updateUser = (user) => {
     fetch('/updateUser', {
         method: 'post',
-        body: JSON.stringify(user),
+        body: JSON.stringify({user}),
         headers: {'Content-Type': 'application/json'}
     })
     .then(res => res.json())
@@ -162,7 +162,7 @@ export const selectTeeTime = (teeTime) => {
 export const updateTeeTime = (teeTime) => {
     fetch('/updateTeeTime', {
         method: 'post',
-        body: JSON.stringify(teeTime),
+        body: JSON.stringify({teeTime}),
         headers: {'Content-Type': 'application/json'}
     })
     .then(res => res.json())
@@ -176,8 +176,8 @@ export const updateTeeTime = (teeTime) => {
 export const deleteUser = (user) => {
     fetch('/user', {
         method: 'delete',
-        body: JSON.stringify(user),
-        headers: {'Content-Type': 'application.json'}
+        body: JSON.stringify({user}),
+        headers: {'Content-Type': 'application/json'}
     })
     .then(res => res.json())
     .then(data => store.dispatch(receiveData(data)))
@@ -187,11 +187,11 @@ export const deleteUser = (user) => {
     }
 }
 
-export const deleteTeeTime = (user) => {
-    fetch('/', {
+export const deleteTeeTime = (teeTime) => {
+    fetch('/teetime', {
         method: 'delete',
-        body: JSON.stringify(user),
-        headers: {'Content-Type' : 'application.json'}
+        body: JSON.stringify({teeTime}),
+        headers: {'Content-Type' : 'application/json'}
     })
     .then(res => res.json())
     .then(data => store.dispatch(receiveData(data)))
@@ -233,6 +233,26 @@ const teeTimes = (state=defaultState, action) => {
             ...state,
             isLoading: action.isLoading
         }
+        case ADD_TEE_TIME.type:
+        return {
+            ...state,
+            isLoading: action.isLoading
+        }
+        case SELECT_TEE_TIME.type:
+        return {
+            ...state,
+            selectedTeeTime: action.teeTime
+        }
+        case UPDATE_TEE_TIME.type:
+        return {
+            ...state,
+            isLoading: action.isLoading
+        }
+        case DELETE_TEE_TIME.type:
+        return {
+            ...state,
+            isLoading: action.isLoading
+        }
         case REQUEST_DATA.type:
         return {
             ...state,
@@ -243,6 +263,7 @@ const teeTimes = (state=defaultState, action) => {
             ...state,
             isLoading: action.isLoading,
             data: action.data,
+            selectedTeeTime: {}
         }
         default:
         return state   

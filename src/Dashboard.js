@@ -21,13 +21,9 @@ export default function Dashboard(props) {
                 const dateString = new Intl.DateTimeFormat('en-US', dateOptions).format(teeDate)
                 return <li key={teeTime._id} className={`teeTime${editClassName}`} onClick={event => props.selectTeeTime(teeTime)}>{dateString}</li>
             })}</ul>
-            <input type="button" value="logout" onClick={event => {
-               logoutUser(props.data.user)}}/>
+            <input type="button" value="logout" onClick={event => logoutUser(props.data.user)}/>
             <TeeTimeForm {...props}/>
-            <input type="button" value="Remove Tee Time" onClick={event => { 
-                deleteTeeTime()
-            }}
-            />
+            <input type="button" value="Remove Tee Time" onClick={event => deleteTeeTime(props.selectedTeeTime)}/>
         </div>
     )
 }
