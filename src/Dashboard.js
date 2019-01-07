@@ -8,6 +8,7 @@ export default function Dashboard(props) {
             <h1>{props.data.user.name}</h1>
             <div>Here is a list of your current and previous tee times!</div>
             <ul>{props.data.userTeeTimes.map(teeTime => {
+                const editClassName = teeTime._id === props.selectedTeeTime._id ? ' teeTimeEdit' : ''
                 const teeDate = new Date(teeTime.date)
                 const dateOptions = {
                     year: 'numeric', 
@@ -18,7 +19,7 @@ export default function Dashboard(props) {
                     minute: 'numeric'
                   }
                 const dateString = new Intl.DateTimeFormat('en-US', dateOptions).format(teeDate)
-                return <li key={teeTime._id}>{dateString}</li>
+                return <li key={teeTime._id} className={`teeTime${editClassName}`}>{dateString}</li>
             })}</ul>
             <input type="button" value="logout" onClick={event => {
                logoutUser(props.data.user)}}/>

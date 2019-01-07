@@ -7,6 +7,7 @@ const defaultState = {
         allUsers: [],
         allTeeTimes: []
     },
+    selectedTeeTime: {},
     isLoading: false
 }
 
@@ -31,7 +32,6 @@ const REQUEST_DATA = {
     type: 'REQUEST_DATA'
 }
 
-
 // RETRIEVE USER DATA
 const RECEIVE_DATA = {
     type: 'RECEIVE_DATA'
@@ -40,6 +40,14 @@ const RECEIVE_DATA = {
 // UPDATE USER DATA
 const UPDATE_USER = {
     type: 'UPDATE_USER'
+}
+
+const SELECT_TEE_TIME = {
+    type: 'SELECT_TEE_TIME'
+}
+
+const UPDATE_TEE_TIME = {
+    type: 'UPDATE_TEE_TIME'
 }
 
 // DELETE A SINGLE USER AND INFO
@@ -131,15 +139,36 @@ export const receiveData = (data) => {
 }
 
 export const updateUser = (user) => {
-    fetch('/', {
+    fetch('/updateUser', {
         method: 'post',
         body: JSON.stringify(user),
-        headers: {'Content-Type': 'application.json'}
+        headers: {'Content-Type': 'application/json'}
     })
     .then(res => res.json())
     .then(data => store.dispatch(receiveData(data)))
     return {
         ...UPDATE_USER,
+        isLoading: true
+    }
+}
+
+export const selectTeeTime = (teeTime) => {
+    return {
+        ...SELECT_TEE_TIME,
+        teeTime
+    }
+}
+
+export const updateTeeTime = (teeTime) => {
+    fetch('/updateTeeTime', {
+        method: 'post',
+        body: JSON.stringify(teeTime),
+        headers: {'Content-Type': 'application/json'}
+    })
+    .then(res => res.json())
+    .then(data => store.dispatch(receiveData(data)))
+    return {
+        ...UPDATE_TEE_TIME,
         isLoading: true
     }
 }
