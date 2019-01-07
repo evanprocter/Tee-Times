@@ -30,7 +30,7 @@ export default function TeeTimeForm(props) {
                 step={300}/>
             <label>
                 Select other golfers:
-                <select name="golfers" multiple>
+                <select name="golfers" multiple key={props.selectedTeeTime._id} defaultValue={props.selectedTeeTime._id ? props.selectedTeeTime.golfers.filter(golfer => golfer._id !== props.data.user._id).map(golfer => golfer._id) : []}>
                     {props.data.allUsers.filter(user => user._id !== props.data.user._id).map(user => <option key={user._id} value={user._id}>{`${user.name}`}</option>)}
                 </select>
             </label>
