@@ -20,7 +20,7 @@ export default function TeeTimeForm(props) {
     const selectedTeeTimeDateString = `${selectedTeeTimeDate.getFullYear()}-${selectedTeeTimeMonthString}-${selectedTeeTimeDayString}T${selectedTeeTimeHourString}:${selectedTeeTimeMinString}`
     // const selectedTeeTimeDateString = selectedTeeTimeDate.toISOString().split('').slice(0, selectedTeeTimeDate.toISOString().length - 1).join('')
     return (
-        <form className="TeeTimeForm" 
+        <form className={`TeeTimeForm${props.selectedTeeTime._id ? ' selectedTeeTimeForm' : ''}`} 
             onSubmit={event => {
                 event.preventDefault()
                 const date = new Date(event.target.teeDate.value)
