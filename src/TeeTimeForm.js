@@ -20,7 +20,8 @@ export default function TeeTimeForm(props) {
     const selectedTeeTimeDateString = `${selectedTeeTimeDate.getFullYear()}-${selectedTeeTimeMonthString}-${selectedTeeTimeDayString}T${selectedTeeTimeHourString}:${selectedTeeTimeMinString}`
     // const selectedTeeTimeDateString = selectedTeeTimeDate.toISOString().split('').slice(0, selectedTeeTimeDate.toISOString().length - 1).join('')
     return (
-        <form className="TeeTimeForm" onSubmit={event => {
+        <form className="TeeTimeForm" 
+            onSubmit={event => {
                 event.preventDefault()
                 const date = new Date(event.target.teeDate.value)
                 const selectedGolferIDs = []
@@ -31,7 +32,8 @@ export default function TeeTimeForm(props) {
                 golfers.push(props.data.user)
                 const newTeeTime = { date, golfers }
                 props.selectedTeeTime._id ? props.updateTeeTime({...props.selectedTeeTime, ...newTeeTime}) : props.addTeeTime(newTeeTime)
-            }}>
+            }}
+        >
             <input type="datetime-local" name="teeDate" key={props.selectedTeeTime._id}
                 defaultValue={props.selectedTeeTime._id ? selectedTeeTimeDateString : currentDateString} 
                 max={cutOffDateString} 
