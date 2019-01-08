@@ -3,11 +3,13 @@ import { createStore } from 'redux';
 const defaultState = {
     data: {
         user: {},
+        userFriends: [],
         userTeeTimes: [],
         allUsers: [],
-        allTeeTimes: []
+        allTeeTimes: [],
     },
     selectedTeeTime: {},
+    friendSearchTerm: '',
     isLoading: false
 }
 
@@ -50,6 +52,19 @@ const UPDATE_TEE_TIME = {
     type: 'UPDATE_TEE_TIME'
 }
 
+const UPDATE_FRIEND_SEARCH = {
+    type: 'UPDATE_FRIEND_SEARCH'
+}
+const REQUEST_FRIEND = {
+    type: 'REQUEST_FRIEND'
+}
+const APPROVE_FRIEND = {
+    type: 'APPROVE_FRIEND'
+}
+const DENY_FRIEND = {
+    type: 'DENY_FRIEND'
+}
+
 // DELETE A SINGLE USER AND INFO
 const DELETE_USER = {
     type: 'DELETE_USER'
@@ -72,23 +87,6 @@ export const addUser = (name, password, userType) => {
     .then(data => store.dispatch(receiveData(data)))
     return {
         ...ADD_USER,
-        isLoading: true
-    }
-}
-
-export const addTeeTime = (teeTime) => {
-    fetch('/teetime', {
-        method: 'post',
-        body: JSON.stringify({teeTime}),
-        headers: {'Content-Type' : 'application/json'}
-    })
-    .then(res => {
-        console.log(res)
-        return res.json()
-    })
-    .then(data => store.dispatch(receiveData(data)))
-    return {
-        ...ADD_TEE_TIME,
         isLoading: true
     }
 }
@@ -152,6 +150,23 @@ export const updateUser = (user) => {
     }
 }
 
+export const addTeeTime = (teeTime) => {
+    fetch('/teetime', {
+        method: 'post',
+        body: JSON.stringify({teeTime}),
+        headers: {'Content-Type' : 'application/json'}
+    })
+    .then(res => {
+        console.log(res)
+        return res.json()
+    })
+    .then(data => store.dispatch(receiveData(data)))
+    return {
+        ...ADD_TEE_TIME,
+        isLoading: true
+    }
+}
+
 export const selectTeeTime = (teeTime) => {
     return {
         ...SELECT_TEE_TIME,
@@ -169,6 +184,53 @@ export const updateTeeTime = (teeTime) => {
     .then(data => store.dispatch(receiveData(data)))
     return {
         ...UPDATE_TEE_TIME,
+        isLoading: true
+    }
+}
+
+export const updateFriendSearch = friendSearchTerm => {
+    return {
+        ...UPDATE_FRIEND_SEARCH,
+        friendSearchTerm
+    }
+}
+
+export const requestFriend = friends => {
+    fetch('/requestFriend', {
+        method: 'post',
+        body: JSON.stringify(friends),
+        headers: {'Content-Type': 'application/json'}
+    })
+    .then(res => res.json())
+    .then(data => store.dispatch(receiveData(data)))
+    return {
+        ...REQUEST_FRIEND,
+        isLoading: true
+    }
+}
+export const approveFriend = friends => {
+    fetch('/approveFriend', {
+        method: 'post',
+        body: JSON.stringify(friends),
+        headers: {'Content-Type': 'application/json'}
+    })
+    .then(res => res.json())
+    .then(data => store.dispatch(receiveData(data)))
+    return {
+        ...APPROVE_FRIEND,
+        isLoading: true
+    }
+}
+export const denyFriend = friends => {
+    fetch('/denyFriend', {
+        method: 'post',
+        body: JSON.stringify(friends),
+        headers: {'Content-Type': 'application/json'}
+    })
+    .then(res => res.json())
+    .then(data => store.dispatch(receiveData(data)))
+    return {
+        ...DENY_FRIEND,
         isLoading: true
     }
 }
@@ -249,6 +311,26 @@ const teeTimes = (state=defaultState, action) => {
             isLoading: action.isLoading
         }
         case DELETE_TEE_TIME.type:
+        return {
+            ...state,
+            isLoading: action.isLoading
+        }
+        case UPDATE_FRIEND_SEARCH.type:
+        return {
+            ...state,
+            friendSearchTerm: action.friendSearchTerm
+        }
+        case REQUEST_FRIEND.type:
+        return {
+            ...state,
+            isLoading: action.isLoading
+        }
+        case APPROVE_FRIEND.type:
+        return {
+            ...state,
+            isLoading: action.isLoading
+        }
+        case DENY_FRIEND.type:
         return {
             ...state,
             isLoading: action.isLoading
