@@ -17,16 +17,15 @@ code {
   background:skyblue;
 }
 
-.Dashboard > ul {
-  display: flex;
-  flex-direction: column;
+.UserTeeTimes {
+  margin: 0 5%;
 }
 
 .teeTime {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
-
+ 
 .teeTimeEdit {
   background-color: aquamarine;
 }
