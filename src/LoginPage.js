@@ -19,11 +19,18 @@ export default function LoginPage({history, loginUser, addUser}) {
                 <input type='password' name='password' />
             </label>
             <input type='submit' value='login' />
-            <input type='button' value='register' onClick={event => {
-                        addUser(event.target.form[0].value, event.target.form[1].value)
-                        history.push('/')
-            }}/>
-            <inpu
+            <input type='button' value='register' 
+                onClick={event => {
+                    addUser(event.target.form[0].value, event.target.form[1].value, 'basic')
+                    history.push('/')
+                }}
+            />
+            <input type='button' value='register as admin' 
+                onClick={event => {
+                    addUser(event.target.form[0].value, event.target.form[1].value, 'admin')
+                    history.push('/')
+                }}
+            />
         </form>
     )
 }
