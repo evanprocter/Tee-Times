@@ -28,8 +28,8 @@ export default function TeeTimeForm(props) {
                 for (let selectedGolfer of event.target.golfers.selectedOptions) {
                     selectedGolferIDs.push(selectedGolfer.value)
                 }
-                const golfers = props.data.allUsers.filter(user => selectedGolferIDs.includes(user._id) && user._id !== props.data.user._id)
-                golfers.push(props.data.user)
+                const golfers = props.data.allUsers.filter(user => selectedGolferIDs.includes(user._id))
+                props.data.user.userType === 'admin' || golfers.push(props.data.user)
                 const newTeeTime = { date, golfers }
                 props.selectedTeeTime._id ? props.updateTeeTime({...props.selectedTeeTime, ...newTeeTime}) : props.addTeeTime(newTeeTime)
             }}
@@ -43,7 +43,9 @@ export default function TeeTimeForm(props) {
                 Select other golfers:
                 {/* give select element a key tied to state to update default values */}
                 <select name="golfers" multiple key={props.selectedTeeTime._id} defaultValue={props.selectedTeeTime._id ? props.selectedTeeTime.golfers.filter(golfer => golfer._id !== props.data.user._id).map(golfer => golfer._id) : []}>
-                    {props.data.userFriends.map(user => <option key={user._id} value={user._id}>{`${user.name}`}</option>)}
+                    {props.data.user.userType === 'admin' ? 
+                    props.data.allUsers.map(user => <option key={user._id} value={user._id}>{`${user.name}`}</option>) : 
+                    props.data.userFriends.map(user => <option key={user._id} value={user._id}>{`${user.name}`}</option>)}
                 </select>
             </label>
             <input type="submit" value="Request Tee Time"/>
