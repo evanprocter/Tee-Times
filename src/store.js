@@ -8,6 +8,7 @@ const defaultState = {
         allTeeTimes: []
     },
     selectedTeeTime: {},
+    friendSearch: '',
     isLoading: false
 }
 
@@ -48,6 +49,10 @@ const SELECT_TEE_TIME = {
 
 const UPDATE_TEE_TIME = {
     type: 'UPDATE_TEE_TIME'
+}
+
+const UPDATE_SEARCH = {
+    type: 'UPDATE_SEARCH'
 }
 
 // DELETE A SINGLE USER AND INFO
@@ -173,6 +178,13 @@ export const updateTeeTime = (teeTime) => {
     }
 }
 
+export const updateSearch = friendSearch => {
+    return {
+        ...UPDATE_SEARCH,
+        friendSearch
+    }
+}
+
 export const deleteUser = (user) => {
     fetch('/user', {
         method: 'delete',
@@ -252,6 +264,11 @@ const teeTimes = (state=defaultState, action) => {
         return {
             ...state,
             isLoading: action.isLoading
+        }
+        case UPDATE_SEARCH.type:
+        return {
+            ...state,
+            friendSearch: action.friendSearch
         }
         case REQUEST_DATA.type:
         return {
