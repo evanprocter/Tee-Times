@@ -6,11 +6,7 @@ export default function Friend(props) {
             <h4>{props.golfer.name}</h4>
             {/* depending on relationship, show various buttons */}
            {!(props.data.userFriends.map(friend => friend._id).includes(props.golfer._id) || 
-            props.golfer.friendRequests.find(friendRequest => {
-                console.log(props.data.user.requestedFriends)
-                console.log(props.golfer.friendRequests)
-                return props.data.user.requestedFriends.includes(friendRequest)
-            }))
+            props.golfer.friendRequests.find(friendRequest => props.data.user.requestedFriends.includes(friendRequest)))
             && 
            <input type='button' value='request friend' onClick={() => props.requestFriend({requestingFriend: props.data.user, requestedFriend: props.golfer})}/>}
         </div>
