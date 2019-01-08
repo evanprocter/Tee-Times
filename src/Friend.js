@@ -9,6 +9,10 @@ export default function Friend(props) {
             props.golfer.friendRequests.find(friendRequest => props.data.user.requestedFriends.includes(friendRequest)))
             && 
            <input type='button' value='request friend' onClick={() => props.requestFriend({requestingFriend: props.data.user, requestedFriend: props.golfer})}/>}
+            {(!props.data.userFriends.map(friend => friend._id).includes(props.golfer._id) || 
+             props.data.user.friendRequests.find(friendRequest => props.golfer.requestedFriends.includes(friendRequest)))
+             && 
+            <input type='button' value='approve friend' onClick={() => props.approveFriend({approvingFriend: props.data.user, approvedFriend: props.golfer})}/>}
         </div>
     )
 }
