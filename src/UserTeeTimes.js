@@ -1,9 +1,10 @@
 import React from 'react'
 
 export default function UserTeeTimes(props) {
+    const userTeeTimes = props.data.user.userType === 'admin' ? props.data.allTeeTimes : props.data.userTeeTimes
     return (
         <div className='UserTeeTimes'>
-        {props.data.userTeeTimes.sort((teeTimeA, teeTimeB) => new Date(teeTimeA.date).getTime() > new Date(teeTimeB.date).getTime() ? -1 : 1)
+        {userTeeTimes.sort((teeTimeA, teeTimeB) => new Date(teeTimeA.date).getTime() > new Date(teeTimeB.date).getTime() ? -1 : 1)
             .map(teeTime => {
                 const editClassName = teeTime._id === props.selectedTeeTime._id ? ' teeTimeEdit' : ''
                 const teeDate = new Date(teeTime.date)

@@ -59,10 +59,10 @@ const DELETE_TEE_TIME = {
     type: 'DELETE_TEE_TIME'
 }
 
-export const addUser = (name, password) => {
+export const addUser = (name, password, userType) => {
     fetch('/register', {
         method: 'post',
-        body: JSON.stringify({name, password}),
+        body: JSON.stringify({name, password, userType}),
         headers: {'Content-Type': 'application/json'}
     })
     .then(res => {
