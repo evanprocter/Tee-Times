@@ -42,7 +42,7 @@ export default function TeeTimeForm(props) {
             <label>
                 Select other golfers:
                 {/* give select element a key tied to state to update default values */}
-                <select name="golfers" multiple key={props.selectedTeeTime._id} defaultValue={props.selectedTeeTime._id ? props.selectedTeeTime.golfers.filter(golfer => golfer._id !== props.data.user._id).map(golfer => golfer._id) : []}>
+                <select name="golfers" multiple key={props.selectedTeeTime._id} defaultValue={props.selectedTeeTime._id ? props.selectedTeeTime.golfers.filter(golfer => props.data.user.userType === 'admin' || golfer._id !== props.data.user._id).map(golfer => golfer._id) : []}>
                     {props.data.user.userType === 'admin' ? 
                     props.data.allUsers.map(user => <option key={user._id} value={user._id}>{`${user.name}`}</option>) : 
                     props.data.userFriends.map(user => <option key={user._id} value={user._id}>{`${user.name}`}</option>)}
