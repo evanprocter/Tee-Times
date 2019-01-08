@@ -36,7 +36,7 @@ export default function TeeTimeForm(props) {
         >
             <input type="datetime-local" name="teeDate" key={props.selectedTeeTime._id}
                 defaultValue={props.selectedTeeTime._id ? selectedTeeTimeDateString : currentDateString} 
-                max={cutOffDateString} 
+                max={props.data.user.userType === 'admin' ? '' : cutOffDateString} 
                 min={currentDateString}
                 step={300}/>
             <label>

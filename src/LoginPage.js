@@ -18,7 +18,7 @@ export default function LoginPage({history, loginUser, addUser}) {
                 Password:
                 <input type='password' name='password' />
             </label>
-            <input type='submit' value='login' />
+            <input type='submit' value='login'/>
             <input type='button' value='register' 
                 onClick={event => {
                     addUser(event.target.form[0].value, event.target.form[1].value, 'basic')
