@@ -1,16 +1,14 @@
 import React from 'react'
+import NavBar from './NavBar'
 import TeeTimeForm from './TeeTimeForm'
 import UserTeeTimes from './UserTeeTimes'
 
 export default function Dashboard(props) {
     return (
         <div className="Dashboard">
-            <h1>{`${props.data.user.name}${props.data.user.userType === 'admin' ? ' - admin' : ''}`}</h1>
-            <div>Here is a list of your current and previous tee times!</div>
-            <UserTeeTimes {...props}/>
-            <input type="button" value="logout" onClick={event => props.logoutUser(props.data.user)}/>
+            <NavBar {...props} />
             <TeeTimeForm {...props}/>
-            <input type="button" value="Remove Tee Time" onClick={event => props.deleteTeeTime(props.selectedTeeTime)}/>
+            <UserTeeTimes {...props}/>
         </div>
     )
 }

@@ -17,6 +17,19 @@ code {
   background:skyblue;
 }
 
+.NavBar {
+  display: flex;
+  justify-content: space-around;
+}
+
+.NavBar > * {
+  margin: auto;
+}
+
+.selectedTeeTimeForm {
+  background-color: aquamarine;
+}
+
 .UserTeeTimes {
   margin: 0 5%;
 }
