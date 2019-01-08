@@ -1,13 +1,12 @@
 import React from 'react';
-import './App.css';
 
-export default function LoginPage({history, loginUser, addUser}) {
+export default function LoginPage(props) {
     return (
         <form className="LoginPage" 
             onSubmit={event => {
                 event.preventDefault()
-                loginUser(event.target.name.value, event.target.password.value)
-                history.push('/')
+                props.loginUser(event.target.name.value, event.target.password.value)
+                props.history.push('/')
             }}
         >
             <label name='name'> 
@@ -21,14 +20,18 @@ export default function LoginPage({history, loginUser, addUser}) {
             <input type='submit' value='login'/>
             <input type='button' value='register' 
                 onClick={event => {
-                    addUser(event.target.form[0].value, event.target.form[1].value, 'basic')
-                    history.push('/')
+                    if (!props.data.allUsers.map(user => user.name).includes(event.target.form[0].value)) {
+                        props.addUser(event.target.form[0].value, event.target.form[1].value, 'basic')
+                        props.history.push('/')
+                    }
                 }}
             />
             <input type='button' value='register as admin' 
                 onClick={event => {
-                    addUser(event.target.form[0].value, event.target.form[1].value, 'admin')
-                    history.push('/')
+                    if (!props.data.allUsers.map(user => user.name).includes(event.target.form[0].value)) {
+                        props.addUser(event.target.form[0].value, event.target.form[1].value, 'admin')
+                        props.history.push('/')
+                    }
                 }}
             />
         </form>

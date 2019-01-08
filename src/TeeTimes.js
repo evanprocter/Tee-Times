@@ -20,7 +20,7 @@ export default class TeeTimes extends Component {
             <Switch>
                 <Route exact
                     path="/login"
-                    render={routeProps => <LoginPage history={routeProps.history} loginUser={props.loginUser} addUser={props.addUser}/>}
+                    render={routeProps => <LoginPage {...props}/>}
                 />
                 <Route exact
                     path="/"
