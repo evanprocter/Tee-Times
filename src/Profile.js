@@ -1,12 +1,12 @@
 import React from 'react'
 import NavBar from './NavBar'
-import FriendForm from './FriendForm'
+import Friends from './Friends'
 
 export default function Profile(props) {
     return (
         <div className='Profile'>
             <NavBar {...props} />
-            <FriendForm {...props}/>
+            <Friends {...props}/>
         </div>
     )
 }
