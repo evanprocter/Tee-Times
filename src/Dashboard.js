@@ -5,7 +5,7 @@ import UserTeeTimes from './UserTeeTimes'
 export default function Dashboard(props) {
     return (
         <div className="Dashboard">
-            <h1>{props.data.user.name}</h1>
+            <h1>{`${props.data.user.name}${props.data.user.userType === 'admin' ? ' - admin' : ''}`}</h1>
             <div>Here is a list of your current and previous tee times!</div>
             <UserTeeTimes {...props}/>
             <input type="button" value="logout" onClick={event => props.logoutUser(props.data.user)}/>
