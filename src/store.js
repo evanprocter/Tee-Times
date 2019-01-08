@@ -3,9 +3,10 @@ import { createStore } from 'redux';
 const defaultState = {
     data: {
         user: {},
+        userFriends: [],
         userTeeTimes: [],
         allUsers: [],
-        allTeeTimes: []
+        allTeeTimes: [],
     },
     selectedTeeTime: {},
     friendSearch: '',
@@ -178,7 +179,7 @@ export const updateTeeTime = (teeTime) => {
     }
 }
 
-export const updateSearch = friendSearch => {
+export const updateFriendSearch = friendSearch => {
     return {
         ...UPDATE_SEARCH,
         friendSearch
