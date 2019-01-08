@@ -345,7 +345,8 @@ const teeTimes = (state=defaultState, action) => {
             ...state,
             isLoading: action.isLoading,
             data: action.data,
-            selectedTeeTime: {}
+            selectedTeeTime: {},
+            friendSearchTerm: ''
         }
         default:
         return state   
