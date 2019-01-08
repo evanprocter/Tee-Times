@@ -12,7 +12,7 @@ export default function Friends(props) {
             {props.friendSearchTerm === '' ? 
             userFriends.map(friend => <Friend key={friend._id} golfer={friend} {...props}/>)
             :
-            props.data.allUsers.filter(golfer => golfer.name.includes(props.friendSearchTerm)).map(friend => <Friend key={friend._id} golfer={friend} {...props}/>)}
+            props.data.allUsers.filter(golfer => golfer.name.includes(props.friendSearchTerm) && golfer._id !== props.data.user._id).map(friend => <Friend key={friend._id} golfer={friend} {...props}/>)}
         </div>
     )
 }
