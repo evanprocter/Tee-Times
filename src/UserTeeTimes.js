@@ -22,7 +22,7 @@ export default function UserTeeTimes(props) {
                         <div key={teeTime._id} className={`teeTime${editClassName}`} 
                         onClick={event => props.selectTeeTime(teeTime)}>
                             <p>{dateString}</p>
-                            <p>{teeTime.golfers.filter(golfer => golfer._id !== props.data.user._id).map(golfer => golfer.name).join(', ')}</p>
+                            <p>{teeTime.golfers.filter(golfer => props.data.user.userType === 'admin' || golfer._id !== props.data.user._id).map(golfer => golfer.name).join(', ')}</p>
                             {props.selectedTeeTime._id === teeTime._id && <input type="button" value="Remove Tee Time" onClick={event => props.deleteTeeTime(props.selectedTeeTime)}/>}
                         </div>
                     )
