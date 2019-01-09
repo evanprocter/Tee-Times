@@ -26,6 +26,14 @@ code {
   margin: auto;
 }
 
+.navlink {
+  color: red;
+}
+
+.NavBar > .active {
+  color: green;
+}
+
 .selectedTeeTimeForm {
   background-color: aquamarine;
 }

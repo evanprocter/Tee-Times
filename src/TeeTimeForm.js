@@ -5,6 +5,9 @@ export default function TeeTimeForm(props) {
     currentDate.setMinutes(currentDate.getMinutes() - (currentDate.getMinutes() % 5))
     const monthString = currentDate.getMonth() + 1 > 9 ? `${currentDate.getMonth() + 1}`: `0${currentDate.getMonth() + 1}`
     const dayString =  currentDate.getDate() > 9 ? `${currentDate.getDate()}` : `0${currentDate.getDate()}`
+    // =================================================
+    // could cause future bugs(currentDate.setHours(8))
+    // =================================================
     const hourString = currentDate.getHours() > 9 ? `${currentDate.getHours()}` : `0${currentDate.getHours() < 8 ? currentDate.setHours(8) && currentDate.getHours(): currentDate.getHours()}`
     const minString = currentDate.getMinutes() > 9 ? `${currentDate.getMinutes()}` : `0${currentDate.getMinutes()}`
     const cutOffDayString =  currentDate.getDate() > 7 ? `${currentDate.getDate() + 2}` : `0${currentDate.getDate() + 2}`

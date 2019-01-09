@@ -3,7 +3,6 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import LoadingPage from './LoadingPage'
 import LoginPage from './LoginPage'
 import Dashboard from './Dashboard'
-import Profile from './Profile'
 
 export default class TeeTimes extends Component {
     componentDidMount() {
@@ -22,13 +21,9 @@ export default class TeeTimes extends Component {
                     path="/login"
                     render={routeProps => <LoginPage {...props}/>}
                 />
-                <Route exact
+                <Route
                     path="/"
                     render={routeProps => <Dashboard {...props}/>}
-                />
-                <Route exact
-                    path='/profile'
-                    render={routeProps => <Profile {...props}/>}
                 />
             </Switch>
         </div>
