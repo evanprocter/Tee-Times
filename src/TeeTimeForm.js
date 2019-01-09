@@ -4,7 +4,7 @@ export default class TeeTimeForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            guest: 0
+            members: 0
         }
     }
     render() {
@@ -58,7 +58,7 @@ export default class TeeTimeForm extends Component {
                     Select other members:
                     {/* give select element a key tied to state to update default values */}
                     <select name="golfers" multiple key={props.selectedTeeTime._id} 
-                        onChange={event => this.setState({guests: event.target.value})}
+                        onChange={event => this.setState({members: event.target.selectedOptions.length})}
                         defaultValue={props.selectedTeeTime._id ? props.selectedTeeTime.golfers.filter(golfer => props.data.user.userType === 'admin' || golfer._id !== props.data.user._id).map(golfer => golfer._id) : []}>
                         {props.data.user.userType === 'admin' ? 
                         props.data.allUsers.map(user => <option key={user._id} value={user._id}>{`${user.name}`}</option>) : 
@@ -67,9 +67,7 @@ export default class TeeTimeForm extends Component {
                 </label>
                 <label>
                     Number of guest:
-                    <input type="number" name="guest" min="0" max="4" onLoad={event => {
-                        console.log(event)
-                    }}/>
+                    <input type="number" name="guests" min="0" max={`${3 - this.state.members}`}/>
                     <input type="submit" value="Request Tee Time"/>
                 </label>
             </form>
