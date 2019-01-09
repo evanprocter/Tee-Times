@@ -37,6 +37,8 @@ export default function TeeTimeForm(props) {
                 props.selectedTeeTime._id ? props.updateTeeTime({...props.selectedTeeTime, ...newTeeTime}) : props.addTeeTime(newTeeTime)
             }}
         >
+            <input type="radio" name="walkride" value="walk" required/>Walk<br/>
+            <input type="radio" name="walkride" value="ride"required/>Ride<br/>
             <input type="datetime-local" name="teeDate" key={props.selectedTeeTime._id}
                 defaultValue={props.selectedTeeTime._id ? selectedTeeTimeDateString : currentDateString} 
                 max={props.data.user.userType === 'admin' ? '' : cutOffDateString} 
