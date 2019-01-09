@@ -42,8 +42,9 @@ export default class TeeTimeForm extends Component {
                         selectedGolferIDs.push(selectedGolfer.value)
                     }
                     const golfers = props.data.allUsers.filter(user => selectedGolferIDs.includes(user._id))
+                    const guests = event.target.guests.value
                     props.data.user.userType === 'admin' || golfers.push(props.data.user)
-                    const newTeeTime = { teeType,date, golfers }
+                    const newTeeTime = { teeType,date, golfers, guests }
                     props.selectedTeeTime._id ? props.updateTeeTime({...props.selectedTeeTime, ...newTeeTime}) : props.addTeeTime(newTeeTime)
                 }}
             >
@@ -67,7 +68,7 @@ export default class TeeTimeForm extends Component {
                 </label>
                 <label>
                     Number of guest:
-                    <input type="number" name="guests" min="0" max={`${3 - this.state.members}`}/>
+                    <input type="number" name="guests" min="0" max={`${3 - this.state.members}`} defaultValue={0}/>
                     <input type="submit" value="Request Tee Time"/>
                 </label>
             </form>
