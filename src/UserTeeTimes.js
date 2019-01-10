@@ -16,7 +16,8 @@ export default function UserTeeTimes(props) {
             } else if (field === 'golfers') {
                 console.log(teeTime[field], props.teeTimeSearch[field])
                 const matchingGolfers = teeTime[field].filter(golfer => props.teeTimeSearch[field].map(golfer => golfer._id).includes(golfer._id))
-                if (matchingGolfers.length === teeTime[field].length) {return false}
+                console.log(matchingGolfers.length, props.teeTimeSearch[field].length)
+                if (matchingGolfers.length !== teeTime[field].length) {return false}
             } else {
                 console.log(teeTime[field], props.teeTimeSearch[field])
                 if (teeTime[field] !== props.teeTimeSearch[field]) {return false}

@@ -26,7 +26,7 @@ export default class TeeTimeForm extends Component {
         }
         let golfers = props.data.allUsers.filter(user => selectedGolferIDs.includes(user._id))       
         golfers = props.data.user.userType === 'admin' ? golfers : [...golfers, props.data.user]
-        const guests = event.target.form.guests.value
+        const guests = parseInt(event.target.form.guests.value)
         const newTeeTime = { teeType,date, golfers, guests }
         props.updateTeeTimeSearch(newTeeTime) 
         props.selectedTeeTime._id && props.updateTeeTime({...props.selectedTeeTime, ...newTeeTime})
