@@ -9,6 +9,7 @@ const defaultState = {
         allTeeTimes: [],
     },
     selectedTeeTime: {
+        _id: '',
         teeType: '',
         date: '',
         golfers: [],
@@ -70,6 +71,10 @@ const UPDATE_FRIEND_SEARCH = {
 
 const UPDATE_TEE_TIME_SEARCH = {
     type: 'UPDATE_TEE_TIME_SEARCH'
+}
+
+const SEARCH_TEE_TIMES = {
+    type: 'SEARCH_TEE_TIMES'
 }
 
 const REQUEST_FRIEND = {
@@ -147,7 +152,6 @@ export const requestData = () => {
 }
 
 export const receiveData = (data) => {
-    console.log(data.userTeeTimes)
     return {
         ...RECEIVE_DATA,
         data,
@@ -176,7 +180,6 @@ export const addTeeTime = (teeTime) => {
         headers: {'Content-Type' : 'application/json'}
     })
     .then(res => {
-        console.log(res)
         return res.json()
     })
     .then(data => store.dispatch(receiveData(data)))
@@ -194,7 +197,6 @@ export const selectTeeTime = (teeTime) => {
 }
 
 export const updateTeeTime = (teeTime) => {
-    console.log(teeTime)
     fetch('/updateTeeTime', {
         method: 'post',
         body: JSON.stringify({teeTime}),
@@ -216,10 +218,15 @@ export const updateFriendSearch = friendSearchTerm => {
 }
 
 export const updateTeeTimeSearch = teeTimeSearch => {
-    // store.dispatch(updateTeeTime(teeTimeSearch))
     return {
         ...UPDATE_TEE_TIME_SEARCH,
         teeTimeSearch
+    }
+}
+
+export const searchTeeTimes = () => {
+    return {
+        ...SEARCH_TEE_TIMES
     }
 }
 
@@ -331,7 +338,7 @@ const teeTimes = (state=defaultState, action) => {
         case SELECT_TEE_TIME.type:
         return {
             ...state,
-            // if the time already selected than deselect it
+            // if the time is already selected than deselect it
             selectedTeeTime: action.teeTime._id !== state.selectedTeeTime._id ? action.teeTime : defaultState.teeTimeSearch,
             teeTimeSearch: action.teeTime._id !== state.selectedTeeTime._id ? action.teeTime : defaultState.teeTimeSearch
         }
@@ -354,7 +361,11 @@ const teeTimes = (state=defaultState, action) => {
         return {
             ...state,
             teeTimeSearch:  state.selectedTeeTime._id ? {...state.selectedTeeTime, ...action.teeTimeSearch} : action.teeTimeSearch,
-            // selectedTeeTime: state.selectedTeeTime._id ? {...state.selectedTeeTime, ...action.teeTimeSearch} : defaultState.teeTimeSearch
+        }
+        case SEARCH_TEE_TIMES.type:
+        return {
+            ...state,
+            isSearching: !state.isSearching
         }
         case REQUEST_FRIEND.type:
         return {
@@ -381,8 +392,9 @@ const teeTimes = (state=defaultState, action) => {
             ...state,
             isLoading: action.isLoading,
             data: action.data,
-            // selectedTeeTime: {},
-            friendSearchTerm: ''
+            friendSearchTerm: '',
+            // update selected tee time from data on the backend
+            selectedTeeTime: action.data.allTeeTimes.find(teeTime => teeTime._id === state.selectedTeeTime._id) || state.selectedTeeTime
         }
         default:
         return state   

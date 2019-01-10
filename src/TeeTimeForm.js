@@ -17,7 +17,6 @@ export default class TeeTimeForm extends Component {
     }
 
     _updateForm = (event) => {
-        console.log("updating form")
         const {props} = this
         const teeType = event.target.form.walkride.value
         const date = new Date(event.target.form.teeDate.value)
