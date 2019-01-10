@@ -17,17 +17,20 @@ export default class TeeTimeForm extends Component {
     }
 
     _updateForm = (event) => {
+        console.log("updating form")
         const {props} = this
         const teeType = event.target.form.walkride.value
-        const date = event.target.form.teeDate.value
+        const date = new Date(event.target.form.teeDate.value)
         const selectedGolferIDs = []
         for (let selectedGolfer of event.target.form.golfers.selectedOptions) {
             selectedGolferIDs.push(selectedGolfer.value)
         }
-        const golfers = props.data.allUsers.filter(user => selectedGolferIDs.includes(user._id))
+        let golfers = props.data.allUsers.filter(user => selectedGolferIDs.includes(user._id))       
+        golfers = props.data.user.userType === 'admin' ? golfers : [...golfers, props.data.user]
         const guests = event.target.form.guests.value
         const newTeeTime = { teeType,date, golfers, guests }
         props.updateTeeTimeSearch(newTeeTime) 
+        props.selectedTeeTime._id && props.updateTeeTime({...props.selectedTeeTime, ...newTeeTime})
         }
 
     _getDateString = (date) => {
@@ -46,13 +49,12 @@ export default class TeeTimeForm extends Component {
     render() {
         const {props} = this
         const currentDate = new Date()
+        currentDate.setMinutes(currentDate.getMinutes() - (currentDate.getMinutes() % 5))
         const currentDateString = this._getDateString(currentDate)
         const cutOffDayString =  currentDate.getDate() > 7 ? `${currentDate.getDate() + 2}` : `0${currentDate.getDate() + 2}`
         const monthString = currentDate.getMonth() + 1 > 9 ? `${currentDate.getMonth() + 1}`: `0${currentDate.getMonth() + 1}`
         const cutOffDateString = `${currentDate.getFullYear()}-${monthString}-${cutOffDayString}T16:00`
         const teeTimeDateString = this._getDateString(new Date(props.teeTimeSearch.date))
-        console.log(currentDateString)
-        console.log(cutOffDateString)
     
         // const selectedTeeTimeDate = props.selectedTeeTime._id ? new Date(props.selectedTeeTime.date) : new Date()
         // selectedTeeTimeDate.setMinutes(selectedTeeTimeDate.getMinutes() - (selectedTeeTimeDate.getMinutes() % 5))
@@ -68,9 +70,6 @@ export default class TeeTimeForm extends Component {
                    // basic user's automatically added to teetime
                    const golfer = props.data.user.userType === 'admin' ? null : props.data.user 
                    props.selectedTeeTime._id || props.addTeeTime({...props.teeTimeSearch, golfers: [...props.teeTimeSearch.golfers, golfer]})
-                }}
-                onChange={event => {
-                    props.selectedTeeTime._id && props.updateTeeTime(props.teeTimeSearch)
                 }}
             >
                 <input type="radio" name="walkride" value="walk" checked={props.teeTimeSearch.teeType === "walk"} onChange={this._updateForm} required/>Walk<br/>

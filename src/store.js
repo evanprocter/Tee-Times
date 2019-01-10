@@ -117,7 +117,6 @@ export const loginUser = (name, password) => {
         headers: {'Content-Type' : 'application/json'}
     })
     .then(res => {
-        console.log(res)
         return res.json()
     })
     .then(data => store.dispatch(receiveData(data)))
@@ -148,6 +147,7 @@ export const requestData = () => {
 }
 
 export const receiveData = (data) => {
+    console.log(data.userTeeTimes)
     return {
         ...RECEIVE_DATA,
         data,
@@ -194,6 +194,7 @@ export const selectTeeTime = (teeTime) => {
 }
 
 export const updateTeeTime = (teeTime) => {
+    console.log(teeTime)
     fetch('/updateTeeTime', {
         method: 'post',
         body: JSON.stringify({teeTime}),
@@ -215,6 +216,7 @@ export const updateFriendSearch = friendSearchTerm => {
 }
 
 export const updateTeeTimeSearch = teeTimeSearch => {
+    // store.dispatch(updateTeeTime(teeTimeSearch))
     return {
         ...UPDATE_TEE_TIME_SEARCH,
         teeTimeSearch
@@ -308,7 +310,7 @@ const teeTimes = (state=defaultState, action) => {
         }
         case LOGOUT_USER.type:
         return {
-            ...state,
+            ...defaultState,
             isLoading: action.isLoading
         }
         case UPDATE_USER.type:
@@ -352,7 +354,7 @@ const teeTimes = (state=defaultState, action) => {
         return {
             ...state,
             teeTimeSearch:  state.selectedTeeTime._id ? {...state.selectedTeeTime, ...action.teeTimeSearch} : action.teeTimeSearch,
-            selectedTeeTime: state.selectedTeeTime._id ? {...state.selectedTeeTime, ...action.teeTimeSearch} : defaultState.teeTimeSearch
+            // selectedTeeTime: state.selectedTeeTime._id ? {...state.selectedTeeTime, ...action.teeTimeSearch} : defaultState.teeTimeSearch
         }
         case REQUEST_FRIEND.type:
         return {
