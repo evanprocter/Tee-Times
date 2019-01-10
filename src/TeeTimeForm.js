@@ -31,7 +31,7 @@ export default class TeeTimeForm extends Component {
         const newTeeTime = { teeType,date, golfers, guests }
         props.updateTeeTimeSearch(newTeeTime) 
         props.selectedTeeTime._id && props.updateTeeTime({...props.selectedTeeTime, ...newTeeTime})
-        }
+        } 
 
     _getDateString = (date) => {
         const monthString = date.getMonth() + 1 > 9 ? `${date.getMonth() + 1}`: `0${date.getMonth() + 1}`
