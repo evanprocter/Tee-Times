@@ -18,7 +18,7 @@ const defaultState = {
     isSearching: false,
     teeTimeSearch: {
         date: new Date(),
-        teeType: '',
+        teeType: 'walk',
         golfers: [],
         guests: 0
     },
@@ -329,7 +329,9 @@ const teeTimes = (state=defaultState, action) => {
         case SELECT_TEE_TIME.type:
         return {
             ...state,
-            selectedTeeTime: action.teeTime._id !== state.selectedTeeTime._id ? action.teeTime : {}
+            // if the time already selected than deselect it
+            selectedTeeTime: action.teeTime._id !== state.selectedTeeTime._id ? action.teeTime : defaultState.teeTimeSearch,
+            teeTimeSearch: action.teeTime._id !== state.selectedTeeTime._id ? action.teeTime : defaultState.teeTimeSearch
         }
         case UPDATE_TEE_TIME.type:
         return {
@@ -349,7 +351,8 @@ const teeTimes = (state=defaultState, action) => {
         case UPDATE_TEE_TIME_SEARCH.type:
         return {
             ...state,
-            teeTimeSearch: action.teeTimeSearch
+            teeTimeSearch:  state.selectedTeeTime._id ? {...state.selectedTeeTime, ...action.teeTimeSearch} : action.teeTimeSearch,
+            selectedTeeTime: state.selectedTeeTime._id ? {...state.selectedTeeTime, ...action.teeTimeSearch} : defaultState.teeTimeSearch
         }
         case REQUEST_FRIEND.type:
         return {
@@ -376,7 +379,7 @@ const teeTimes = (state=defaultState, action) => {
             ...state,
             isLoading: action.isLoading,
             data: action.data,
-            selectedTeeTime: {},
+            // selectedTeeTime: {},
             friendSearchTerm: ''
         }
         default:
