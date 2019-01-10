@@ -49,6 +49,7 @@ export default class TeeTimeForm extends Component {
         const golfers = props.data.allUsers.filter(user => selectedGolferIDs.includes(user._id))
         const guests = event.target.form.guests.value
         const newTeeTime = { teeType,date, golfers, guests }
+        console.log(newTeeTime)
         props.updateTeeTimeSearch(newTeeTime) 
         }
 
@@ -73,15 +74,15 @@ export default class TeeTimeForm extends Component {
                    // props.selectedTeeTime._id ? props.updateTeeTime({...props.selectedTeeTime, ...newTeeTime}) : props.addTeeTime(newTeeTime)
                 }}
             >
-                <input type="radio" name="walkride" value="walk" required/>Walk<br/>
-                <input type="radio" name="walkride" value="ride"required/>Ride<br/>
+                <input type="radio" name="walkride" value="walk" checked={props.teeTimeSearch.teeType === "walk"} onChange={this._updateForm} required/>Walk<br/>
+                <input type="radio" name="walkride" value="ride" checked={props.teeTimeSearch.teeType === "ride"} onChange={this._updateForm}  required/>Ride<br/>
                     {/* defaultValue={props.selectedTeeTime._id ? selectedTeeTimeDateString : currentDateString} */}
                 <input type="datetime-local" name="teeDate"
-                    value={props.teeTimeSearch.date} 
+                    value={props.teeTimeSearch.date}
                     max={props.data.user.userType === 'admin' ? '' : this.state.cutOffDateString} 
                     min={this.state.currentDateString}
                     step={300}
-                onChange={this._updateForm}
+                    onChange={this._updateForm}
                  />
                 <label>
                     Select other members:
@@ -101,7 +102,7 @@ export default class TeeTimeForm extends Component {
                 </label>
                 <label>
                     Number of guest:
-                    <input type="number" name="guests" min="0" max={`${3 - this.state.members}`} defaultValue={0}/>
+                    <input type="number" name="guests" min="0" max={`${3 - this.state.members}`} value={props.teeTimeSearch.guests || 0} onChange={this._updateForm}/>
                     <input type="submit" value="Request Tee Time"/>
                 </label>
             </form>

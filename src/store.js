@@ -8,11 +8,21 @@ const defaultState = {
         allUsers: [],
         allTeeTimes: [],
     },
-    selectedTeeTime: {},
+    selectedTeeTime: {
+        teeType: '',
+        date: '',
+        golfers: [],
+        guests: 0
+    },
     friendSearchTerm: '',
     isSearching: false,
-    teeTimeSearch: {date: new Date()},
-    isLoading: false
+    teeTimeSearch: {
+        date: new Date(),
+        teeType: '',
+        golfers: [],
+        guests: 0
+    },
+    isLoading: false,
 }
 
 // CREATE USER
