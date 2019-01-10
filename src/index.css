@@ -42,6 +42,10 @@ code {
   margin: 0 5%;
 }
 
+.searchingTeeTimes {
+  background-color: pink;
+}
+
 .teeTime {
   display: flex;
   justify-content: space-between;
