@@ -7,6 +7,32 @@ export default class TeeTimeForm extends Component {
             members: 0
         }
     }
+    componentDidMount() {
+        const {props} = this
+        const currentDate= new Date()
+        currentDate.setMinutes(currentDate.getMinutes() - (currentDate.getMinutes() % 5))
+        const monthString = currentDate.getMonth() + 1 > 9 ? `${currentDate.getMonth() + 1}`: `0${currentDate.getMonth() + 1}`
+        const dayString =  currentDate.getDate() > 9 ? `${currentDate.getDate()}` : `0${currentDate.getDate()}`
+        // =================================================
+        // could cause future bugs(currentDate.setHours(8))
+        // =================================================
+        const hourString = currentDate.getHours() > 9 ? `${currentDate.getHours()}` : `0${currentDate.getHours() < 8 ? currentDate.setHours(8) && currentDate.getHours(): currentDate.getHours()}`
+        const minString = currentDate.getMinutes() > 9 ? `${currentDate.getMinutes()}` : `0${currentDate.getMinutes()}`
+        const cutOffDayString =  currentDate.getDate() > 7 ? `${currentDate.getDate() + 2}` : `0${currentDate.getDate() + 2}`
+        const currentDateString = `${currentDate.getFullYear()}-${monthString}-${dayString}T${hourString}:${minString}`
+        const cutOffDateString = `${currentDate.getFullYear()}-${monthString}-${cutOffDayString}T16:00`
+    
+        const selectedTeeTimeDate = props.selectedTeeTime._id ? new Date(props.selectedTeeTime.date) : new Date()
+        selectedTeeTimeDate.setMinutes(selectedTeeTimeDate.getMinutes() - (selectedTeeTimeDate.getMinutes() % 5))
+        const selectedTeeTimeMonthString = selectedTeeTimeDate.getMonth() + 1 > 9 ? `${selectedTeeTimeDate.getMonth() + 1}`: `0${selectedTeeTimeDate.getMonth() + 1}`
+        const selectedTeeTimeDayString =  selectedTeeTimeDate.getDate() > 9 ? `${selectedTeeTimeDate.getDate()}` : `0${selectedTeeTimeDate.getDate()}`
+        const selectedTeeTimeHourString = selectedTeeTimeDate.getHours() > 9 ? `${selectedTeeTimeDate.getHours()}` : `0${selectedTeeTimeDate.getHours()}`
+        const selectedTeeTimeMinString = selectedTeeTimeDate.getMinutes() > 9 ? `${selectedTeeTimeDate.getMinutes()}` : `0${selectedTeeTimeDate.getMinutes()}`
+        const selectedTeeTimeDateString = `${selectedTeeTimeDate.getFullYear()}-${selectedTeeTimeMonthString}-${selectedTeeTimeDayString}T${selectedTeeTimeHourString}:${selectedTeeTimeMinString}`
+        // const selectedTeeTimeDateString = selectedTeeTimeDate.toISOString().split('').slice(0, selectedTeeTimeDate.toISOString().length - 1).join('')
+        // const maxGuests = this.form[3].selectedOptions.length
+        props.updateTeeTimeSearch({date: props.selectedTeeTime._id ? selectedTeeTimeDateString : currentDateString})
+    }
     render() {
         const {props} = this
         const currentDate= new Date()
@@ -31,10 +57,11 @@ export default class TeeTimeForm extends Component {
         const selectedTeeTimeDateString = `${selectedTeeTimeDate.getFullYear()}-${selectedTeeTimeMonthString}-${selectedTeeTimeDayString}T${selectedTeeTimeHourString}:${selectedTeeTimeMinString}`
         // const selectedTeeTimeDateString = selectedTeeTimeDate.toISOString().split('').slice(0, selectedTeeTimeDate.toISOString().length - 1).join('')
         // const maxGuests = this.form[3].selectedOptions.length
+        props.updateTeeTimeSearch({date: props.selectedTeeTime._id ? selectedTeeTimeDateString : currentDateString})
         return (
             <form className={`TeeTimeForm${props.selectedTeeTime._id ? ' selectedTeeTimeForm' : ''}`} 
                 onSubmit={event => {
-                    event.preventDefault()
+                    {/* event.preventDefault()
                     const teeType = event.target.walkride.value
                     const date = new Date(event.target.teeDate.value)
                     const selectedGolferIDs = []
@@ -43,15 +70,30 @@ export default class TeeTimeForm extends Component {
                     }
                     const golfers = props.data.allUsers.filter(user => selectedGolferIDs.includes(user._id))
                     const guests = event.target.guests.value
+                    basic user's automatically added to teetime
                     props.data.user.userType === 'admin' || golfers.push(props.data.user)
                     const newTeeTime = { teeType,date, golfers, guests }
-                    props.selectedTeeTime._id ? props.updateTeeTime({...props.selectedTeeTime, ...newTeeTime}) : props.addTeeTime(newTeeTime)
+                    props.selectedTeeTime._id ? props.updateTeeTime({...props.selectedTeeTime, ...newTeeTime}) : props.addTeeTime(newTeeTime) */}
+                }}
+                onChange={event => {
+                    console.log(event.target.form);
+                    const teeType = event.target.form.walkride.value
+                    const date = event.target.form.teeDate.value
+                    const selectedGolferIDs = []
+                    for (let selectedGolfer of event.target.form.golfers.selectedOptions) {
+                        selectedGolferIDs.push(selectedGolfer.value)
+                    }
+                    const golfers = props.data.allUsers.filter(user => selectedGolferIDs.includes(user._id))
+                    const guests = event.target.form.guests.value
+                    const newTeeTime = { teeType,date, golfers, guests }
+                    props.updateTeeTimeSearch(newTeeTime) 
                 }}
             >
                 <input type="radio" name="walkride" value="walk" required/>Walk<br/>
                 <input type="radio" name="walkride" value="ride"required/>Ride<br/>
+                    {/* defaultValue={props.selectedTeeTime._id ? selectedTeeTimeDateString : currentDateString} */}
                 <input type="datetime-local" name="teeDate" key={props.selectedTeeTime._id}
-                    defaultValue={props.selectedTeeTime._id ? selectedTeeTimeDateString : currentDateString} 
+                    value={props.teeTimeSearch.date} 
                     max={props.data.user.userType === 'admin' ? '' : cutOffDateString} 
                     min={currentDateString}
                     step={300}/>

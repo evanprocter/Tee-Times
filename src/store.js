@@ -10,6 +10,8 @@ const defaultState = {
     },
     selectedTeeTime: {},
     friendSearchTerm: '',
+    isSearching: false,
+    teeTimeSearch: {},
     isLoading: false
 }
 
@@ -55,12 +57,19 @@ const UPDATE_TEE_TIME = {
 const UPDATE_FRIEND_SEARCH = {
     type: 'UPDATE_FRIEND_SEARCH'
 }
+
+const UPDATE_TEE_TIME_SEARCH = {
+    type: 'UPDATE_TEE_TIME_SEARCH'
+}
+
 const REQUEST_FRIEND = {
     type: 'REQUEST_FRIEND'
 }
+
 const APPROVE_FRIEND = {
     type: 'APPROVE_FRIEND'
 }
+
 const DENY_FRIEND = {
     type: 'DENY_FRIEND'
 }
@@ -195,6 +204,13 @@ export const updateFriendSearch = friendSearchTerm => {
     }
 }
 
+export const updateTeeTimeSearch = teeTimeSearch => {
+    return {
+        ...UPDATE_TEE_TIME_SEARCH,
+        teeTimeSearch
+    }
+}
+
 export const requestFriend = friends => {
     fetch('/requestFriend', {
         method: 'post',
@@ -319,6 +335,11 @@ const teeTimes = (state=defaultState, action) => {
         return {
             ...state,
             friendSearchTerm: action.friendSearchTerm
+        }
+        case UPDATE_TEE_TIME_SEARCH.type:
+        return {
+            ...state,
+            teeTimeSearch: action.teeTimeSearch
         }
         case REQUEST_FRIEND.type:
         return {

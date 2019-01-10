@@ -37,6 +37,9 @@ const mapDispatchToProps = (dispatch) => {
         updateFriendSearch: (friendSearchTerm) => {
             dispatch(actions.updateFriendSearch(friendSearchTerm))
         },
+        updateTeeTimeSearch: (teeTimeSearch) => {
+            dispatch(actions.updateTeeTimeSearch(teeTimeSearch))
+        },
         requestFriend: (friends) => {
             dispatch(actions.requestFriend(friends))
         },

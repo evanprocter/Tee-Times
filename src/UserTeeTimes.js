@@ -10,9 +10,9 @@ export default function UserTeeTimes(props) {
     return (
         <div className='UserTeeTimes'>
             <h4>Here is a list of your upcoming tee times!</h4>
-            {futureTeeTimes.map(teeTime => <UserTeeTime isPast={false} teeTime={teeTime}{...props}/>)}
+            {futureTeeTimes.map(teeTime => <UserTeeTime key={teeTime._id} isPast={false} teeTime={teeTime}{...props}/>)}
             <h4>Here are your completed tee times!</h4>
-            {pastTeeTimes.map(teeTime =>  <UserTeeTime isPast={true} teeTime={teeTime}{...props}/>)}
+            {pastTeeTimes.map(teeTime =>  <UserTeeTime key={teeTime._id} isPast={true} teeTime={teeTime}{...props}/>)}
         </div>
     )
 }
