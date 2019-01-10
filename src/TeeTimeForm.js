@@ -49,7 +49,6 @@ export default class TeeTimeForm extends Component {
         const golfers = props.data.allUsers.filter(user => selectedGolferIDs.includes(user._id))
         const guests = event.target.form.guests.value
         const newTeeTime = { teeType,date, golfers, guests }
-        console.log(newTeeTime)
         props.updateTeeTimeSearch(newTeeTime) 
         }
 
@@ -59,7 +58,11 @@ export default class TeeTimeForm extends Component {
         return (
             <form className={`TeeTimeForm${props.selectedTeeTime._id ? ' selectedTeeTimeForm' : ''}`} 
                 onSubmit={event => {
-                   // event.preventDefault()
+                   event.preventDefault()
+                   // basic user's automatically added to teetime
+                   const golfer = props.data.user.userType === 'admin' ? null : props.data.user 
+                   console.log(props.data.user) 
+                   props.selectedTeeTime._id || props.addTeeTime({...props.teeTimeSearch, golfers: [...props.teeTimeSearch.golfers, golfer]})
                    // const teeType = event.target.walkride.value
                    // const date = new Date(event.target.teeDate.value)
                    // const selectedGolferIDs = []
@@ -68,8 +71,6 @@ export default class TeeTimeForm extends Component {
                    // }
                    // const golfers = props.data.allUsers.filter(user => selectedGolferIDs.includes(user._id))
                    // const guests = event.target.guests.value
-                   // basic user's automatically added to teetime
-                   // props.data.user.userType === 'admin' || golfers.push(props.data.user)
                    // const newTeeTime = { teeType,date, golfers, guests }
                    // props.selectedTeeTime._id ? props.updateTeeTime({...props.selectedTeeTime, ...newTeeTime}) : props.addTeeTime(newTeeTime)
                 }}
@@ -90,7 +91,6 @@ export default class TeeTimeForm extends Component {
                         {/* //{props.selectedTeeTime._id ? props.selectedTeeTime.golfers.filter(golfer => props.data.user.userType === 'admin' || golfer._id !== props.data.user._id).map(golfer => golfer._id) : []}> */}
                     <select name="golfers" multiple 
                         onChange={event => {
-                            console.log(event)
                             event.persist()
                             this.setState({members: event.target.selectedOptions.length}, () => this._updateForm(event))
                         }}
