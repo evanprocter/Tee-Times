@@ -11,7 +11,7 @@ const defaultState = {
     selectedTeeTime: {},
     friendSearchTerm: '',
     isSearching: false,
-    teeTimeSearch: {},
+    teeTimeSearch: {date: new Date()},
     isLoading: false
 }
 
