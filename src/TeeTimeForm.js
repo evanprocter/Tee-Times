@@ -11,8 +11,9 @@ export default function TeeTimeForm(props) {
     const cutOffDayString =  currentDate.getDate() > 7 ? `${currentDate.getDate() + 2}` : `0${currentDate.getDate() + 2}`
     const monthString = currentDate.getMonth() + 1 > 9 ? `${currentDate.getMonth() + 1}`: `0${currentDate.getMonth() + 1}`
     const cutOffDateString = `${currentDate.getFullYear()}-${monthString}-${cutOffDayString}T16:00`
-    const teeTimeDateString = getDateString(new Date(props.teeTimeSearch.date))
-    
+    // = getDateString(new Date(props.teeTimeSearch.date))
+    const {date} = props.teeTimeSearch
+    const teeTimeDateString = `${date.month}-${date.day}-${date.year}, ${date.hours}:${date.minutes}`
     //const availableTeeDates = props.data.allTeetimes.map(teeTime => teeTime.date) 
     return (
         <form className={`TeeTimeForm${props.selectedTeeTime._id ? ' selectedTeeTimeForm' : ''}`} 
@@ -74,6 +75,7 @@ export default function TeeTimeForm(props) {
                         )}
                     </>
                 )}
+                <h6>{teeTimeDateString}</h6>
             </label>
             <label>
                 Select other members:

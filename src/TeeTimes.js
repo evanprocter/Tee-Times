@@ -12,10 +12,11 @@ export default class TeeTimes extends Component {
     render() {
         const props = {...this.props}
         const isLoggedIn = props.data.user && props.data.user._id
-        return (props.isLoading && <LoadingPage />) ||
-        (!isLoggedIn && (props.location.pathname !== '/login' && <Redirect to='/login'/>)) ||
+        //  (props.isLoading && <LoadingPage />) ||
+        return (!isLoggedIn && (props.location.pathname !== '/login' && <Redirect to='/login'/>)) ||
         (
         <div className="TeeTimes" >
+            {props.isLoading && <LoadingPage />}
             <Switch>
                 <Route exact
                     path="/login"
