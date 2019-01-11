@@ -104,10 +104,7 @@ export const addUser = (name, password, userType) => {
         body: JSON.stringify({name, password, userType}),
         headers: {'Content-Type': 'application/json'}
     })
-    .then(res => {
-        console.log(res)
-        return res.json()
-    })
+    .then(res => res.json())
     .then(data => store.dispatch(receiveData(data)))
     return {
         ...ADD_USER,
@@ -121,9 +118,7 @@ export const loginUser = (name, password) => {
         body: JSON.stringify({name, password}),
         headers: {'Content-Type' : 'application/json'}
     })
-    .then(res => {
-        return res.json()
-    })
+    .then(res => res.json())
     .then(data => store.dispatch(receiveData(data)))
     return {
         ...LOGIN_USER,
@@ -179,9 +174,7 @@ export const addTeeTime = (teeTime) => {
         body: JSON.stringify({teeTime}),
         headers: {'Content-Type' : 'application/json'}
     })
-    .then(res => {
-        return res.json()
-    })
+    .then(res => res.json())
     .then(data => store.dispatch(receiveData(data)))
     return {
         ...ADD_TEE_TIME,

@@ -5,6 +5,7 @@ import TeeTimeForm from './TeeTimeForm'
 import UserTeeTimes from './UserTeeTimes'
 import Friends from './Friends'
 import UserTeeTime from './UserTeeTime';
+import Friend from './Friend';
 
 export default function Dashboard(props) {
     return (
@@ -29,10 +30,15 @@ export default function Dashboard(props) {
                     props.data.userTeeTimes.sort((teeTimeA, teeTimeB) => new Date(teeTimeA.date).getTime() < new Date(teeTimeB.date).getTime() ? -1 : 1)
                     const upcomingTeeTime = props.data.userTeeTimes.find(teeTime => new Date(teeTime.date) > currentDate)
                     const upcomingTeeTimeMessage = upcomingTeeTime ? `Your next upcoming tee time is:` : "You do not have any current upcoming tee times. Press tee times to add a new one!"
+                    
+                    const friendRequests = props.data.allUsers.filter(user => props.data.user.friendRequests.includes(user._id))
+                    const friendRequestsMessage = friendRequests.length > 0 ? `You have ${friendRequests.length} new friend requests.` : 'You have no new friend requests.'
                     return(
                         <div>
                             <h4>{upcomingTeeTimeMessage}</h4>
-                            {upcomingTeeTime && <UserTeeTime teeTime={upcomingTeeTime}{...props}/>}
+                            {upcomingTeeTime && <UserTeeTime teeTime={upcomingTeeTime} {...props}/>}
+                            <h4>{friendRequestsMessage}</h4>
+                            {friendRequests && friendRequests.map(friend => <Friend golfer={friend} {...props}/>)}
                         </div>
                     )
                 }}/>
