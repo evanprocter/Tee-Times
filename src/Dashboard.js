@@ -32,7 +32,6 @@ export default function Dashboard(props) {
                     const upcomingTeeTimeMessage = upcomingTeeTime ? `Your next upcoming tee time is:` : "You do not have any current upcoming tee times. Press tee times to add a new one!"
                     
                     const friendRequests = props.data.allUsers.filter(user => props.data.user.friendRequests.includes(user._id))
-                    console.log(friendRequests)
                     const friendRequestsMessage = friendRequests.length > 0 ? `You have ${friendRequests.length} new friend requests.` : 'You have no new friend requests.'
                     return(
                         <div>
