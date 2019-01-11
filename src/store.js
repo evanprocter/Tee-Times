@@ -8,6 +8,7 @@ const defaultState = {
         allUsers: [],
         allTeeTimes: [],
     },
+    isAdmin: false,
     selectedTeeTime: {
         _id: '',
         teeType: '',
@@ -18,7 +19,13 @@ const defaultState = {
     friendSearchTerm: '',
     isSearching: false,
     teeTimeSearch: {
-        date: new Date(),
+        date: {
+            year: 0,
+            month: 0,
+            day: 0,
+            hour: 0,
+            minute: 0
+        },
         teeType: 'walk',
         golfers: [],
         guests: 0
@@ -384,6 +391,7 @@ const teeTimes = (state=defaultState, action) => {
         return {
             ...state,
             isLoading: action.isLoading,
+            isAdmin: action.data.user.userType === 'admin',
             data: action.data,
             friendSearchTerm: '',
             // update selected tee time from data on the backend

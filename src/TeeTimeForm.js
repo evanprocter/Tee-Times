@@ -13,6 +13,7 @@ export default function TeeTimeForm(props) {
     const cutOffDateString = `${currentDate.getFullYear()}-${monthString}-${cutOffDayString}T16:00`
     const teeTimeDateString = getDateString(new Date(props.teeTimeSearch.date))
     
+    //const availableTeeDates = props.data.allTeetimes.map(teeTime => teeTime.date) 
     return (
         <form className={`TeeTimeForm${props.selectedTeeTime._id ? ' selectedTeeTimeForm' : ''}`} 
         onSubmit={event => {
@@ -24,17 +25,55 @@ export default function TeeTimeForm(props) {
         >
             <input type="radio" name="walkride" value="walk" checked={props.teeTimeSearch.teeType === "walk"} onChange={event => updateForm(event, props)} required/>Walk<br/>
             <input type="radio" name="walkride" value="ride" checked={props.teeTimeSearch.teeType === "ride"} onChange={event => updateForm(event, props)}  required/>Ride<br/>
-            <input type="datetime-local" name="teeDate"
+            {/* <input type="datetime-local" name="teeDate"
                 value={teeTimeDateString}
                 max={props.data.user.userType === 'admin' ? '' : cutOffDateString} 
                 min={currentDateString}
                 step={300}
                 onChange={event => updateForm(event, props)}
-                />
+                /> */}
+            <label>
+                Select a date:
+                <label>
+                    Year:
+                    {props.data.user.userType !== 'admin' ? 
+                    currentDate.getFullYear() : 
+                    <select name='teeYear' onChange={event => updateForm(event, props)}>
+                        {/*availableTeeDates.map(teeDate => teeDate.getFullYear()).map(teeYear => <option value='teeYear'/>)*/}
+                    </select>}
+                </label>
+                <label>
+                    Month:
+                    {props.data.user.userType !== 'admin' ? 
+                    currentDate.getMonth() + 1 : 
+                    <select name='teeMonth' onChange={event => updateForm(event, props)}>
+                        {/*availableTeeDates.map(teeDate => teeDate.getMonth()).map(teeYear => <option value='teeMonth'/>)*/}
+                    </select>}
+                </label>
+                <label>
+                    Day:
+                    <select name='teeMonth' onChange={event => updateForm(event, props)}>
+                        {/*availableTeeDates.map(teeDate => teeDate.getDay()).map(teeYear => <option value='teeDay'/>)*/}
+                    </select>
+                </label>
+                {props.teeTimeSearch.{<label>
+                    Hour:
+                    <select name='teeMonth' onChange={event => updateForm(event, props)}>
+                        {/*availableTeeDates.map(teeDate => teeDate.getDay()).map(teeYear => <option value='teeDay'/>)*/}
+                    </select>
+                </label>
+                <label>
+                    Minute:
+                    <select name='teeMonth' onChange={event => updateForm(event, props)}>
+                        {/*availableTeeDates.map(teeDate => teeDate.getDay()).map(teeYear => <option value='teeDay'/>)*/}
+                    </select>
+                </label>}}
+            </label>
             <label>
                 Select other members:
                 <select name="golfers" multiple 
                     onChange={event => {
+                        // to pass event to update form it must persist
                         event.persist()
                         updateForm(event, props)
                     }}
@@ -76,7 +115,12 @@ const getDateString = (date) => {
 const updateForm = (event, props) => {
     // const {props} = this
     const teeType = event.target.form.walkride.value
-    const date = new Date(event.target.form.teeDate.value)
+    const year = event.target.form.teeYear.value
+    const month = event.target.form.teeMonth.value
+    const day = event.target.form.teeDay.value
+    const hours = event.target.form.teeHours.value
+    const minutes = event.target.form.teeMin.value
+    const date = {year, month, day, hours, minutes}
     const selectedGolferIDs = []
     for (let selectedGolfer of event.target.form.golfers.selectedOptions) {
         selectedGolferIDs.push(selectedGolfer.value)
@@ -88,6 +132,7 @@ const updateForm = (event, props) => {
     const guestCount = parseInt(event.target.form.guests.value)
     const guests = guestCount > guestMax ? guestMax : guestCount
     const newTeeTime = { teeType, date, golfers, guests }
-    props.updateTeeTimeSearch(newTeeTime) 
-    props.selectedTeeTime._id && props.updateTeeTime({...props.selectedTeeTime, ...newTeeTime})
+    props.updateTeeTimeSearch(newTeeTime)
+    // overwrite date field below to create genuine Date() object
+    props.selectedTeeTime._id && props.updateTeeTime({...props.selectedTeeTime, ...newTeeTime, date: new Date(...date)})
 } 
