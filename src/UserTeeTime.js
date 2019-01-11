@@ -15,7 +15,10 @@ export default function UserTeeTime(props) {
         const dateString = new Intl.DateTimeFormat('en-US', dateOptions).format(teeDate)
         return (
             <div key={teeTime._id} className={`teeTime${editClassName}`} 
-            onClick={isPast ? null : event => props.selectTeeTime(teeTime)}>
+            onClick={isPast ? null : event => {
+                props.location.pathname !== '/teetimes' && props.history.push('/teetimes')
+                props.selectTeeTime(teeTime)
+            }}>
                 <p>{dateString}</p>
                 <p>{teeTime.teeType}</p>
                 <p>{teeTime.golfers.filter(golfer => props.data.user.userType === 'admin' || golfer._id !== props.data.user._id).map(golfer => golfer.name).join(', ')}</p>
