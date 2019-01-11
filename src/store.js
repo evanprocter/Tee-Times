@@ -312,7 +312,7 @@ const teeTimes = (state=defaultState, action) => {
         }
         case LOGIN_USER.type:
         return {
-            ...state,
+            ...defaultState,
             isLoading: action.isLoading
         }
         case LOGOUT_USER.type:
