@@ -5,10 +5,9 @@ export default class TeeTimeForm extends Component {
         super(props)
         this.state = {
             members: 0,
-            currentDateString: '',
-            cutOffDateString: ''
         }
     }
+
     componentDidMount() {
         const {props} = this
         const currentDate = new Date()
@@ -30,20 +29,16 @@ export default class TeeTimeForm extends Component {
         const newTeeTime = { teeType,date, golfers, guests }
         props.updateTeeTimeSearch(newTeeTime) 
         props.selectedTeeTime._id && props.updateTeeTime({...props.selectedTeeTime, ...newTeeTime})
-        } 
+    } 
 
     _getDateString = (date) => {
         const monthString = date.getMonth() + 1 > 9 ? `${date.getMonth() + 1}`: `0${date.getMonth() + 1}`
         const dayString =  date.getDate() > 9 ? `${date.getDate()}` : `0${date.getDate()}`
-        // =================================================
-        // could cause future bugs(date.setHours(8))
-        // =================================================
         const hourString = date.getHours() > 9 ? `${date.getHours()}` : `0${date.getHours() < 8 ? date.setHours(8) && date.getHours(): date.getHours()}`
         const minString = date.getMinutes() > 9 ? `${date.getMinutes()}` : `0${date.getMinutes()}`
         const dateString = `${date.getFullYear()}-${monthString}-${dayString}T${hourString}:${minString}`
         return dateString
     }
-    
     
     render() {
         const {props} = this
@@ -54,14 +49,6 @@ export default class TeeTimeForm extends Component {
         const monthString = currentDate.getMonth() + 1 > 9 ? `${currentDate.getMonth() + 1}`: `0${currentDate.getMonth() + 1}`
         const cutOffDateString = `${currentDate.getFullYear()}-${monthString}-${cutOffDayString}T16:00`
         const teeTimeDateString = this._getDateString(new Date(props.teeTimeSearch.date))
-    
-        // const selectedTeeTimeDate = props.selectedTeeTime._id ? new Date(props.selectedTeeTime.date) : new Date()
-        // selectedTeeTimeDate.setMinutes(selectedTeeTimeDate.getMinutes() - (selectedTeeTimeDate.getMinutes() % 5))
-        // const selectedTeeTimeMonthString = selectedTeeTimeDate.getMonth() + 1 > 9 ? `${selectedTeeTimeDate.getMonth() + 1}`: `0${selectedTeeTimeDate.getMonth() + 1}`
-        // const selectedTeeTimeDayString =  selectedTeeTimeDate.getDate() > 9 ? `${selectedTeeTimeDate.getDate()}` : `0${selectedTeeTimeDate.getDate()}`
-        // const selectedTeeTimeHourString = selectedTeeTimeDate.getHours() > 9 ? `${selectedTeeTimeDate.getHours()}` : `0${selectedTeeTimeDate.getHours()}`
-        // const selectedTeeTimeMinString = selectedTeeTimeDate.getMinutes() > 9 ? `${selectedTeeTimeDate.getMinutes()}` : `0${selectedTeeTimeDate.getMinutes()}`
-        // const selectedTeeTimeDateString = `${selectedTeeTimeDate.getFullYear()}-${selectedTeeTimeMonthString}-${selectedTeeTimeDayString}T${selectedTeeTimeHourString}:${selectedTeeTimeMinString}`
         return (
             <form className={`TeeTimeForm${props.selectedTeeTime._id ? ' selectedTeeTimeForm' : ''}`} 
                 onSubmit={event => {
@@ -94,11 +81,11 @@ export default class TeeTimeForm extends Component {
                     </select>
                 </label>
                 <label>
-                    Number of guest:
+                    Number of guests:
                     <input type="number" name="guests" min="0" max={`${3 - this.state.members}`} value={props.teeTimeSearch.guests || 0} onChange={this._updateForm}/>
                     <input type="submit" value="Request Tee Time"/>
                 </label>
             </form>
         )
     }
-    }
+}
