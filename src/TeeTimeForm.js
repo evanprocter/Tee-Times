@@ -56,18 +56,24 @@ export default function TeeTimeForm(props) {
                         {/*availableTeeDates.map(teeDate => teeDate.getDay()).map(teeYear => <option value='teeDay'/>)*/}
                     </select>
                 </label>
-                {props.teeTimeSearch.{<label>
-                    Hour:
-                    <select name='teeMonth' onChange={event => updateForm(event, props)}>
-                        {/*availableTeeDates.map(teeDate => teeDate.getDay()).map(teeYear => <option value='teeDay'/>)*/}
-                    </select>
-                </label>
-                <label>
-                    Minute:
-                    <select name='teeMonth' onChange={event => updateForm(event, props)}>
-                        {/*availableTeeDates.map(teeDate => teeDate.getDay()).map(teeYear => <option value='teeDay'/>)*/}
-                    </select>
-                </label>}}
+                {props.teeTimeSearch.day || (
+                    <>
+                        <label>
+                            Hour:
+                            <select name='teeMonth' onChange={event => updateForm(event, props)}>
+                                {/*availableTeeDates.map(teeDate => teeDate.getDay()).map(teeYear => <option value='teeDay'/>)*/}
+                            </select>
+                        </label>
+                        {props.teeTimeSearch.hours || (
+                            <label>
+                                Minute:
+                                <select name='teeMonth' onChange={event => updateForm(event, props)}>
+                                    {/*availableTeeDates.map(teeDate => teeDate.getDay()).map(teeYear => <option value='teeDay'/>)*/}
+                                </select>
+                            </label>
+                        )}
+                    </>
+                )}
             </label>
             <label>
                 Select other members:
