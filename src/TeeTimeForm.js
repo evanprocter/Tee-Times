@@ -83,7 +83,7 @@ export default class TeeTimeForm extends Component {
                 <label>
                     Number of guests:
                     <input type="number" name="guests" min="0" max={`${3 - this.state.members}`} value={props.teeTimeSearch.guests || 0} onChange={this._updateForm}/>
-                    <input type="submit" value="Request Tee Time"/>
+                    {!props.selectedTeeTime._id && <input type="submit" value="Request Tee Time"/>}
                 </label>
             </form>
         )
