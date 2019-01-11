@@ -155,9 +155,10 @@ function findAvailableTeeDates(isAdmin) {
 
 const updateForm = (event, props) => {
     // const {props} = this
+    const currentDate = new Date()
     const teeType = event.target.form.walkride.value
     const year = 2019 //event.target.form.teeYear.value
-    const month = event.target.form.teeMonth.value
+    const month = props.isAdmin ? event.target.form.teeMonth.value : currentDate.getMonth()
     const day = event.target.form.teeDay.value
     const hours = event.target.form.teeHour.value
     const minutes = event.target.form.teeMinute.value
