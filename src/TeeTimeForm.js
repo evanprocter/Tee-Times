@@ -4,9 +4,11 @@ export default class TeeTimeForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            members: 0,
+            members: props.selectedTeeTime._id ? props.selectedTeeTime.golfers.length : 0,
         }
     }
+
+
 
     componentDidMount() {
         const {props} = this
@@ -72,18 +74,36 @@ export default class TeeTimeForm extends Component {
                     <select name="golfers" multiple 
                         onChange={event => {
                             event.persist()
-                            this.setState({members: event.target.selectedOptions.length}, () => this._updateForm(event))
+                            const selectedGolferIDs = []
+                            for (let selectedGolfer of event.target.form.golfers.selectedOptions) {
+                                selectedGolferIDs.push(selectedGolfer.value)
+                            }
+                            console.log(this)
+                            console.log(selectedGolferIDs.length)
+                            this.setState({members: selectedGolferIDs.length}, 
+                                () => {
+
+                                    console.log(this)
+                                })
+                            this._updateForm(event)
                         }}
-                        value={props.searchTeeTime && props.searchTeeTime.golfers.map(golfer => golfer._id)}>
+                        value={props.teeTimeSearch && props.teeTimeSearch.golfers.map(golfer => golfer._id)}>
                         {props.data.user.userType === 'admin' ? 
                         props.data.allUsers.map(user => <option key={user._id} value={user._id}>{`${user.name}`}</option>) : 
-                        props.data.userFriends.map(user => <option key={user._id} value={user._id}>{`${user.name}`}</option>)}
+                        props.data.userFriends.map(user => {
+                        return (
+                            <option key={user._id} 
+                            value={user._id}>
+                                {`${user.name}`}
+                            </option>
+                        )}
+                        )}
                     </select>
                 </label>
                 <label>
                     Number of guests:
-                    <input type="number" name="guests" min="0" max={`${3 - this.state.members}`} value={props.teeTimeSearch.guests || 0} onChange={this._updateForm}/>
-                    <input type="submit" value="Request Tee Time"/>
+                    <input type="number" name="guests" min="0" max={`${props.data.user.userType === 'admin' ? 4 - this.state.members : 3 - this.state.members}`} value={props.teeTimeSearch.guests || 0} onChange={this._updateForm}/>
+                    {!props.selectedTeeTime._id && <input type="submit" value="Request Tee Time"/>}
                 </label>
             </form>
         )
