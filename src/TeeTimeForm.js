@@ -6,12 +6,13 @@ export default function TeeTimeForm(props) {
 
     const currentDate = new Date()
     currentDate.setMinutes(currentDate.getMinutes() - (currentDate.getMinutes() % 5))
+    
     // props.updateTeeTimeSearch({...props.teeTimeSearch, date: props.selectedTeeTime._id ? props.selectedTeeTime.date : currentDate})
-    const currentDateString = getDateString(currentDate)
-    const cutOffDayString =  currentDate.getDate() > 7 ? `${currentDate.getDate() + 2}` : `0${currentDate.getDate() + 2}`
-    const monthString = currentDate.getMonth() + 1 > 9 ? `${currentDate.getMonth() + 1}`: `0${currentDate.getMonth() + 1}`
-    const cutOffDateString = `${currentDate.getFullYear()}-${monthString}-${cutOffDayString}T16:00`
-    // = getDateString(new Date(props.teeTimeSearch.date))
+    // const currentDateString = getDateString(currentDate)
+    // const cutOffDayString =  currentDate.getDate() > 7 ? `${currentDate.getDate() + 2}` : `0${currentDate.getDate() + 2}`
+    // const monthString = currentDate.getMonth() + 1 > 9 ? `${currentDate.getMonth() + 1}`: `0${currentDate.getMonth() + 1}`
+    // const cutOffDateString = `${currentDate.getFullYear()}-${monthString}-${cutOffDayString}T16:00`
+    // // = getDateString(new Date(props.teeTimeSearch.date))
     const {date} = props.teeTimeSearch
     const teeTimeDateString = `${date.month}-${date.day}-${date.year}, ${date.hours}:${date.minutes}`
     //const availableTeeDates = props.data.allTeetimes.map(teeTime => teeTime.date) 
@@ -35,22 +36,26 @@ export default function TeeTimeForm(props) {
                 /> */}
             <label>
                 Select a date:
-                <label>
-                    Year:
-                    {props.data.user.userType !== 'admin' ? 
-                    currentDate.getFullYear() : 
-                    <select name='teeYear' onChange={event => updateForm(event, props)}>
-                        {/*availableTeeDates.map(teeDate => teeDate.getFullYear()).map(teeYear => <option value='teeYear'/>)*/}
-                    </select>}
-                </label>
-                <label>
-                    Month:
-                    {props.data.user.userType !== 'admin' ? 
-                    currentDate.getMonth() + 1 : 
-                    <select name='teeMonth' onChange={event => updateForm(event, props)}>
-                        {/*availableTeeDates.map(teeDate => teeDate.getMonth()).map(teeYear => <option value='teeMonth'/>)*/}
-                    </select>}
-                </label>
+                {props.isAdmin && (
+                    <>
+                        <label>
+                            Year:
+                            {props.data.user.userType !== 'admin' ? 
+                            currentDate.getFullYear() : 
+                            <select name='teeYear' onChange={event => updateForm(event, props)}>
+                                {/*availableTeeDates.map(teeDate => teeDate.getFullYear()).map(teeYear => <option value='teeYear'/>)*/}
+                            </select>}
+                        </label>
+                        <label>
+                            Month:
+                            {props.isAdmin ? 
+                            currentDate.getMonth() + 1 : 
+                            <select name='teeMonth' onChange={event => updateForm(event, props)}>
+                                {/*availableTeeDates.map(teeDate => teeDate.getMonth()).map(teeYear => <option value='teeMonth'/>)*/}
+                            </select>}
+                        </label>
+                    </>
+                )}
                 <label>
                     Day:
                     <select name='teeMonth' onChange={event => updateForm(event, props)}>
@@ -111,14 +116,14 @@ export default function TeeTimeForm(props) {
     )
 }
 
-const getDateString = (date) => {
-    const monthString = date.getMonth() + 1 > 9 ? `${date.getMonth() + 1}`: `0${date.getMonth() + 1}`
-    const dayString =  date.getDate() > 9 ? `${date.getDate()}` : `0${date.getDate()}`
-    const hourString = date.getHours() > 9 ? `${date.getHours()}` : `0${date.getHours() < 8 ? date.setHours(8) && date.getHours(): date.getHours()}`
-    const minString = date.getMinutes() > 9 ? `${date.getMinutes()}` : `0${date.getMinutes()}`
-    const dateString = `${date.getFullYear()}-${monthString}-${dayString}T${hourString}:${minString}`
-    return dateString
-}
+// const getDateString = (date) => {
+//     const monthString = date.getMonth() + 1 > 9 ? `${date.getMonth() + 1}`: `0${date.getMonth() + 1}`
+//     const dayString =  date.getDate() > 9 ? `${date.getDate()}` : `0${date.getDate()}`
+//     const hourString = date.getHours() > 9 ? `${date.getHours()}` : `0${date.getHours() < 8 ? date.setHours(8) && date.getHours(): date.getHours()}`
+//     const minString = date.getMinutes() > 9 ? `${date.getMinutes()}` : `0${date.getMinutes()}`
+//     const dateString = `${date.getFullYear()}-${monthString}-${dayString}T${hourString}:${minString}`
+//     return dateString
+// }
 
 const updateForm = (event, props) => {
     // const {props} = this

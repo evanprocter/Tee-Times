@@ -20,11 +20,11 @@ const defaultState = {
     isSearching: false,
     teeTimeSearch: {
         date: {
-            year: 0,
-            month: 0,
-            day: 0,
-            hour: 0,
-            minute: 0
+            year: new Date().getFullYear(),
+            month: new Date().getMonth() + 1,
+            day: new Date().getDate(),
+            hours: new Date().getHours(),
+            minutes: new Date().getMinutes()
         },
         teeType: 'walk',
         golfers: [],
