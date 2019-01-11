@@ -3,10 +3,6 @@ import React from 'react'
 export default function TeeTimeForm(props) {
     const memberCount = props.teeTimeSearch.golfers.length
     const guestMax = props.data.user.userType === 'admin' ? 4 - memberCount : 3 - memberCount
-
-    const currentDate = new Date()
-    currentDate.setMinutes(currentDate.getMinutes() - (currentDate.getMinutes() % 5))
-    
     // props.updateTeeTimeSearch({...props.teeTimeSearch, date: props.selectedTeeTime._id ? props.selectedTeeTime.date : currentDate})
     // const currentDateString = getDateString(currentDate)
     // const cutOffDayString =  currentDate.getDate() > 7 ? `${currentDate.getDate() + 2}` : `0${currentDate.getDate() + 2}`
@@ -14,15 +10,19 @@ export default function TeeTimeForm(props) {
     // const cutOffDateString = `${currentDate.getFullYear()}-${monthString}-${cutOffDayString}T16:00`
     // // = getDateString(new Date(props.teeTimeSearch.date))
     const {date} = props.teeTimeSearch
-    const teeTimeDateString = `${date.month}-${date.day}-${date.year}, ${date.hours}:${date.minutes}`
-    //const availableTeeDates = props.data.allTeetimes.map(teeTime => teeTime.date) 
+    const teeTimeDateString = `${date.month}-${date.day}-${date.year}, ${date.hours % 12}:${date.minutes} ${date.hours < 12 ? 'AM' : 'PM'}`
+    const unavailableTeeDates = props.isSearching ? props.data.userTeeTimes.map(teeTime => teeTime.date) : props.data.allTeeTimes.map(teeTime => teeTime.date) 
+    const availableTeeDates = findAvailableTeeDates()
+    console.log(availableTeeDates)
     return (
         <form className={`TeeTimeForm${props.selectedTeeTime._id ? ' selectedTeeTimeForm' : ''}`} 
         onSubmit={event => {
             event.preventDefault()
             // basic user's automatically added to teetime
             const golfer = props.data.user.userType === 'admin' ? null : props.data.user 
-            props.selectedTeeTime._id || props.addTeeTime({...props.teeTimeSearch, golfers: [...props.teeTimeSearch.golfers, golfer]})
+            const {date} = props.teeTimeSearch
+            const teeDate = [date.year, date.month, date.day, date.hours, date.minutes]
+            props.selectedTeeTime._id || props.addTeeTime({...props.teeTimeSearch, date: new Date(...teeDate), golfers: [...props.teeTimeSearch.golfers, golfer]})
         }}
         >
             <input type="radio" name="walkride" value="walk" checked={props.teeTimeSearch.teeType === "walk"} onChange={event => updateForm(event, props)} required/>Walk<br/>
@@ -40,19 +40,15 @@ export default function TeeTimeForm(props) {
                     <>
                         <label>
                             Year:
-                            {props.data.user.userType !== 'admin' ? 
-                            currentDate.getFullYear() : 
-                            <select name='teeYear' onChange={event => updateForm(event, props)}>
-                                {/*availableTeeDates.map(teeDate => teeDate.getFullYear()).map(teeYear => <option value='teeYear'/>)*/}
-                            </select>}
+                            {props.isAdmin && props.teeTimeSearch.date.year}
                         </label>
                         <label>
                             Month:
-                            {props.isAdmin ? 
-                            currentDate.getMonth() + 1 : 
-                            <select name='teeMonth' onChange={event => updateForm(event, props)}>
-                                {/*availableTeeDates.map(teeDate => teeDate.getMonth()).map(teeYear => <option value='teeMonth'/>)*/}
-                            </select>}
+                            {!props.isAdmin ? 
+                            (props.teeTimeSearch.date.month) : 
+                            (<select name='teeMonth' onChange={event => updateForm(event, props)}>
+                                {availableTeeDates.map(teeDate => new Date(teeDate)).map(teeDate => <option key={teeDate.getMonth() || -1} value='teeMonth'>{`${teeDate.getMonth()}`}</option>)}
+                            </select>)}
                         </label>
                     </>
                 )}
@@ -114,6 +110,28 @@ export default function TeeTimeForm(props) {
             </label>
         </form>
     )
+}
+
+function findAvailableTeeDates() {
+    const availableTeeDates = []
+    const currentDate = new Date()
+    currentDate.setMinutes(currentDate.getMinutes() + (5 - (currentDate.getMinutes() % 5)))
+    currentDate.setSeconds(0)
+    currentDate.setMilliseconds(0)
+    console.log(currentDate)
+    const cutoffDate = currentDate.getDate() + 2
+    console.log(cutoffDate)
+    while (currentDate.getDate() < cutoffDate) {
+        availableTeeDates.push(currentDate.toISOString())
+        currentDate.setMinutes(currentDate.getMinutes() + 5)
+        if (currentDate.getHours() > 16) {
+            currentDate.setDate(currentDate.getDate() + 1)
+            // currentDate.setHours(8) 
+        } else if (currentDate.getHours() < 8) {
+            currentDate.setHours(8)
+        }
+    } 
+    return availableTeeDates
 }
 
 // const getDateString = (date) => {

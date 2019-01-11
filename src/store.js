@@ -21,7 +21,7 @@ const defaultState = {
     teeTimeSearch: {
         date: {
             year: new Date().getFullYear(),
-            month: new Date().getMonth() + 1,
+            month: new Date().getMonth(),
             day: new Date().getDate(),
             hours: new Date().getHours(),
             minutes: new Date().getMinutes()
