@@ -16,6 +16,7 @@ export default class TeeTimeForm extends Component {
     }
 
     _updateForm = (event) => {
+        console.log(event.target.selectedOptions)
         const {props} = this
         const teeType = event.target.form.walkride.value
         const date = new Date(event.target.form.teeDate.value)
@@ -71,13 +72,23 @@ export default class TeeTimeForm extends Component {
                     Select other members:
                     <select name="golfers" multiple 
                         onChange={event => {
+                            console.log(event.target.selectedOptions)
                             event.persist()
-                            this.setState({members: event.target.selectedOptions.length}, () => this._updateForm(event))
+                            this.setState({members: event.target.selectedOptions.length},)
+                            //  () => 
+                            this._updateForm(event)
                         }}
-                        value={props.searchTeeTime && props.searchTeeTime.golfers.map(golfer => golfer._id)}>
+                        value={props.teeTimeSearch && props.teeTimeSearch.golfers.map(golfer => golfer._id)}>
                         {props.data.user.userType === 'admin' ? 
                         props.data.allUsers.map(user => <option key={user._id} value={user._id}>{`${user.name}`}</option>) : 
-                        props.data.userFriends.map(user => <option key={user._id} value={user._id}>{`${user.name}`}</option>)}
+                        props.data.userFriends.map(user => {
+                        return (
+                            <option key={user._id} 
+                            value={user._id}>
+                                {`${user.name}`}
+                            </option>
+                        )}
+                        )}
                     </select>
                 </label>
                 <label>
