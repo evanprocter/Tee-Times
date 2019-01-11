@@ -2,6 +2,7 @@ import React from 'react'
 
 export default function TeeTimeForm(props) {
     const memberCount = props.teeTimeSearch.golfers.length
+    const guestMax = props.data.user.userType === 'admin' ? 4 - memberCount : 3 - memberCount
 
     const currentDate = new Date()
     currentDate.setMinutes(currentDate.getMinutes() - (currentDate.getMinutes() % 5))
@@ -52,7 +53,11 @@ export default function TeeTimeForm(props) {
             </label>
             <label>
                 Number of guests:
-                <input type="number" name="guests" min="0" max={`${props.data.user.userType === 'admin' ? 4 - memberCount : 3 - memberCount}`} value={props.teeTimeSearch.guests || 0} onChange={event => updateForm(event, props)}/>
+                <input type="number" name="guests" 
+                min="0" 
+                max={`${guestMax}`} 
+                value={props.teeTimeSearch.guests} 
+                onChange={event => updateForm(event, props)}/>
                 {!props.selectedTeeTime._id && <input type="submit" value="Request Tee Time"/>}
             </label>
         </form>
@@ -78,7 +83,10 @@ const updateForm = (event, props) => {
     }
     let golfers = props.data.allUsers.filter(user => selectedGolferIDs.includes(user._id))       
     golfers = props.data.user.userType === 'admin' ? golfers : [...golfers, props.data.user]
-    const guests = parseInt(event.target.form.guests.value)
+    const memberCount = golfers.length
+    const guestMax = props.data.user.userType === 'admin' ? 4 - memberCount : 3 - memberCount
+    const guestCount = parseInt(event.target.form.guests.value)
+    const guests = guestCount > guestMax ? guestMax : guestCount
     const newTeeTime = { teeType, date, golfers, guests }
     props.updateTeeTimeSearch(newTeeTime) 
     props.selectedTeeTime._id && props.updateTeeTime({...props.selectedTeeTime, ...newTeeTime})
