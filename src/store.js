@@ -174,6 +174,7 @@ export const receiveData = (data) => {
 }
 
 export const updateUser = (user) => {
+    console.log(user)
     fetch('/updateUser', {
         method: 'post',
         body: JSON.stringify(user),

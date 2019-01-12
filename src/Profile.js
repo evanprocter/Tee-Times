@@ -35,14 +35,13 @@ export default class Profile extends Component {
                 const newPassword = event.target.newPassword.value
                 const fr = new FileReader()
                 fr.onload = () => {
-                    console.log(fr.result)
                     // update the user
                     props.updateUser({
                         ...props.data.user,
                         newUsername,
                         currentPassword,
                         newPassword,
-                        newPicture: fr.result
+                        newPicture: new Uint8Array(fr.result)
                     })
                 }
                 event.target.newPicture.files[0] ?
