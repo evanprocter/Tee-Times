@@ -112,7 +112,14 @@ export default function TeeTimeForm(props) {
                 max={`${guestMax}`} 
                 value={props.teeTimeSearch.guests || 0} 
                 onChange={event => updateForm(event, props)}/>
-                {!(props.selectedTeeTime._id || props.isSearching)&& <input type="submit" value="Request Tee Time" onClick={event => updateForm(event, props)}/>}
+                {!(props.selectedTeeTime._id || 
+                    props.isSearching) && 
+                    <input 
+                        type="submit" 
+                        value="Request Tee Time" 
+                        onClick={event => updateForm(event, props)}
+                    />
+                }
             </label>
         </form>
     )
