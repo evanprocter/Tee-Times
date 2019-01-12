@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function Profile(props) {
+    const submitButton = <input type='submit' value='submit'/>
     return (
         <form className='Profile'>
             {/* should change password, username, profile pic */}
@@ -26,7 +27,8 @@ export default function Profile(props) {
                         autoComplete='off'
                     />
                 </label>
-                {props.data.allUsers.find(user => user.name.includes(props.friendSearch))}
+                {!props.data.allUsers.find(user => user.name.toLowerCase() === props.friendSearchTerm.toLowerCase()) &&
+                submitButton}
             </div>
             <div className='changePassword'>
                 <label>
