@@ -25,6 +25,7 @@ const defaultState = {
     friendSearchTerm: '',
     isSearching: false,
     teeTimeSearch: {
+        teeType: 'walk',
         date: {
             year: getCorrectDate().getFullYear(),
             month: getCorrectDate().getMonth(),
@@ -32,7 +33,6 @@ const defaultState = {
             hours: getCorrectDate().getHours(),
             minutes: getCorrectDate().getMinutes()
         },
-        teeType: 'walk',
         golfers: [],
         guests: 0
     },
@@ -384,7 +384,9 @@ const teeTimes = (state=defaultState, action) => {
         case SEARCH_TEE_TIMES.type:
         return {
             ...state,
-            teeTimeSearch: !state.isSearching ? {} : defaultState.teeTimeSearch,
+            teeTimeSearch: !state.isSearching ? 
+                            {teeType: '', date: {}, golfers: [], guests: 0} : 
+                            defaultState.teeTimeSearch,
             isSearching: !state.isSearching
         }
         case REQUEST_FRIEND.type:
