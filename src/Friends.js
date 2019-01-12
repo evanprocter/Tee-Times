@@ -5,7 +5,13 @@ export default function Friends(props) {
     const userFriends = [...props.data.userFriends, ...props.data.allUsers.filter(user => props.data.user.friendRequests.includes(user._id) || props.data.user.requestedFriends.includes(user._id))]
     return (
         <div className='Friends'>
-            <input type='text' name='friendName' placeholder={'friend\'s name'} value={props.friendSearch} onChange={event => props.updateFriendSearch(event.target.value)}/>
+            <input 
+                type='text' name='friendName' 
+                placeholder={'friend\'s name'} 
+                value={props.friendSearch} 
+                onChange={event => props.updateFriendSearch(event.target.value)}
+                autoComplete='off'
+            />
             {props.friendSearchTerm === '' ? 
             userFriends.map(friend => <Friend key={friend._id} golfer={friend} {...props}/>)
             :
