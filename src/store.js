@@ -1,5 +1,11 @@
 import { createStore } from 'redux';
 
+function getCorrectDate() {
+    const currentDate = new Date()
+    currentDate.getMinutes() % 10 === 0 || currentDate.setMinutes(currentDate.getMinutes() + (10 - (currentDate.getMinutes() % 10)))
+    return currentDate
+}
+
 const defaultState = {
     data: {
         user: {},
@@ -8,6 +14,7 @@ const defaultState = {
         allUsers: [],
         allTeeTimes: [],
     },
+    isAdmin: false,
     selectedTeeTime: {
         _id: '',
         teeType: '',
@@ -18,7 +25,13 @@ const defaultState = {
     friendSearchTerm: '',
     isSearching: false,
     teeTimeSearch: {
-        date: new Date(),
+        date: {
+            year: getCorrectDate().getFullYear(),
+            month: getCorrectDate().getMonth(),
+            day: getCorrectDate().getDate(),
+            hours: getCorrectDate().getHours(),
+            minutes: getCorrectDate().getMinutes()
+        },
         teeType: 'walk',
         golfers: [],
         guests: 0
@@ -183,9 +196,20 @@ export const addTeeTime = (teeTime) => {
 }
 
 export const selectTeeTime = (teeTime) => {
+    const date = new Date(teeTime.date)
+    const formattedTeeTime = {
+        ...teeTime, 
+        date: {
+            year: date.getFullYear(),
+            month: date.getMonth(),
+            day: date.getDate(),
+            hours: date.getHours(),
+            minutes: date.getMinutes()
+        }
+    }
     return {
         ...SELECT_TEE_TIME,
-        teeTime
+        teeTime: formattedTeeTime
     }
 }
 
@@ -305,7 +329,7 @@ const teeTimes = (state=defaultState, action) => {
         }
         case LOGIN_USER.type:
         return {
-            ...state,
+            ...defaultState,
             isLoading: action.isLoading
         }
         case LOGOUT_USER.type:
@@ -353,11 +377,14 @@ const teeTimes = (state=defaultState, action) => {
         case UPDATE_TEE_TIME_SEARCH.type:
         return {
             ...state,
+            // the teeTimeSearch will need to hold _id and other fields for the actual selectedTeeTime
+            // in order to update that teeTime on the backend
             teeTimeSearch:  state.selectedTeeTime._id ? {...state.selectedTeeTime, ...action.teeTimeSearch} : action.teeTimeSearch,
         }
         case SEARCH_TEE_TIMES.type:
         return {
             ...state,
+            teeTimeSearch: !state.isSearching ? {} : defaultState.teeTimeSearch,
             isSearching: !state.isSearching
         }
         case REQUEST_FRIEND.type:
@@ -384,6 +411,7 @@ const teeTimes = (state=defaultState, action) => {
         return {
             ...state,
             isLoading: action.isLoading,
+            isAdmin: action.data.user.userType === 'admin',
             data: action.data,
             friendSearchTerm: '',
             // update selected tee time from data on the backend

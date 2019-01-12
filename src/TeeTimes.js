@@ -10,23 +10,25 @@ export default class TeeTimes extends Component {
     }
 
     render() {
-        const props = {...this.props}
+        const {props} = this
         const isLoggedIn = props.data.user && props.data.user._id
-        return (props.isLoading && <LoadingPage />) ||
-        (!isLoggedIn && (props.location.pathname !== '/login' && <Redirect to='/login'/>)) ||
+        // if they are not logged in && (if they are not at /login && send them to login)
+        return (!isLoggedIn && (props.location.pathname !== '/login' && <Redirect to='/login'/>)) ||
+        (isLoggedIn && (props.location.pathname === '/login' && <Redirect to='/'/>)) || 
         (
-        <div className="TeeTimes" >
-            <Switch>
-                <Route exact
-                    path="/login"
-                    render={routeProps => <LoginPage {...props}/>}
-                />
-                <Route
-                    path="/"
-                    render={routeProps => <Dashboard {...props}/>}
-                />
-            </Switch>
-        </div>
+            <div className="TeeTimes" >
+                {props.isLoading && <LoadingPage />}
+                <Switch>
+                    <Route exact
+                        path="/login"
+                        render={routeProps => <LoginPage {...props}/>}
+                    />
+                    <Route
+                        path="/"
+                        render={routeProps => <Dashboard {...props}/>}
+                    />
+                </Switch>
+            </div>
         )
     }
 }
