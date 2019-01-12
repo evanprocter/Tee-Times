@@ -10,16 +10,27 @@ export default function Profile(props) {
                 <img/>
                 <input />
             </label>
-            <label>
-                {/* change user name */}
-                {}
-                <input />
-            </label>
-            <label>
-                Change password, requires current password
-                <input />
-                <input />
-            </label>
+            <div className='changeUsername'>
+                <label>
+                    Current username:
+                    {` ${props.data.user.name} `}
+                </label>
+                <label>
+                    {/* change user name */}
+                    Change username:
+                    <input />
+                </label>
+            </div>
+            <div className='changePassword'>
+                <label>
+                    Change password:
+                    <input />
+                </label>    
+                <label>
+                    Current password:
+                    <input />
+                </label>
+            </div>
         </form>
     )
 }
