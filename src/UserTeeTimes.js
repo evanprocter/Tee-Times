@@ -7,7 +7,6 @@ export default function UserTeeTimes(props) {
     userTeeTimes.sort((teeTimeA, teeTimeB) => new Date(teeTimeA.date).getTime() > new Date(teeTimeB.date).getTime() ? -1 : 1)
     userTeeTimes = props.isSearching ? userTeeTimes.filter(teeTime => {
         for (let field in props.teeTimeSearch) {
-            console.log(field)
             if (field === 'date') {
                 // teeTime has a Date object
                 // teeTimeSearch has a date object
