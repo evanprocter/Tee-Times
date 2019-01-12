@@ -4,10 +4,9 @@ import {NavLink} from 'react-router-dom'
 export default function NavBar(props) {
     return (
         <div className='NavBar'>
-            <img onClick={event => {
-                props.selectTeeTime(props.selectedTeeTime)
-                props.history.push('/')
-            }}/>
+            <NavLink className='navlink' to='/'>
+                <img src='./tee-ball.png'alt='a golf ball on a tee'/>
+            </NavLink>
             <NavLink className='navlink' to='/profile'>
                 {`${props.data.user.name}${props.data.user.userType === 'admin' ? ' - admin' : ''}`}
             </NavLink>
