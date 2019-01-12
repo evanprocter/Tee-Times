@@ -6,7 +6,7 @@ export default function TeeTimeForm(props) {
     const monthStrings = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
     const {date} = props.teeTimeSearch
-    const teeTimeDateString = `${date.month + 1}-${date.day}-${date.year}, ${date.hours % 12}:${date.minutes.length > 1 ? date.minutes : `0${date.minutes}`} ${date.hours < 12 ? 'AM' : 'PM'}`
+    const teeTimeDateString = `${date.month + 1}-${date.day}-${date.year}, ${date.hours % 12}:${date.minutes.toString().length > 1 ? date.minutes : `0${date.minutes}`} ${date.hours < 12 ? 'AM' : 'PM'}`
     
     const unavailableTeeDates = props.isSearching ? props.data.userTeeTimes.map(teeTime => teeTime.date) : props.data.allTeeTimes.map(teeTime => teeTime.date) 
     const availableTeeDates = findAvailableTeeDates().filter(teeDate => !unavailableTeeDates.includes(teeDate))
@@ -69,7 +69,7 @@ export default function TeeTimeForm(props) {
                             <label>
                                 Minute:
                                 <select name='teeMinute' onChange={event => updateForm(event, props)}>
-                                     {availableMinutes.map(teeMinute => <option key={teeMinute} value={teeMinute}>{`${teeMinute.length > 1 ? teeMinute : `0${teeMinute}`}`}</option>)}
+                                     {availableMinutes.map(teeMinute => <option key={teeMinute} value={teeMinute}>{`${teeMinute.toString().length > 1 ? teeMinute : `0${teeMinute}`}`}</option>)}
                                 </select>
                             </label>
                         )}
