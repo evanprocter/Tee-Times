@@ -2,8 +2,10 @@ import React from 'react'
 
 export default function Profile(props) {
     return (
-        <div className='Profile'>
+        <form className='Profile'>
             {/* should change password, username, profile pic */}
-        </div>
+            {/* form with inputs labeled with current values*/}
+
+        </form>
     )
 }
