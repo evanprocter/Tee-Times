@@ -18,14 +18,17 @@ export default function UserTeeTimes(props) {
                 teeTimeDate.setMilliseconds(0)
                 const {year, month, day, hours, minutes} = props.teeTimeSearch.date
                 const teeTimeSearchDate = new Date(year, month, day, hours, minutes)
-                if (teeTimeDate.getTime() !== teeTimeSearchDate.getTime()) {return false}
+                // if there is a date selected and it matches
+                if (teeTimeSearchDate === new Date() && teeTimeDate.getTime() !== teeTimeSearchDate.getTime()) {return false}
             } else if (field === 'golfers') {
                 const matchingGolfers = teeTime[field].filter(golfer => props.teeTimeSearch[field].map(golfer => golfer._id).includes(golfer._id))
                 console.log(matchingGolfers)
                 console.log(teeTime)
+                // if there are golfers selected and some match tee times
                 if (props.teeTimeSearch.golfers.length !== 0 && matchingGolfers.length === 0) {return false}
             } else {
-                if (teeTime[field] !== props.teeTimeSearch[field]) {return false}
+                // there is a teeType selected and it's value equals the teetime we are checking
+                if (props.teeTimeSearch.teeType && teeTime[field] !== props.teeTimeSearch[field]) {return false}
             }
         }
         return true

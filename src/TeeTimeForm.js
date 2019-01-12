@@ -138,11 +138,11 @@ const updateForm = (event, props) => {
     // const {props} = this
     const currentDate = new Date()
     const teeType = event.target.form.walkride.value
-    const year = 2019 //event.target.form.teeYear.value
-    const month = props.isAdmin ? event.target.form.teeMonth.value : currentDate.getMonth()
-    const day = event.target.form.teeDay.value
-    const hours = event.target.form.teeHour.value
-    const minutes = event.target.form.teeMinute.value
+    const year = currentDate.getFullYear() //event.target.form.teeYear.value
+    const month = props.isAdmin ? parseInt(event.target.form.teeMonth.value) : currentDate.getMonth()
+    const day = parseInt(event.target.form.teeDay.value)
+    const hours = parseInt(event.target.form.teeHour.value)
+    const minutes = parseInt(event.target.form.teeMinute.value)
     const date = {year, month, day, hours, minutes}
     const selectedGolferIDs = []
     for (let selectedGolfer of event.target.form.golfers.selectedOptions) {
