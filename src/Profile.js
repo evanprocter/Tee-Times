@@ -30,11 +30,11 @@ export default class Profile extends Component {
         <form className='Profile'
             onSubmit={event => {
                 event.preventDefault()
-                console.log(event.target.newPicture.value)
+                console.log(event.target.newPicture.files[0])
                 const newUsername = event.target.newUsername.value
                 const currentPassword = event.target.currentPassword.value
                 const newPassword = event.target.newPassword.value
-                const newPicture = event.target.newPicture.value
+                const newPicture = event.target.newPicture.files[0]
                 // update the user
                 props.updateUser({
                     ...props.data.user,
@@ -56,7 +56,7 @@ export default class Profile extends Component {
             {/* form with inputs labeled with current values*/}
             <div className='changePicture'>
                 <label>
-                    {/* // change profile pic */}
+                    Change picture:
                     {/* <img src={props.data.user.picture} alt='user profile'/> */}
                     <input type='file' name='newPicture' accept='image/*' onChange={() => this.setState({pictureUploaded: true})}/>
                 </label>
@@ -92,7 +92,7 @@ export default class Profile extends Component {
                 submitDiv}
             </div>
             <div className='changePassword'>
-                <label>Change Password</label>
+                <label>Change Password: </label>
                 <label>
                     New password:
                     <input 
