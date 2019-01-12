@@ -4,7 +4,7 @@ export default class Profile extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            settingPassword: false,
+            newPassword: '',
             friendSearchTerm: ''
         }
     }
@@ -40,7 +40,7 @@ export default class Profile extends Component {
                         autoComplete='off'
                         onFocus={() => {
                             this.setState({
-                                settingPassword: false
+                                settingPassword: ''
                             })
                         }}
                     />
@@ -68,17 +68,18 @@ export default class Profile extends Component {
                         type='text' name='newPassword'
                         placeholder={'new password'}
                         // value={this.state.friendSearchTerm}
-                        // onChange={event => props.updateFriendSearch(event.target.value)}
+                        onChange={event => {
+                            this.setState({newPassword: event.target.value})
+                        }}
                         onFocus={() => {
                             this.setState({
-                                settingPassword: true,
                                 friendSearchTerm: ''
                             })
                         }}
                         autoComplete='off'
                     />
                 </label>
-                {this.state.settingPassword && submitButton}
+                {this.state.newPassword && submitButton}
             </div>
         </form>
     )}
