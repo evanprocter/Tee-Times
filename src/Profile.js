@@ -38,6 +38,7 @@ export default class Profile extends Component {
                     // update the user
                     props.updateUser({
                         _id: props.data.user._id,
+                        name: props.data.user.name,
                         newUsername,
                         currentPassword,
                         newPassword,
@@ -48,6 +49,7 @@ export default class Profile extends Component {
                 fr.readAsBinaryString(event.target.newPicture.files[0]) :
                 props.updateUser({
                     _id: props.data.user._id,
+                    name: props.data.user.name,
                     newUsername,
                     currentPassword,
                     newPassword,
