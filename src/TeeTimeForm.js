@@ -78,7 +78,7 @@ export default function TeeTimeForm(props) {
                             <label>
                                 Minute:
                                 <select name='teeMinute' value={props.teeTimeSearch.date.minutes} onChange={event => updateForm(event, props)}>
-                                    {props.isSearching && <option value='0'> - </option>}
+                                    {props.isSearching && <option value='-1'> - </option>}
                                     {availableMinutes.map(teeMinute => <option key={teeMinute} value={teeMinute}>{`${teeMinute.toString().length > 1 ? teeMinute : `0${teeMinute}`}`}</option>)}
                                 </select>
                             </label>

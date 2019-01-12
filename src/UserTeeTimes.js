@@ -15,9 +15,15 @@ export default function UserTeeTimes(props) {
                 teeTimeDate.setSeconds(0)
                 teeTimeDate.setMilliseconds(0)
                 const {year, month, day, hours, minutes} = props.teeTimeSearch.date
-                const teeTimeSearchDate = new Date(year, month || teeTimeDate.getMonth(), day || teeTimeDate.getDate(), hours || teeTimeDate.getHours(), minutes || teeTimeDate.getMinutes())
+                const teeTimeSearchDate = new Date(
+                                                    year,
+                                                    month || teeTimeDate.getMonth(), // these will not be 0 or the value of the tee time
+                                                    day || teeTimeDate.getDate(), 
+                                                    hours || teeTimeDate.getHours(), 
+                                                    minutes !== -1 ? minutes : teeTimeDate.getMinutes()
+                                                )
                 // if there is a date selected and it matches
-                if (teeTimeSearchDate.getTime() !== new Date(teeTimeDate.getFullYear(), 0, 0, 0, 0).getTime()) {
+                if (teeTimeSearchDate.getTime() !== new Date(year, 0, 0, 0, 0).getTime()) {
                     if (teeTimeDate.getTime() !== teeTimeSearchDate.getTime()) {return false}
                 } 
             } else if (field === 'golfers') {
