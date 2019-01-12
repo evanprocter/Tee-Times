@@ -190,9 +190,20 @@ export const addTeeTime = (teeTime) => {
 }
 
 export const selectTeeTime = (teeTime) => {
+    const date = new Date(teeTime.date)
+    const formattedTeeTime = {
+        ...teeTime, 
+        date: {
+            year: date.getFullYear(),
+            month: date.getMonth(),
+            day: date.getDate(),
+            hours: date.getHours(),
+            minutes: date.getMinutes()
+        }
+    }
     return {
         ...SELECT_TEE_TIME,
-        teeTime
+        teeTime: formattedTeeTime
     }
 }
 
@@ -360,6 +371,8 @@ const teeTimes = (state=defaultState, action) => {
         case UPDATE_TEE_TIME_SEARCH.type:
         return {
             ...state,
+            // the teeTimeSearch will need to hold _id and other fields for the actual selectedTeeTime
+            // in order to update that teeTime on the backend
             teeTimeSearch:  state.selectedTeeTime._id ? {...state.selectedTeeTime, ...action.teeTimeSearch} : action.teeTimeSearch,
         }
         case SEARCH_TEE_TIMES.type:

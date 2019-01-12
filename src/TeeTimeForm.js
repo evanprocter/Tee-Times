@@ -4,14 +4,10 @@ export default function TeeTimeForm(props) {
     const memberCount = props.teeTimeSearch.golfers.length
     const guestMax = props.data.user.userType === 'admin' ? 4 - memberCount : 3 - memberCount
     const monthStrings = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    // props.updateTeeTimeSearch({...props.teeTimeSearch, date: props.selectedTeeTime._id ? props.selectedTeeTime.date : currentDate})
-    // const currentDateString = getDateString(currentDate)
-    // const cutOffDayString =  currentDate.getDate() > 7 ? `${currentDate.getDate() + 2}` : `0${currentDate.getDate() + 2}`
-    // const monthString = currentDate.getMonth() + 1 > 9 ? `${currentDate.getMonth() + 1}`: `0${currentDate.getMonth() + 1}`
-    // const cutOffDateString = `${currentDate.getFullYear()}-${monthString}-${cutOffDayString}T16:00`
-    // // = getDateString(new Date(props.teeTimeSearch.date))
+
     const {date} = props.teeTimeSearch
-    const teeTimeDateString = `${date.month}-${date.day}-${date.year}, ${date.hours % 12}:${date.minutes} ${date.hours < 12 ? 'AM' : 'PM'}`
+    const teeTimeDateString = `${date.month + 1}-${date.day}-${date.year}, ${date.hours % 12}:${date.minutes.length > 1 ? date.minutes : `0${date.minutes}`} ${date.hours < 12 ? 'AM' : 'PM'}`
+    
     const unavailableTeeDates = props.isSearching ? props.data.userTeeTimes.map(teeTime => teeTime.date) : props.data.allTeeTimes.map(teeTime => teeTime.date) 
     const availableTeeDates = findAvailableTeeDates().filter(teeDate => !unavailableTeeDates.includes(teeDate))
     const availableMonths = []
@@ -37,13 +33,6 @@ export default function TeeTimeForm(props) {
         >
             <input type="radio" name="walkride" value="walk" checked={props.teeTimeSearch.teeType === "walk"} onChange={event => updateForm(event, props)} required/>Walk<br/>
             <input type="radio" name="walkride" value="ride" checked={props.teeTimeSearch.teeType === "ride"} onChange={event => updateForm(event, props)}  required/>Ride<br/>
-            {/* <input type="datetime-local" name="teeDate"
-                value={teeTimeDateString}
-                max={props.data.user.userType === 'admin' ? '' : cutOffDateString} 
-                min={currentDateString}
-                step={300}
-                onChange={event => updateForm(event, props)}
-                /> */}
             <label>
                 Select a date:
                 {props.isAdmin && (
@@ -80,7 +69,7 @@ export default function TeeTimeForm(props) {
                             <label>
                                 Minute:
                                 <select name='teeMinute' onChange={event => updateForm(event, props)}>
-                                     {availableMinutes.map(teeMinute => <option key={teeMinute || -1} value={teeMinute}>{`${teeMinute}`}</option>)}
+                                     {availableMinutes.map(teeMinute => <option key={teeMinute} value={teeMinute}>{`${teeMinute.length > 1 ? teeMinute : `0${teeMinute}`}`}</option>)}
                                 </select>
                             </label>
                         )}
@@ -97,7 +86,7 @@ export default function TeeTimeForm(props) {
                         updateForm(event, props)
                     }}
                     value={props.teeTimeSearch && props.teeTimeSearch.golfers.map(golfer => golfer._id)}>
-                    {props.data.user.userType === 'admin' ? 
+                    {props.isAdmin ? 
                     props.data.allUsers.map(user => <option key={user._id} value={user._id}>{`${user.name}`}</option>) : 
                     props.data.userFriends.map(user => {
                         return (
@@ -128,9 +117,7 @@ function findAvailableTeeDates(isAdmin) {
     currentDate.setMinutes(currentDate.getMinutes() + (10 - (currentDate.getMinutes() % 10)))
     currentDate.setSeconds(0)
     currentDate.setMilliseconds(0)
-    console.log(currentDate)
     const cutoffDate = isAdmin ? currentDate.getDate() + 30 : currentDate.getDate() + 3
-    console.log(cutoffDate)
     while (currentDate.getDate() < cutoffDate) {
         availableTeeDates.push(currentDate.toISOString())
         currentDate.setMinutes(currentDate.getMinutes() + 10)
@@ -143,15 +130,6 @@ function findAvailableTeeDates(isAdmin) {
     } 
     return availableTeeDates.map(teeDate => new Date(teeDate))
 }
-
-// const getDateString = (date) => {
-//     const monthString = date.getMonth() + 1 > 9 ? `${date.getMonth() + 1}`: `0${date.getMonth() + 1}`
-//     const dayString =  date.getDate() > 9 ? `${date.getDate()}` : `0${date.getDate()}`
-//     const hourString = date.getHours() > 9 ? `${date.getHours()}` : `0${date.getHours() < 8 ? date.setHours(8) && date.getHours(): date.getHours()}`
-//     const minString = date.getMinutes() > 9 ? `${date.getMinutes()}` : `0${date.getMinutes()}`
-//     const dateString = `${date.getFullYear()}-${monthString}-${dayString}T${hourString}:${minString}`
-//     return dateString
-// }
 
 const updateForm = (event, props) => {
     // const {props} = this

@@ -12,7 +12,6 @@ export default class TeeTimes extends Component {
     render() {
         const {props} = this
         const isLoggedIn = props.data.user && props.data.user._id
-        console.log(props.data.user, !isLoggedIn, props.location.pathname !== '/login')
         // if they are not logged in && (if they are not at /login && send them to login)
         return (!isLoggedIn && (props.location.pathname !== '/login' && <Redirect to='/login'/>)) ||
         (isLoggedIn && (props.location.pathname === '/login' && <Redirect to='/'/>)) || 
