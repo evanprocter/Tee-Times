@@ -17,7 +17,7 @@ export default class Profile extends Component {
             <label>
                 Current password:
                 <input
-                    type='text' name='currentPassword'
+                    type='password' name='currentPassword'
                     placeholder={'current password'}
                     autoComplete='off'
                 />
@@ -43,14 +43,22 @@ export default class Profile extends Component {
                         newPassword,
                         newPicture: fr.result
                     })
-                    this.setState({
-                        newPassword: '',
-                        usernameSearchTerm: '',
-                        pictureUploaded: false,
-                    })
-                    event.target.newPicture.value = ''
                 }
-                fr.readAsDataURL(event.target.newPicture.files[0])
+                event.target.newPicture.files[0] ?
+                fr.readAsDataURL(event.target.newPicture.files[0]) :
+                props.updateUser({
+                    ...props.data.user,
+                    newUsername,
+                    currentPassword,
+                    newPassword,
+                    newPicture: ''
+                })
+                this.setState({
+                    newPassword: '',
+                    usernameSearchTerm: '',
+                    pictureUploaded: false,
+                })
+                event.target.newPicture.value = ''
             }}
             onReset={() => this.setState({newPassword: '', usernameSearchTerm: '', pictureUploaded: false})}
         >
@@ -109,7 +117,7 @@ export default class Profile extends Component {
                 <label>
                     New password:
                     <input 
-                        type='text' name='newPassword'
+                        type='password' name='newPassword'
                         placeholder={'new password'}
                         value={this.state.newPassword}
                         onChange={event => {
