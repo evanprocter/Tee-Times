@@ -1,5 +1,11 @@
 import { createStore } from 'redux';
 
+function getCorrectDate() {
+    const currentDate = new Date
+    currentDate.getMinutes() % 10 === 0 || currentDate.setMinutes(currentDate.getMinutes() + (10 - (currentDate.getMinutes() % 10)))
+    return currentDate
+}
+
 const defaultState = {
     data: {
         user: {},
@@ -20,11 +26,11 @@ const defaultState = {
     isSearching: false,
     teeTimeSearch: {
         date: {
-            year: new Date().getFullYear(),
-            month: new Date().getMonth(),
-            day: new Date().getDate(),
-            hours: new Date().getHours(),
-            minutes: new Date().getMinutes()
+            year: getCorrectDate().getFullYear(),
+            month: getCorrectDate().getMonth(),
+            day: getCorrectDate().getDate(),
+            hours: getCorrectDate().getHours(),
+            minutes: getCorrectDate().getMinutes()
         },
         teeType: 'walk',
         golfers: [],
