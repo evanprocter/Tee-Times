@@ -90,20 +90,15 @@ export default function TeeTimeForm(props) {
                 <select name="golfers" multiple 
                     onChange={event => {
                         // to pass event to update form it must persist
-                        event.persist()
+                        // persist will allow it to propogate
+                        // event.persist()
                         updateForm(event, props)
                     }}
-                    value={props.teeTimeSearch.golfers && props.teeTimeSearch.golfers.map(golfer => golfer._id)}>
+                    value={props.teeTimeSearch.golfers && props.teeTimeSearch.golfers.map(golfer => golfer._id)}
+                >
                     {props.isAdmin || props.isSearching ? 
                     props.data.allUsers.map(user => <option key={user._id} value={user._id}>{`${user.name}`}</option>) : 
-                    props.data.userFriends.map(user => {
-                        return (
-                            <option key={user._id} 
-                            value={user._id}>
-                            {`${user.name}`}
-                        </option>
-                    )}
-                    )}
+                    props.data.userFriends.map(user => <option key={user._id} value={user._id}>{`${user.name}`}</option>)}
                 </select>
             </label>
             <label>
@@ -153,7 +148,8 @@ const updateForm = (event, props) => {
         selectedGolferIDs.push(selectedGolfer.value)
     }
     let golfers = props.data.allUsers.filter(user => selectedGolferIDs.includes(user._id))       
-    golfers = props.data.user.userType === 'admin' ? golfers : [...golfers, props.data.user]
+    golfers = props.isAdmin || props.isSearching ? golfers : [...golfers, props.data.user]
+
     const memberCount = golfers.length
     const guestMax = props.data.user.userType === 'admin' ? 4 - memberCount : 3 - memberCount
     const guestCount = parseInt(event.target.form.guests.value)
