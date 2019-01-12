@@ -47,6 +47,7 @@ code {
 input[type='button'], input[type='submit'] {
   background:none!important;
   padding:0!important;
+  color: green;
   border: none;
   font: inherit;
   cursor: pointer;

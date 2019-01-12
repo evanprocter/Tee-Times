@@ -5,14 +5,28 @@ export default class Profile extends Component {
         super(props)
         this.state = {
             newPassword: '',
-            friendSearchTerm: ''
+            usernameSearchTerm: ''
         }
     }
     render() {
     const {props} = this
     const submitButton = <input type='submit' value='submit'/>
     return (
-        <form className='Profile'>
+        <form className='Profile'
+            onSubmit={event => {
+                event.preventDefault()
+                const newUsername = event.target.form.newUsername.value
+                const currentPassword = event.target.form.currentPassword.value
+                const newPassword = event.target.form.newPassword.value
+                // update the user
+                props.updateUser({
+                    ...props.data.user,
+                    newUsername,
+                    currentPassword,
+                    newPassword
+                })
+            }}
+        >
             {/* should change password, username, profile pic */}
             {/* form with inputs labeled with current values*/}
             {/* <label>
@@ -29,12 +43,12 @@ export default class Profile extends Component {
                     {/* change user name */}
                     Change username:
                     <input 
-                        type='text' name='friendName'
+                        type='text' name='newUsername'
                         placeholder={'new username'}
-                        value={this.state.friendSearchTerm}
+                        value={this.state.usernameSearchTerm}
                         onChange={event => {
                             this.setState({
-                                friendSearchTerm: event.target.value,
+                                usernameSearchTerm: event.target.value,
                             })
                         }}
                         autoComplete='off'
@@ -45,8 +59,8 @@ export default class Profile extends Component {
                         }}
                     />
                 </label>
-                {(!props.data.allUsers.find(user => user.name.toLowerCase() === this.state.friendSearchTerm.toLowerCase()) &&
-                this.state.friendSearchTerm) &&
+                {(!props.data.allUsers.find(user => user.name.toLowerCase() === this.state.usernameSearchTerm.toLowerCase()) &&
+                this.state.usernameSearchTerm) &&
                 submitButton}
             </div>
             <div className='changePassword'>
@@ -57,7 +71,7 @@ export default class Profile extends Component {
                     <input
                         type='text' name='currentPassword'
                         placeholder={'current password'}
-                        // value={this.state.friendSearchTerm}
+                        // value={this.state.usernameSearchTerm}
                         // onChange={event => props.updateFriendSearch(event.target.value)}
                         autoComplete='off'
                     />
@@ -75,7 +89,7 @@ export default class Profile extends Component {
                         }}
                         onFocus={() => {
                             this.setState({
-                                friendSearchTerm: ''
+                                usernameSearchTerm: ''
                             })
                         }}
                         autoComplete='off'
