@@ -15,16 +15,18 @@ export default function UserTeeTimes(props) {
                 teeTimeDate.setSeconds(0)
                 teeTimeDate.setMilliseconds(0)
                 const {year, month, day, hours, minutes} = props.teeTimeSearch.date
-                const teeTimeSearchDate = new Date(year, month, day, hours, minutes)
+                const teeTimeSearchDate = new Date(year, month || teeTimeDate.getMonth(), day || teeTimeDate.getDate(), hours || teeTimeDate.getHours(), minutes || teeTimeDate.getMinutes())
                 // if there is a date selected and it matches
-                if (teeTimeSearchDate.getTime() !== new Date(teeTimeDate.getFullYear(), 0, 0, 0, 0).getTime() && teeTimeDate.getTime() !== teeTimeSearchDate.getTime()) {return false}
+                if (teeTimeSearchDate.getTime() !== new Date(teeTimeDate.getFullYear(), 0, 0, 0, 0).getTime()) {
+                    if (teeTimeDate.getTime() !== teeTimeSearchDate.getTime()) {return false}
+                } 
             } else if (field === 'golfers') {
                 const matchingGolfers = teeTime[field].filter(golfer => props.teeTimeSearch[field].map(golfer => golfer._id).includes(golfer._id))
                 // if there are golfers selected and some match tee times
-                if (props.teeTimeSearch.golfers.length !== 0 && matchingGolfers.length === 0) {return false}
+                if (props.teeTimeSearch.golfers.length !== 0 && matchingGolfers.length !== 0) {return false}
             } else {
                 // there is a teeType selected and it's value equals the teetime we are checking
-                if (props.teeTimeSearch.teeType && teeTime[field] !== props.teeTimeSearch[field]) {return false}
+                if (props.teeTimeSearch.teeType && teeTime[field] === props.teeTimeSearch[field]) {return false}
             }
         }
         return true
