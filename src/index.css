@@ -32,7 +32,7 @@ code {
 }
 
 .navlink img {
-  background-color: green;
+  background-color: rgba(200, 255, 100, .5);
   width: 10%;
 }
 
@@ -41,7 +41,7 @@ code {
 }
 
 .navlink.active img {
-  background-color: yellow;
+  background-color: rgba(255, 255, 0, 0.5);
 }
 
 input[type='button'] {
