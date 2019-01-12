@@ -162,7 +162,13 @@ export const requestData = () => {
 export const receiveData = (data) => {
     return {
         ...RECEIVE_DATA,
-        data,
+        data: {
+            ...data,
+            user: {
+                ...data.user,
+                picture: `data:image/png;base64,${btoa(data.user.picture.data)}`
+            }
+        },
         isLoading: false
     }
 }
