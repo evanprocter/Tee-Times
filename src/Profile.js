@@ -47,8 +47,7 @@ export default class Profile extends Component {
                     newPassword: '',
                     usernameSearchTerm: '',
                     pictureUploaded: false,
-                })
-                event.target.newPicture.value = ''
+                }, () => event.target.newPicture.value = '')
             }}
             onReset={() => this.setState({newPassword: '', usernameSearchTerm: '', pictureUploaded: false})}
         >
@@ -58,7 +57,16 @@ export default class Profile extends Component {
                 <label>
                     Change picture:
                     {/* <img src={props.data.user.picture} alt='user profile'/> */}
-                    <input type='file' name='newPicture' accept='image/*' onChange={() => this.setState({pictureUploaded: true})}/>
+                    <input 
+                        type='file' name='newPicture' accept='image/*' 
+                        onChange={() => this.setState({pictureUploaded: true})}
+                        onFocus={() => {
+                            this.setState({
+                                usernameSearchTerm: '',
+                                newPassword: ''
+                            })
+                        }}
+                    />
                 </label>
                 {this.state.pictureUploaded && submitDiv}
             </div>
@@ -80,10 +88,12 @@ export default class Profile extends Component {
                             })
                         }}
                         autoComplete='off'
-                        onFocus={() => {
+                        onFocus={event => {
                             this.setState({
-                                newPassword: ''
+                                newPassword: '',
+                                pictureUploaded: false
                             })
+                            event.target.form.newPicture.value = ''
                         }}
                     />
                 </label>
@@ -104,10 +114,12 @@ export default class Profile extends Component {
                                 newPassword: event.target.value
                             })
                         }}
-                        onFocus={() => {
+                        onFocus={event => {
                             this.setState({
-                                usernameSearchTerm: ''
+                                usernameSearchTerm: '',
+                                pictureUploaded: false
                             })
+                            event.target.form.newPicture.value = ''
                         }}
                         autoComplete='off'
                     />
