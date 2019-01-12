@@ -32,7 +32,8 @@ export default function UserTeeTimes(props) {
                 if (props.teeTimeSearch.golfers.length !== 0 && matchingGolfers.length !== 0) {return false}
             } else {
                 // there is a teeType selected and it's value equals the teetime we are checking
-                if (props.teeTimeSearch.teeType && teeTime[field] === props.teeTimeSearch[field]) {return false}
+                if (props.teeTimeSearch.teeType && teeTime.teeType === props.teeTimeSearch.teeType) {return false}
+                else if (props.teeTimeSearch.guests > teeTime.guests) {return false}
             }
         }
         return true

@@ -40,8 +40,12 @@ export default function TeeTimeForm(props) {
             props.selectedTeeTime._id || props.addTeeTime({...props.teeTimeSearch, date: new Date(...teeDate), golfers: [...props.teeTimeSearch.golfers, golfer]})
         }}
         >
-            <input type="radio" name="walkride" value="walk" checked={props.teeTimeSearch.teeType === "walk"} onChange={event => updateForm(event, props)} required/>Walk<br/>
-            <input type="radio" name="walkride" value="ride" checked={props.teeTimeSearch.teeType === "ride"} onChange={event => updateForm(event, props)}  required/>Ride<br/>
+            <input type="checkbox" name="walkride" value="walk" 
+                checked={props.teeTimeSearch.teeType === "walk"} 
+                onChange={event => updateForm(event, props)} />Walk<br/>
+            <input type="checkbox" name="walkride" value="ride" 
+                checked={props.teeTimeSearch.teeType === "ride"} 
+                onChange={event => updateForm(event, props)} />Ride<br/>
             <label>
                 Select a date:
                 {props.isAdmin && (
@@ -138,7 +142,8 @@ function findAvailableTeeDates(isAdmin) {
 const updateForm = (event, props) => {
     // const {props} = this
     const currentDate = new Date()
-    const teeType = event.target.form.walkride.value
+    console.log(event.target.checked)
+    const teeType = (event.target.checked && event.target.value) || props.teeTimeSearch.teeType
     const year = currentDate.getFullYear() //event.target.form.teeYear.value
     const month = props.isAdmin ? parseInt(event.target.form.teeMonth.value) : currentDate.getMonth()
     const day = parseInt(event.target.form.teeDay.value)
