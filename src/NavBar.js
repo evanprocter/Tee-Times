@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom'
 export default function NavBar(props) {
     return (
         <div className='NavBar'>
-            <NavLink className='navlink' to='/'>
+            <NavLink className='navlink' exact to='/'>
                 <img src='./tee-ball.png'alt='a golf ball on a tee'/>
             </NavLink>
             <NavLink className='navlink' to='/profile'>

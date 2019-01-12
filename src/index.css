@@ -27,11 +27,19 @@ code {
 }
 
 .navlink {
-  color: red;
+  color: green;
 }
 
-.NavBar > .active {
-  color: green;
+.navlink img {
+  background-color: green;
+}
+
+.navlink.active {
+  color: yellow;
+}
+
+.navlink.active img {
+  background-color: yellow;
 }
 
 .selectedTeeTimeForm {
