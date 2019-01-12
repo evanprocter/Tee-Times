@@ -10,14 +10,14 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         // CREATE
-        addUser: (name, password, userType) => {
-            dispatch(actions.addUser(name, password, userType))
+        addUser: (user) => {
+            dispatch(actions.addUser(user))
         },
         addTeeTime: (teeTime) => {
             dispatch(actions.addTeeTime(teeTime))
         },
-        loginUser: (name, password) => {
-            dispatch(actions.loginUser(name, password))
+        loginUser: (user) => {
+            dispatch(actions.loginUser(user))
         },
         requestData: () => {
             dispatch(actions.requestData())

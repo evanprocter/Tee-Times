@@ -111,10 +111,10 @@ const DELETE_TEE_TIME = {
     type: 'DELETE_TEE_TIME'
 }
 
-export const addUser = (name, password, userType) => {
+export const addUser = (user) => {
     fetch('/register', {
         method: 'post',
-        body: JSON.stringify({name, password, userType}),
+        body: JSON.stringify(user),
         headers: {'Content-Type': 'application/json'}
     })
     .then(res => res.json())
@@ -125,10 +125,10 @@ export const addUser = (name, password, userType) => {
     }
 }
 
-export const loginUser = (name, password) => {
+export const loginUser = (user) => {
     fetch('/login', {
         method: 'post',
-        body: JSON.stringify({name, password}),
+        body: JSON.stringify(user),
         headers: {'Content-Type' : 'application/json'}
     })
     .then(res => res.json())
@@ -160,9 +160,16 @@ export const requestData = () => {
 }
 
 export const receiveData = (data) => {
+    const picture = null
     return {
         ...RECEIVE_DATA,
-        data,
+        data: {
+            ...data,
+            user: {
+                ...data.user,
+                picture
+            }
+        },
         isLoading: false
     }
 }
