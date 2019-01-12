@@ -23,6 +23,7 @@ export default class Profile extends Component {
                 />
             </label>
             <input type='submit' value='submit'/>
+            <input type='reset' value='reset'/>
         </div>
     )
     return (
