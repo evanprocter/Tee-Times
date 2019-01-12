@@ -6,9 +6,7 @@ export default function UserTeeTimes(props) {
     let userTeeTimes = props.isAdmin || props.isSearching ? props.data.allTeeTimes : props.data.userTeeTimes
     userTeeTimes.sort((teeTimeA, teeTimeB) => new Date(teeTimeA.date).getTime() > new Date(teeTimeB.date).getTime() ? -1 : 1)
     userTeeTimes = props.isSearching ? userTeeTimes.filter(teeTime => {
-        console.log(props.teeTimeSearch)
         for (let field in props.teeTimeSearch) {
-            console.log(field)
             if (field === 'date') {
                 // teeTime has a Date object
                 // teeTimeSearch has a date object
@@ -19,11 +17,12 @@ export default function UserTeeTimes(props) {
                 const {year, month, day, hours, minutes} = props.teeTimeSearch.date
                 const teeTimeSearchDate = new Date(year, month, day, hours, minutes)
                 // if there is a date selected and it matches
-                if (teeTimeSearchDate === new Date() && teeTimeDate.getTime() !== teeTimeSearchDate.getTime()) {return false}
+                console.log(teeTimeSearchDate.getTime())
+                console.log(new Date(0,0,0,0,0).getTime())
+                console.log(teeTimeSearchDate.getTime() === new Date(0, 0, 0, 0, 0).getTime())
+                if (teeTimeSearchDate.getTime() !== new Date(0, 0, 0, 0, 0).getTime() && teeTimeDate.getTime() !== teeTimeSearchDate.getTime()) {return false}
             } else if (field === 'golfers') {
                 const matchingGolfers = teeTime[field].filter(golfer => props.teeTimeSearch[field].map(golfer => golfer._id).includes(golfer._id))
-                console.log(matchingGolfers)
-                console.log(teeTime)
                 // if there are golfers selected and some match tee times
                 if (props.teeTimeSearch.golfers.length !== 0 && matchingGolfers.length === 0) {return false}
             } else {
