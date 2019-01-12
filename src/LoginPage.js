@@ -1,8 +1,6 @@
 import React from 'react'
-import defaultUserImage from './golf_ball.png'
 
 export default function LoginPage(props) {
-    console.log(defaultUserImage)
     return (
         <form className="LoginPage" 
             onSubmit={event => {
@@ -28,7 +26,7 @@ export default function LoginPage(props) {
                         props.addUser({
                             name: event.target.form[0].value, 
                             password: event.target.form[1].value, 
-                            picture: defaultUserImage, 
+                            picture: null, 
                             userType: 'basic'
                         })
                     }
@@ -40,7 +38,7 @@ export default function LoginPage(props) {
                         props.addUser({
                             name: event.target.form[0].value, 
                             password: event.target.form[1].value, 
-                            picture: defaultUserImage, 
+                            picture: null, 
                             userType: 'admin'
                         })
                     }

@@ -160,16 +160,9 @@ export const requestData = () => {
 }
 
 export const receiveData = (data) => {
-    const picture = null
     return {
         ...RECEIVE_DATA,
-        data: {
-            ...data,
-            user: {
-                ...data.user,
-                picture
-            }
-        },
+        data,
         isLoading: false
     }
 }

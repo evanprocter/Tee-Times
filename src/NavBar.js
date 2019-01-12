@@ -5,10 +5,10 @@ export default function NavBar(props) {
     return (
         <div className='NavBar'>
             <NavLink className='navlink' exact to='/'>
-                <img src='./tee-ball.png'alt='a golf ball on a tee'/>
+                <img src='./tee-ball.png' alt='a golf ball on a tee'/>
             </NavLink>
             <NavLink className='navlink' to='/profile'>
-                {`${props.data.user.picture}${props.isAdmin ? ' - admin' : ''}`}
+                {`${props.data.user.name}${props.isAdmin ? ' - admin' : ''}`}
             </NavLink>
             <NavLink className="navlink" to='/teetimes'>Tee Times</NavLink>
             <NavLink className="navlink" to='/friends'>Friends</NavLink>
