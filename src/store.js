@@ -166,7 +166,7 @@ export const receiveData = (data) => {
             ...data,
             user: {
                 ...data.user,
-                picture: `data:image/png;base64,${btoa(data.user.picture.data)}`
+                pictureSrc: data.user.picture && `data:image/png;base64,${btoa(new Uint8Array(data.user.picture.data))}`
             }
         },
         isLoading: false

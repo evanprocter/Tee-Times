@@ -8,7 +8,8 @@ export default function NavBar(props) {
                 <img src='./tee-ball.png' alt='a golf ball on a tee'/>
             </NavLink>
             <NavLink className='navlink' to='/profile'>
-                {`${props.data.user.name}${props.isAdmin ? ' - admin' : ''}`}
+                <img src={props.data.user.pictureSrc} alt='user profile'/>
+                {`${props.isAdmin ? ' - admin' : ''}`}
             </NavLink>
             <NavLink className="navlink" to='/teetimes'>Tee Times</NavLink>
             <NavLink className="navlink" to='/friends'>Friends</NavLink>
