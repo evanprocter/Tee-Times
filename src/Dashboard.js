@@ -6,25 +6,13 @@ import UserTeeTimes from './UserTeeTimes'
 import Friends from './Friends'
 import UserTeeTime from './UserTeeTime';
 import Friend from './Friend';
+import Profile from './Profile';
 
 export default function Dashboard(props) {
     return (
         <div className="Dashboard">
             <NavBar {...props} />
-            <Switch>
-                <Route exact path={'/teetimes'} render= {routeProps => {
-                    return(
-                        <div>
-                            <TeeTimeForm {...props}/>
-                            <UserTeeTimes {...props}/>
-                        </div>
-                    )
-                }}/>
-                <Route exact path={'/friends'} render= {routeProps => {
-                    return(
-                        <Friends {...props}/>
-                    )
-                }}/>
+            {/* <Switch> */}
                 <Route exact path={'/'} render= {routeProps => {
                     const currentDate = new Date()
                     props.data.userTeeTimes.sort((teeTimeA, teeTimeB) => new Date(teeTimeA.date).getTime() < new Date(teeTimeB.date).getTime() ? -1 : 1)
@@ -42,7 +30,27 @@ export default function Dashboard(props) {
                         </div>
                     )
                 }}/>
-            </Switch>
+                <Route exact path={'/profile'} render= {routeProps => {
+                    return(
+                        <div>
+                            <Profile {...props}/>
+                        </div>
+                    )
+                }}/>
+                <Route exact path={'/teetimes'} render= {routeProps => {
+                    return(
+                        <div>
+                            <TeeTimeForm {...props}/>
+                            <UserTeeTimes {...props}/>
+                        </div>
+                    )
+                }}/>
+                <Route exact path={'/friends'} render= {routeProps => {
+                    return(
+                        <Friends {...props}/>
+                    )
+                }}/>
+            {/* </Switch> */}
         </div>
     )
 }
