@@ -142,8 +142,8 @@ function findAvailableTeeDates(isAdmin) {
 const updateForm = (event, props) => {
     // const {props} = this
     const currentDate = new Date()
-    console.log(event.target.checked)
-    const teeType = (event.target.checked && event.target.value) || props.teeTimeSearch.teeType
+    // if this checkbox was checked, apply the value, otherwise apply the old value, unless searching
+    const teeType = (event.target.checked && event.target.value) || (props.isSearching ? '' : props.teeTimeSearch.teeType)
     const year = currentDate.getFullYear() //event.target.form.teeYear.value
     const month = props.isAdmin ? parseInt(event.target.form.teeMonth.value) : currentDate.getMonth()
     const day = parseInt(event.target.form.teeDay.value)
