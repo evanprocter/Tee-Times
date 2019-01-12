@@ -32,6 +32,7 @@ code {
 
 .navlink img {
   background-color: green;
+  width: 10%;
 }
 
 .navlink.active {
@@ -40,6 +41,17 @@ code {
 
 .navlink.active img {
   background-color: yellow;
+}
+
+input[type='button'] {
+  background:none!important;
+  color:inherit;
+  border:none; 
+  padding:0!important;
+  font: inherit;
+  /*border is optional*/
+  border-bottom:1px solid #444; 
+  cursor: pointer;
 }
 
 .selectedTeeTimeForm {
