@@ -46,51 +46,49 @@ export default function TeeTimeForm(props) {
             <input type="checkbox" name="walkride" value="ride" 
                 checked={props.teeTimeSearch.teeType === "ride"} 
                 onChange={event => updateForm(event, props)} />Ride<br/>
-            <label>
-                Select a date:
+            <h4>Select a date:</h4>
                 {props.isAdmin && (
-                    <>
-                        <label>
-                            Year:
-                            {props.teeTimeSearch.date.year}
-                        </label>
-                        <label>
-                            Month:
-                            {<select name='teeMonth' onChange={event => updateForm(event, props)}>
-                                {availableMonths.map(teeMonth => <option key={teeMonth} value={teeMonth}>{`${monthStrings[teeMonth]}`}</option>)}
-                            </select>}
-                        </label>
-                    </>
+                <>    
+                    <label>
+                        Year:
+                        {props.teeTimeSearch.date.year}
+                    </label>
+                    <label>
+                        Month:
+                        {<select name='teeMonth' onChange={event => updateForm(event, props)}>
+                            {availableMonths.map(teeMonth => <option key={teeMonth} value={teeMonth}>{`${monthStrings[teeMonth]}`}</option>)}
+                        </select>}
+                    </label>
+                </>    
                 )}
-                <label>
-                    Day:
-                    <select name='teeDay' value={props.teeTimeSearch.date.day} onChange={event => updateForm(event, props)}>
-                        {props.isSearching && <option value='0'> - </option>}
-                        {availableDays.map(teeDay => <option key={teeDay} value={teeDay}>{`${teeDay}`}</option>)}
-                    </select>
-                </label>
-                {props.teeTimeSearch.day || (
-                    <>
+            <label>
+                Day:
+                <select name='teeDay' value={props.teeTimeSearch.date.day} onChange={event => updateForm(event, props)}>
+                    {props.isSearching && <option value='0'> - </option>}
+                    {availableDays.map(teeDay => <option key={teeDay} value={teeDay}>{`${teeDay}`}</option>)}
+                </select>
+            </label>
+            {props.teeTimeSearch.day || (
+                <>
+                    <label>
+                        Hour:
+                        <select name='teeHour' value={props.teeTimeSearch.date.hours} onChange={event => updateForm(event, props)}>
+                            {props.isSearching && <option value='0'> - </option>}
+                            {availableHours.map(teeHour => <option key={teeHour} value={teeHour}>{`${teeHour % 12 || 12} ${teeHour < 12 ? 'AM' : 'PM'}`}</option>)}
+                        </select>
+                    </label>
+                    {props.teeTimeSearch.hours || (
                         <label>
-                            Hour:
-                            <select name='teeHour' value={props.teeTimeSearch.date.hours} onChange={event => updateForm(event, props)}>
-                                {props.isSearching && <option value='0'> - </option>}
-                                {availableHours.map(teeHour => <option key={teeHour} value={teeHour}>{`${teeHour % 12 || 12} ${teeHour < 12 ? 'AM' : 'PM'}`}</option>)}
+                            Minute:
+                            <select name='teeMinute' value={props.teeTimeSearch.date.minutes} onChange={event => updateForm(event, props)}>
+                                {props.isSearching && <option value='-1'> - </option>}
+                                {availableMinutes.map(teeMinute => <option key={teeMinute} value={teeMinute}>{`${teeMinute.toString().length > 1 ? teeMinute : `0${teeMinute}`}`}</option>)}
                             </select>
                         </label>
-                        {props.teeTimeSearch.hours || (
-                            <label>
-                                Minute:
-                                <select name='teeMinute' value={props.teeTimeSearch.date.minutes} onChange={event => updateForm(event, props)}>
-                                    {props.isSearching && <option value='-1'> - </option>}
-                                    {availableMinutes.map(teeMinute => <option key={teeMinute} value={teeMinute}>{`${teeMinute.toString().length > 1 ? teeMinute : `0${teeMinute}`}`}</option>)}
-                                </select>
-                            </label>
-                        )}
-                    </>
-                )}
-                <h6>{!(props.selectedTeeTime._id || props.isSearching) && teeTimeDateString}</h6>
-            </label>
+                    )}
+                </>
+            )}
+            <h6>{!(props.selectedTeeTime._id || props.isSearching) && teeTimeDateString}</h6>
             <label>
                 Select other members:
                 <select name="golfers" multiple 
