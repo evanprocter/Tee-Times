@@ -8,7 +8,7 @@ export default function Friends(props) {
             <input 
                 type='text' name='friendName' 
                 placeholder={'friend\'s name'} 
-                value={props.friendSearch} 
+                value={props.friendSearchTerm} 
                 onChange={event => props.updateFriendSearch(event.target.value)}
                 autoComplete='off'
             />

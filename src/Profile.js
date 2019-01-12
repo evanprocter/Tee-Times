@@ -18,8 +18,15 @@ export default function Profile(props) {
                 <label>
                     {/* change user name */}
                     Change username:
-                    <input />
+                    <input 
+                        type='text' name='friendName'
+                        placeholder={'new username'}
+                        value={props.friendSearchTerm}
+                        onChange={event => props.updateFriendSearch(event.target.value)}
+                        autoComplete='off'
+                    />
                 </label>
+                {props.data.allUsers.find(user => user.name.includes(props.friendSearch))}
             </div>
             <div className='changePassword'>
                 <label>
