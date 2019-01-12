@@ -7,7 +7,7 @@ export default function TeeTimeForm(props) {
 
     const {date} = props.teeTimeSearch
     const teeTimeDateString = (props.selectedTeeTime._id || !props.isSearching) && 
-    `${date.month + 1}-${date.day}-${date.year}, ${date.hours % 12}:${date.minutes.toString().length > 1 ? date.minutes : `0${date.minutes}`} ${date.hours < 12 ? 'AM' : 'PM'}`
+    `${date.month + 1}-${date.day}-${date.year}, ${date.hours % 12 || 12}:${date.minutes.toString().length > 1 ? date.minutes : `0${date.minutes}`} ${date.hours < 12 ? 'AM' : 'PM'}`
     
     // find the taken dates
     const unavailableTeeDates = props.data.allTeeTimes.map(teeTime => new Date(teeTime.date))
