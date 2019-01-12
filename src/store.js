@@ -385,7 +385,7 @@ const teeTimes = (state=defaultState, action) => {
         return {
             ...state,
             teeTimeSearch: !state.isSearching ? 
-                            {teeType: '', date: {year: 0, month: 0, day: 0, hours: 0, minutes: 0}, golfers: [], guests: 0} : 
+                            {teeType: '', date: {year: new Date().getFullYear(), month: 0, day: 0, hours: 0, minutes: 0}, golfers: [], guests: 0} : 
                             defaultState.teeTimeSearch,
             isSearching: !state.isSearching
         }

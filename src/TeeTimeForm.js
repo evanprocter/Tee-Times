@@ -48,15 +48,13 @@ export default function TeeTimeForm(props) {
                     <>
                         <label>
                             Year:
-                            {props.isAdmin && props.teeTimeSearch.date.year}
+                            {props.teeTimeSearch.date.year}
                         </label>
                         <label>
                             Month:
-                            {!props.isAdmin ? 
-                            (props.teeTimeSearch.date.month) : 
-                            (<select name='teeMonth' onChange={event => updateForm(event, props)}>
+                            {<select name='teeMonth' onChange={event => updateForm(event, props)}>
                                 {availableMonths.map(teeMonth => <option key={teeMonth} value={teeMonth}>{`${monthStrings[teeMonth]}`}</option>)}
-                            </select>)}
+                            </select>}
                         </label>
                     </>
                 )}
