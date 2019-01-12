@@ -10,13 +10,14 @@ export default function TeeTimeForm(props) {
     
     // find the taken dates
     const unavailableTeeDates = props.isSearching ? props.data.userTeeTimes.map(teeTime => teeTime.date) : props.data.allTeeTimes.map(teeTime => teeTime.date) 
-    // find remaining dates
+    // find remaining dates, these are strings and can be compared directly
     const availableTeeDates = findAvailableTeeDates().filter(teeDate => !unavailableTeeDates.includes(teeDate))
     // create arrays to store available options
     const availableMonths = []
     const availableDays = []
     const availableHours = []
     const availableMinutes = []
+    console.log(availableTeeDates)
     // add available options to arrays if they do not already contain them
     availableTeeDates.forEach(teeDate => {
         availableMonths.includes(teeDate.getMonth()) || availableMonths.push(teeDate.getMonth())
@@ -27,6 +28,7 @@ export default function TeeTimeForm(props) {
     availableMonths.sort((monthA, monthB) => monthA - monthB)
     availableDays.sort((dayA, dayB) => dayA - dayB)
     availableHours.sort((hourA, hourB) => hourA - hourB)
+    console.log(availableHours)
     availableMinutes.sort((minuteA, minuteB) => minuteA - minuteB)
     return (
         <form className={`TeeTimeForm${props.selectedTeeTime._id ? ' selectedTeeTimeForm' : ''}`} 
@@ -83,7 +85,7 @@ export default function TeeTimeForm(props) {
                         )}
                     </>
                 )}
-                <h6>{teeTimeDateString}</h6>
+                <h6>{!props.selectedTeeTime._id && teeTimeDateString}</h6>
             </label>
             <label>
                 Select other members:
@@ -94,7 +96,7 @@ export default function TeeTimeForm(props) {
                         updateForm(event, props)
                     }}
                     value={props.teeTimeSearch && props.teeTimeSearch.golfers.map(golfer => golfer._id)}>
-                    {props.isAdmin ? 
+                    {props.isAdmin || props.isSearching ? 
                     props.data.allUsers.map(user => <option key={user._id} value={user._id}>{`${user.name}`}</option>) : 
                     props.data.userFriends.map(user => {
                         return (
@@ -125,6 +127,7 @@ function findAvailableTeeDates(isAdmin) {
     currentDate.setMinutes(currentDate.getMinutes() + (10 - (currentDate.getMinutes() % 10)))
     currentDate.setSeconds(0)
     currentDate.setMilliseconds(0)
+    // this is where we could grant admin privileges to add tee times a year in advance
     const cutoffDate = isAdmin ? currentDate.getDate() + 30 : currentDate.getDate() + 3
     while (currentDate.getDate() < cutoffDate) {
         availableTeeDates.push(currentDate.toISOString())
@@ -132,8 +135,6 @@ function findAvailableTeeDates(isAdmin) {
         if (currentDate.getHours() > 16) {
             currentDate.setDate(currentDate.getDate() + 1)
             currentDate.setHours(8) 
-        } else if (currentDate.getHours() < 8) {
-            currentDate.setHours(8)
         }
     } 
     return availableTeeDates.map(teeDate => new Date(teeDate))
