@@ -170,7 +170,7 @@ export const receiveData = (data) => {
 export const updateUser = (user) => {
     fetch('/updateUser', {
         method: 'post',
-        body: JSON.stringify({user}),
+        body: JSON.stringify(user),
         headers: {'Content-Type': 'application/json'}
     })
     .then(res => res.json())
