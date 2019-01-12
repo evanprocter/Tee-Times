@@ -158,11 +158,11 @@ const updateForm = (event, props) => {
     golfers = props.isAdmin || props.isSearching ? golfers : [...golfers, props.data.user]
 
     const memberCount = golfers.length
-    const guestMax = props.data.user.userType === 'admin' ? 4 - memberCount : 3 - memberCount
+    const guestMax = props.isAdmin ? 4 - memberCount : 3 - memberCount
     const guestCount = parseInt(event.target.form.guests.value)
     const guests = guestCount > guestMax ? guestMax : guestCount
     const newTeeTime = { teeType, date, golfers, guests }
     props.updateTeeTimeSearch(newTeeTime)
     // overwrite date field below to create genuine Date() object
-    props.selectedTeeTime._id && props.updateTeeTime({...props.selectedTeeTime, ...newTeeTime, date: new Date(...date)})
+    props.selectedTeeTime._id && props.updateTeeTime({...props.selectedTeeTime, ...newTeeTime, date: new Date(year, month, day, hours, minutes)})
 } 
