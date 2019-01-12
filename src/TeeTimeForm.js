@@ -113,7 +113,7 @@ export default function TeeTimeForm(props) {
                 max={`${guestMax}`} 
                 value={props.teeTimeSearch.guests || 0} 
                 onChange={event => updateForm(event, props)}/>
-                {!(props.selectedTeeTime._id || props.isSearching)&& <input type="submit" value="Request Tee Time"/>}
+                {!(props.selectedTeeTime._id || props.isSearching)&& <input type="submit" value="Request Tee Time" onClick={event => updateForm(event, props)}/>}
             </label>
         </form>
     )
@@ -148,7 +148,6 @@ const updateForm = (event, props) => {
     const hours = event.target.form.teeHour.value
     const minutes = event.target.form.teeMinute.value
     const date = {year, month, day, hours, minutes}
-    console.log(date)
     const selectedGolferIDs = []
     for (let selectedGolfer of event.target.form.golfers.selectedOptions) {
         selectedGolferIDs.push(selectedGolfer.value)

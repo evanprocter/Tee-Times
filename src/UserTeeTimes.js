@@ -18,16 +18,12 @@ export default function UserTeeTimes(props) {
                 const teeTimeSearchDate = new Date(year, month, day, hours, minutes)
                 if (teeTimeDate.getTime() !== teeTimeSearchDate.getTime()) {return false}
             } else if (field === 'golfers') {
-                console.log(teeTime[field], props.teeTimeSearch[field])
                 const matchingGolfers = teeTime[field].filter(golfer => props.teeTimeSearch[field].map(golfer => golfer._id).includes(golfer._id))
-                console.log(matchingGolfers.length, props.teeTimeSearch[field].length)
                 if (matchingGolfers.length !== teeTime[field].length) {return false}
             } else {
-                console.log(teeTime[field], props.teeTimeSearch[field])
                 if (teeTime[field] !== props.teeTimeSearch[field]) {return false}
             }
         }
-        console.log("tee times match")
         return true
     }) : userTeeTimes
     const futureTeeTimes = userTeeTimes.filter(teeTime => new Date(teeTime.date) > currentDate)
