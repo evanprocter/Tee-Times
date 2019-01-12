@@ -1,12 +1,12 @@
 import React from 'react'
 
 export default function TeeTimeForm(props) {
-    const memberCount = props.teeTimeSearch.golfers.length
+    const memberCount = (props.teeTimeSearch.golfers && props.teeTimeSearch.golfers.length) || 0
     const guestMax = props.data.user.userType === 'admin' ? 4 - memberCount : 3 - memberCount
     const monthStrings = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
     const {date} = props.teeTimeSearch
-    const teeTimeDateString = `${date.month + 1}-${date.day}-${date.year}, ${date.hours % 12}:${date.minutes.toString().length > 1 ? date.minutes : `0${date.minutes}`} ${date.hours < 12 ? 'AM' : 'PM'}`
+    const teeTimeDateString = date && `${date.month + 1}-${date.day}-${date.year}, ${date.hours % 12}:${date.minutes.toString().length > 1 ? date.minutes : `0${date.minutes}`} ${date.hours < 12 ? 'AM' : 'PM'}`
     
     // find the taken dates
     const unavailableTeeDates = props.isSearching ? props.data.userTeeTimes.map(teeTime => teeTime.date) : props.data.allTeeTimes.map(teeTime => teeTime.date) 
@@ -95,7 +95,7 @@ export default function TeeTimeForm(props) {
                         event.persist()
                         updateForm(event, props)
                     }}
-                    value={props.teeTimeSearch && props.teeTimeSearch.golfers.map(golfer => golfer._id)}>
+                    value={props.teeTimeSearch.golfers && props.teeTimeSearch.golfers.map(golfer => golfer._id)}>
                     {props.isAdmin || props.isSearching ? 
                     props.data.allUsers.map(user => <option key={user._id} value={user._id}>{`${user.name}`}</option>) : 
                     props.data.userFriends.map(user => {
@@ -113,9 +113,9 @@ export default function TeeTimeForm(props) {
                 <input type="number" name="guests" 
                 min="0" 
                 max={`${guestMax}`} 
-                value={props.teeTimeSearch.guests} 
+                value={props.teeTimeSearch.guests || 0} 
                 onChange={event => updateForm(event, props)}/>
-                {!props.selectedTeeTime._id && <input type="submit" value="Request Tee Time"/>}
+                {!(props.selectedTeeTime._id || props.isSearching)&& <input type="submit" value="Request Tee Time"/>}
             </label>
         </form>
     )

@@ -378,6 +378,7 @@ const teeTimes = (state=defaultState, action) => {
         case SEARCH_TEE_TIMES.type:
         return {
             ...state,
+            teeTimeSearch: !state.isSearching ? {} : defaultState.teeTimeSearch,
             isSearching: !state.isSearching
         }
         case REQUEST_FRIEND.type:
