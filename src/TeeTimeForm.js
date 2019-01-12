@@ -17,7 +17,6 @@ export default function TeeTimeForm(props) {
     const availableDays = []
     const availableHours = []
     const availableMinutes = []
-    console.log(availableTeeDates)
     // add available options to arrays if they do not already contain them
     availableTeeDates.forEach(teeDate => {
         availableMonths.includes(teeDate.getMonth()) || availableMonths.push(teeDate.getMonth())
@@ -28,7 +27,6 @@ export default function TeeTimeForm(props) {
     availableMonths.sort((monthA, monthB) => monthA - monthB)
     availableDays.sort((dayA, dayB) => dayA - dayB)
     availableHours.sort((hourA, hourB) => hourA - hourB)
-    console.log(availableHours)
     availableMinutes.sort((minuteA, minuteB) => minuteA - minuteB)
     return (
         <form className={`TeeTimeForm${props.selectedTeeTime._id ? ' selectedTeeTimeForm' : ''}`} 

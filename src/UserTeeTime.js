@@ -16,8 +16,11 @@ export default function UserTeeTime(props) {
         return (
             <div key={teeTime._id} className={`teeTime${editClassName}`} 
             onClick={isPast || isSearching ? null : event => {
-                props.location.pathname !== '/teetimes' && props.history.push('/teetimes')
-                props.selectTeeTime(teeTime)
+                if (props.location.pathname !== '/teetimes') {
+                    props.history.push('/teetimes')
+                } else {
+                    props.selectTeeTime(teeTime)
+                }
             }}>
                 <p>{dateString}</p>
                 <p>{teeTime.teeType}</p>

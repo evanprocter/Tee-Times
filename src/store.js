@@ -1,7 +1,7 @@
 import { createStore } from 'redux';
 
 function getCorrectDate() {
-    const currentDate = new Date
+    const currentDate = new Date()
     currentDate.getMinutes() % 10 === 0 || currentDate.setMinutes(currentDate.getMinutes() + (10 - (currentDate.getMinutes() % 10)))
     return currentDate
 }
