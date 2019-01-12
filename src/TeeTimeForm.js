@@ -8,18 +8,26 @@ export default function TeeTimeForm(props) {
     const {date} = props.teeTimeSearch
     const teeTimeDateString = `${date.month + 1}-${date.day}-${date.year}, ${date.hours % 12}:${date.minutes.toString().length > 1 ? date.minutes : `0${date.minutes}`} ${date.hours < 12 ? 'AM' : 'PM'}`
     
+    // find the taken dates
     const unavailableTeeDates = props.isSearching ? props.data.userTeeTimes.map(teeTime => teeTime.date) : props.data.allTeeTimes.map(teeTime => teeTime.date) 
+    // find remaining dates
     const availableTeeDates = findAvailableTeeDates().filter(teeDate => !unavailableTeeDates.includes(teeDate))
+    // create arrays to store available options
     const availableMonths = []
     const availableDays = []
     const availableHours = []
     const availableMinutes = []
+    // add available options to arrays if they do not already contain them
     availableTeeDates.forEach(teeDate => {
         availableMonths.includes(teeDate.getMonth()) || availableMonths.push(teeDate.getMonth())
         availableDays.includes(teeDate.getDate()) || availableDays.push(teeDate.getDate())
         availableHours.includes(teeDate.getHours()) || availableHours.push(teeDate.getHours())
         availableMinutes.includes(teeDate.getMinutes()) || availableMinutes.push(teeDate.getMinutes())
     })
+    availableMonths.sort((monthA, monthB) => monthA - monthB)
+    availableDays.sort((dayA, dayB) => dayA - dayB)
+    availableHours.sort((hourA, hourB) => hourA - hourB)
+    availableMinutes.sort((minuteA, minuteB) => minuteA - minuteB)
     return (
         <form className={`TeeTimeForm${props.selectedTeeTime._id ? ' selectedTeeTimeForm' : ''}`} 
         onSubmit={event => {
