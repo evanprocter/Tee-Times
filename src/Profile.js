@@ -37,17 +37,17 @@ export default class Profile extends Component {
                 fr.onload = () => {
                     // update the user
                     props.updateUser({
-                        ...props.data.user,
+                        _id: props.data.user._id,
                         newUsername,
                         currentPassword,
                         newPassword,
-                        newPicture: new Uint8Array(fr.result)
+                        newPicture: fr.result
                     })
                 }
                 event.target.newPicture.files[0] ?
-                fr.readAsArrayBuffer(event.target.newPicture.files[0]) :
+                fr.readAsBinaryString(event.target.newPicture.files[0]) :
                 props.updateUser({
-                    ...props.data.user,
+                    _id: props.data.user._id,
                     newUsername,
                     currentPassword,
                     newPassword,

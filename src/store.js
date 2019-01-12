@@ -160,13 +160,14 @@ export const requestData = () => {
 }
 
 export const receiveData = (data) => {
+    console.log(btoa(new Uint8Array(data.user.picture.data)))
     return {
         ...RECEIVE_DATA,
         data: {
             ...data,
             user: {
                 ...data.user,
-                pictureSrc: data.user.picture && `data:image/png;base64,${btoa(new Uint8Array(data.user.picture.data))}`
+                pictureSrc: data.user.picture && `data:image/png;base64,${btoa(Buffer.from(new Uint8Array(data.user.picture.data)).toString('base64'))}`
             }
         },
         isLoading: false
@@ -174,7 +175,6 @@ export const receiveData = (data) => {
 }
 
 export const updateUser = (user) => {
-    console.log(user)
     fetch('/updateUser', {
         method: 'post',
         body: JSON.stringify(user),
