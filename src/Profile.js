@@ -30,24 +30,27 @@ export default class Profile extends Component {
         <form className='Profile'
             onSubmit={event => {
                 event.preventDefault()
-                console.log(event.target.newPicture.files[0])
                 const newUsername = event.target.newUsername.value
                 const currentPassword = event.target.currentPassword.value
                 const newPassword = event.target.newPassword.value
-                const newPicture = event.target.newPicture.files[0]
-                // update the user
-                props.updateUser({
-                    ...props.data.user,
-                    newUsername,
-                    currentPassword,
-                    newPassword,
-                    newPicture
-                })
-                this.setState({
-                    newPassword: '',
-                    usernameSearchTerm: '',
-                    pictureUploaded: false,
-                }, () => event.target.newPicture.value = '')
+                const fr = new FileReader()
+                fr.onload = () => {
+                    // update the user
+                    props.updateUser({
+                        ...props.data.user,
+                        newUsername,
+                        currentPassword,
+                        newPassword,
+                        newPicture: fr.result
+                    })
+                    this.setState({
+                        newPassword: '',
+                        usernameSearchTerm: '',
+                        pictureUploaded: false,
+                    })
+                    event.target.newPicture.value = ''
+                }
+                fr.readAsDataURL(event.target.newPicture.files[0])
             }}
             onReset={() => this.setState({newPassword: '', usernameSearchTerm: '', pictureUploaded: false})}
         >
