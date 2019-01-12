@@ -9,9 +9,9 @@ export default function TeeTimeForm(props) {
     const teeTimeDateString = date && `${date.month + 1}-${date.day}-${date.year}, ${date.hours % 12}:${date.minutes.toString().length > 1 ? date.minutes : `0${date.minutes}`} ${date.hours < 12 ? 'AM' : 'PM'}`
     
     // find the taken dates
-    const unavailableTeeDates = props.isSearching ? props.data.userTeeTimes.map(teeTime => teeTime.date) : props.data.allTeeTimes.map(teeTime => teeTime.date) 
+    const unavailableTeeDates = props.data.allTeeTimes.map(teeTime => new Date(teeTime.date))
     // find remaining dates, these are strings and can be compared directly
-    const availableTeeDates = findAvailableTeeDates().filter(teeDate => !unavailableTeeDates.includes(teeDate))
+    const availableTeeDates = props.isSearching ? unavailableTeeDates : findAvailableTeeDates().filter(teeDate => !unavailableTeeDates.includes(teeDate))
     // create arrays to store available options
     const availableMonths = []
     const availableDays = []
@@ -54,7 +54,7 @@ export default function TeeTimeForm(props) {
                             {!props.isAdmin ? 
                             (props.teeTimeSearch.date.month) : 
                             (<select name='teeMonth' onChange={event => updateForm(event, props)}>
-                                {availableMonths.map(teeMonth => <option key={teeMonth || -1} value={teeMonth}>{`${monthStrings[teeMonth]}`}</option>)}
+                                {availableMonths.map(teeMonth => <option key={teeMonth} value={teeMonth}>{`${monthStrings[teeMonth]}`}</option>)}
                             </select>)}
                         </label>
                     </>
@@ -62,7 +62,7 @@ export default function TeeTimeForm(props) {
                 <label>
                     Day:
                     <select name='teeDay' onChange={event => updateForm(event, props)}>
-                        {availableDays.map(teeDay => <option key={teeDay || -1} value={teeDay}>{`${teeDay}`}</option>)}
+                        {availableDays.map(teeDay => <option key={teeDay} value={teeDay}>{`${teeDay}`}</option>)}
                     </select>
                 </label>
                 {props.teeTimeSearch.day || (
@@ -70,7 +70,7 @@ export default function TeeTimeForm(props) {
                         <label>
                             Hour:
                             <select name='teeHour' onChange={event => updateForm(event, props)}>
-                                {availableHours.map(teeHour => <option key={teeHour || -1} value={teeHour}>{`${teeHour % 12 || 12} ${teeHour < 12 ? 'AM' : 'PM'}`}</option>)}
+                                {availableHours.map(teeHour => <option key={teeHour} value={teeHour}>{`${teeHour % 12 || 12} ${teeHour < 12 ? 'AM' : 'PM'}`}</option>)}
                             </select>
                         </label>
                         {props.teeTimeSearch.hours || (
