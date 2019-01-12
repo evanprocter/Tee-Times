@@ -40,7 +40,7 @@ export default class Profile extends Component {
                         autoComplete='off'
                         onFocus={() => {
                             this.setState({
-                                settingPassword: ''
+                                newPassword: ''
                             })
                         }}
                     />
@@ -67,9 +67,11 @@ export default class Profile extends Component {
                     <input 
                         type='text' name='newPassword'
                         placeholder={'new password'}
-                        // value={this.state.friendSearchTerm}
+                        value={this.state.newPassword}
                         onChange={event => {
-                            this.setState({newPassword: event.target.value})
+                            this.setState({
+                                newPassword: event.target.value
+                            })
                         }}
                         onFocus={() => {
                             this.setState({
