@@ -8,6 +8,7 @@ export default class Profile extends Component {
             usernameSearchTerm: ''
         }
     }
+
     render() {
     const {props} = this
     const submitDiv = (
@@ -38,6 +39,10 @@ export default class Profile extends Component {
                     newUsername,
                     currentPassword,
                     newPassword
+                })
+                this.setState({
+                    newPassword: '',
+                    usernameSearchTerm: ''
                 })
             }}
         >
