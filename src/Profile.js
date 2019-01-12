@@ -50,6 +50,7 @@ export default class Profile extends Component {
                 })
                 event.target.newPicture.value = ''
             }}
+            onReset={() => this.setState({newPassword: '', usernameSearchTerm: '', pictureUploaded: false})}
         >
             {/* should change password, username, profile pic */}
             {/* form with inputs labeled with current values*/}
