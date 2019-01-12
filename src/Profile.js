@@ -1,6 +1,15 @@
-import React from 'react'
+import React, {Component} from 'react'
 
-export default function Profile(props) {
+export default class Profile extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            settingPassword: false,
+            friendSearchTerm: ''
+        }
+    }
+    render() {
+    const {props} = this
     const submitButton = <input type='submit' value='submit'/>
     return (
         <form className='Profile'>
@@ -22,24 +31,55 @@ export default function Profile(props) {
                     <input 
                         type='text' name='friendName'
                         placeholder={'new username'}
-                        value={props.friendSearchTerm}
-                        onChange={event => props.updateFriendSearch(event.target.value)}
+                        value={this.state.friendSearchTerm}
+                        onChange={event => {
+                            this.setState({
+                                friendSearchTerm: event.target.value,
+                            })
+                        }}
                         autoComplete='off'
+                        onFocus={() => {
+                            this.setState({
+                                settingPassword: false
+                            })
+                        }}
                     />
                 </label>
-                {!props.data.allUsers.find(user => user.name.toLowerCase() === props.friendSearchTerm.toLowerCase()) &&
+                {(!props.data.allUsers.find(user => user.name.toLowerCase() === this.state.friendSearchTerm.toLowerCase()) &&
+                this.state.friendSearchTerm) &&
                 submitButton}
             </div>
             <div className='changePassword'>
-                <label>
-                    Change password:
-                    <input />
-                </label>    
+                <label>Change Password</label>
+                    
                 <label>
                     Current password:
-                    <input />
+                    <input
+                        type='text' name='currentPassword'
+                        placeholder={'current password'}
+                        // value={this.state.friendSearchTerm}
+                        // onChange={event => props.updateFriendSearch(event.target.value)}
+                        autoComplete='off'
+                    />
                 </label>
+                <label>
+                    New password:
+                    <input 
+                        type='text' name='newPassword'
+                        placeholder={'new password'}
+                        // value={this.state.friendSearchTerm}
+                        // onChange={event => props.updateFriendSearch(event.target.value)}
+                        onFocus={() => {
+                            this.setState({
+                                settingPassword: true,
+                                friendSearchTerm: ''
+                            })
+                        }}
+                        autoComplete='off'
+                    />
+                </label>
+                {this.state.settingPassword && submitButton}
             </div>
         </form>
-    )
+    )}
 }
