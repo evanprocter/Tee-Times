@@ -19,8 +19,6 @@ export default class Profile extends Component {
                 <input
                     type='text' name='currentPassword'
                     placeholder={'current password'}
-                    // value={this.state.usernameSearchTerm}
-                    // onChange={event => props.updateFriendSearch(event.target.value)}
                     autoComplete='off'
                 />
             </label>
@@ -31,7 +29,7 @@ export default class Profile extends Component {
         <form className='Profile'
             onSubmit={event => {
                 event.preventDefault()
-                console.log(event.target.newPicture)
+                console.log(event.target.newPicture.value)
                 const newUsername = event.target.newUsername.value
                 const currentPassword = event.target.currentPassword.value
                 const newPassword = event.target.newPassword.value
@@ -46,8 +44,10 @@ export default class Profile extends Component {
                 })
                 this.setState({
                     newPassword: '',
-                    usernameSearchTerm: ''
+                    usernameSearchTerm: '',
+                    pictureUploaded: false,
                 })
+                event.target.newPicture.value = ''
             }}
         >
             {/* should change password, username, profile pic */}
@@ -55,8 +55,8 @@ export default class Profile extends Component {
             <div className='changePicture'>
                 <label>
                     {/* // change profile pic */}
-                    <img src={props.data.user.picture} alt='user profile'/>
-                    <input type='file' name='picture' accept='image/*' onChange={() => this.setState({pictureUploaded: true})}/>
+                    {/* <img src={props.data.user.picture} alt='user profile'/> */}
+                    <input type='file' name='newPicture' accept='image/*' onChange={() => this.setState({pictureUploaded: true})}/>
                 </label>
                 {this.state.pictureUploaded && submitDiv}
             </div>
