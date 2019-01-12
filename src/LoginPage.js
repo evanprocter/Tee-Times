@@ -6,7 +6,6 @@ export default function LoginPage(props) {
             onSubmit={event => {
                 event.preventDefault()
                 props.loginUser(event.target.name.value, event.target.password.value)
-                props.history.push('/')
             }}
         >
             <label name='name'> 
@@ -22,7 +21,6 @@ export default function LoginPage(props) {
                 onClick={event => {
                     if (!props.data.allUsers.map(user => user.name).includes(event.target.form[0].value)) {
                         props.addUser(event.target.form[0].value, event.target.form[1].value, 'basic')
-                        props.history.push('/')
                     }
                 }}
             />
@@ -30,7 +28,6 @@ export default function LoginPage(props) {
                 onClick={event => {
                     if (!props.data.allUsers.map(user => user.name).includes(event.target.form[0].value)) {
                         props.addUser(event.target.form[0].value, event.target.form[1].value, 'admin')
-                        props.history.push('/')
                     }
                 }}
             />

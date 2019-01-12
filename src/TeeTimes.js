@@ -15,11 +15,12 @@ export default class TeeTimes extends Component {
         // if they are not logged in && (if they are not at /login && send them to login)
         return (!isLoggedIn && (props.location.pathname !== '/login' && <Redirect to='/login'/>)) ||
         (isLoggedIn && (props.location.pathname === '/login' && <Redirect to='/'/>)) || 
-        (
+        ( 
             <div className="TeeTimes" >
                 {props.isLoading && <LoadingPage />}
                 <Switch>
-                    <Route exact
+                    <Route 
+                        exact
                         path="/login"
                         render={routeProps => <LoginPage {...props}/>}
                     />
