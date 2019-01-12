@@ -4,8 +4,9 @@ export default class Profile extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            pictureUploaded: false,
             newPassword: '',
-            usernameSearchTerm: ''
+            usernameSearchTerm: '',
         }
     }
 
@@ -30,15 +31,18 @@ export default class Profile extends Component {
         <form className='Profile'
             onSubmit={event => {
                 event.preventDefault()
+                console.log(event.target.newPicture)
                 const newUsername = event.target.newUsername.value
                 const currentPassword = event.target.currentPassword.value
                 const newPassword = event.target.newPassword.value
+                const newPicture = event.target.newPicture.value
                 // update the user
                 props.updateUser({
                     ...props.data.user,
                     newUsername,
                     currentPassword,
-                    newPassword
+                    newPassword,
+                    newPicture
                 })
                 this.setState({
                     newPassword: '',
@@ -48,11 +52,14 @@ export default class Profile extends Component {
         >
             {/* should change password, username, profile pic */}
             {/* form with inputs labeled with current values*/}
-            <label>
-                {/* // change profile pic */}
-                <img src={props.data.user.picture} alt='user profile'/>
-                <input type='file' name='picture' accept='image/*'/>
-            </label>
+            <div className='changePicture'>
+                <label>
+                    {/* // change profile pic */}
+                    <img src={props.data.user.picture} alt='user profile'/>
+                    <input type='file' name='picture' accept='image/*' onChange={() => this.setState({pictureUploaded: true})}/>
+                </label>
+                {this.state.pictureUploaded && submitDiv}
+            </div>
             <div className='changeUsername'>
                 <label>
                     Current username:
