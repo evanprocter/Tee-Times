@@ -62,7 +62,8 @@ export default function TeeTimeForm(props) {
                 )}
                 <label>
                     Day:
-                    <select name='teeDay' onChange={event => updateForm(event, props)}>
+                    <select name='teeDay' value={props.teeTimeSearch.date.day} onChange={event => updateForm(event, props)}>
+                        {props.isSearching && <option value='0'> - </option>}
                         {availableDays.map(teeDay => <option key={teeDay} value={teeDay}>{`${teeDay}`}</option>)}
                     </select>
                 </label>
@@ -70,15 +71,17 @@ export default function TeeTimeForm(props) {
                     <>
                         <label>
                             Hour:
-                            <select name='teeHour' onChange={event => updateForm(event, props)}>
+                            <select name='teeHour' value={props.teeTimeSearch.date.hours} onChange={event => updateForm(event, props)}>
+                                {props.isSearching && <option value='0'> - </option>}
                                 {availableHours.map(teeHour => <option key={teeHour} value={teeHour}>{`${teeHour % 12 || 12} ${teeHour < 12 ? 'AM' : 'PM'}`}</option>)}
                             </select>
                         </label>
                         {props.teeTimeSearch.hours || (
                             <label>
                                 Minute:
-                                <select name='teeMinute' onChange={event => updateForm(event, props)}>
-                                     {availableMinutes.map(teeMinute => <option key={teeMinute} value={teeMinute}>{`${teeMinute.toString().length > 1 ? teeMinute : `0${teeMinute}`}`}</option>)}
+                                <select name='teeMinute' value={props.teeTimeSearch.date.minutes} onChange={event => updateForm(event, props)}>
+                                    {props.isSearching && <option value='0'> - </option>}
+                                    {availableMinutes.map(teeMinute => <option key={teeMinute} value={teeMinute}>{`${teeMinute.toString().length > 1 ? teeMinute : `0${teeMinute}`}`}</option>)}
                                 </select>
                             </label>
                         )}

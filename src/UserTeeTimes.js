@@ -17,9 +17,6 @@ export default function UserTeeTimes(props) {
                 const {year, month, day, hours, minutes} = props.teeTimeSearch.date
                 const teeTimeSearchDate = new Date(year, month, day, hours, minutes)
                 // if there is a date selected and it matches
-                console.log(teeTimeSearchDate.getTime())
-                console.log(new Date(0,0,0,0,0).getTime())
-                console.log(teeTimeSearchDate.getTime() === new Date(0, 0, 0, 0, 0).getTime())
                 if (teeTimeSearchDate.getTime() !== new Date(0, 0, 0, 0, 0).getTime() && teeTimeDate.getTime() !== teeTimeSearchDate.getTime()) {return false}
             } else if (field === 'golfers') {
                 const matchingGolfers = teeTime[field].filter(golfer => props.teeTimeSearch[field].map(golfer => golfer._id).includes(golfer._id))
