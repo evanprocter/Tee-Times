@@ -28,9 +28,6 @@ const mapDispatchToProps = (dispatch) => {
         updateUser: (user) => {
             dispatch(actions.updateUser(user))
         },
-        getCorrectDate: (isAdmin) => {
-            dispatch(actions.getCorrectDate(isAdmin))
-        },
         selectTeeTime: (teeTime) => {
             dispatch(actions.selectTeeTime(teeTime))
         },

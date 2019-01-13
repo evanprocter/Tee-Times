@@ -1,5 +1,4 @@
 import React from 'react'
-import {getCorrectDate} from './store'
 
 export default function TeeTimeForm(props) {
     // this determines the number of golfers allowed
@@ -131,11 +130,48 @@ export default function TeeTimeForm(props) {
     )
 }
 
+export const getCorrectDate = (isAdmin) => {
+    // need to set this to within club hours here
+    const currentDate = new Date()
+    const date = {
+        year: currentDate.getFullYear(),
+        month: currentDate.getMonth(),
+        day: currentDate.getDate(),
+        dayOfTheWeek: currentDate.getDay(),
+        hours: currentDate.getHours(),
+        minutes: currentDate.getMinutes()
+    }
+    if (!isAdmin) {
+        // set year, months, day   holidays?
+        // e.g. they are closed on monday
+        // if (date.dayOfTheWeek === 1) {
+        //     currentDate.setDate(currentDate.getDate() + 1)
+        //     date.dayOfTheWeek = currentDate.getDay()
+        //     date.day = currentDate.getDate()
+        // } else 
+        // if after 4 PM
+        if (date.hours > 16) {
+            // set hours
+            // go to next day
+            currentDate.setDate(currentDate.getDate() + 1)
+            date.day = currentDate.getDate()
+            date.dayOfTheWeek = currentDate.getDay()
+            date.hours = 8
+            date.minutes = 0
+        }
+        // set minutes
+        date.minutes % 10 === 0 || (date.minutes = date.minutes + (10 - (date.minutes % 10)))
+    }
+    return date
+}
+
 function findAvailableTeeDates(props) {
     const {teeTimeSearch, isAdmin} = props
     // this function filters all tee dates for those that match teetimesearch
+    // create new array to hold available tee times
     const availableTeeDates = []
-    const {year, month, day, hours, minutes} = getCorrectDate(isAdmin).date
+    // get dateFields out of corrected date
+    const {year, month, day, hours, minutes} = getCorrectDate(isAdmin)
     const currentDate = new Date(year, month, day, hours, minutes)
     const {date} = teeTimeSearch
     // this is where we could grant admin privileges to add tee times a year in advance
