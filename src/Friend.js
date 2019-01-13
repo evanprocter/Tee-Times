@@ -3,6 +3,7 @@ import React from 'react'
 export default function Friend(props) {
     return (
         <div className='Friend'>
+            <img src={props.golfer.pictureSrc} alt={`User's friend ${props.golfer.name}`}/>
             <h4>{props.golfer.name}</h4>
             {/* depending on relationship, show various buttons */}
             {((!props.data.userFriends.map(friend => friend._id).includes(props.golfer._id) 
