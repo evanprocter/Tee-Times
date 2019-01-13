@@ -181,11 +181,13 @@ export const getCorrectDate = (isAdmin) => {
     if (!isAdmin) {
         // set year, months, day   holidays?
         // e.g. they are closed on monday
-        if (date.dayOfTheWeek === 1) {
-            currentDate.setDate(currentDate.getDate() + 1)
-            date.dayOfTheWeek = currentDate.getDay()
-            date.day = currentDate.getDate()
-        } else if (date.hours > 16) {
+        // if (date.dayOfTheWeek === 1) {
+        //     currentDate.setDate(currentDate.getDate() + 1)
+        //     date.dayOfTheWeek = currentDate.getDay()
+        //     date.day = currentDate.getDate()
+        // } else 
+        // if after 4 PM
+        if (date.hours > 16) {
             // set hours
             // go to next day
             currentDate.setDate(currentDate.getDate() + 1)
