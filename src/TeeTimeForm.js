@@ -123,7 +123,7 @@ const getPossibleTeeDates = (props) => {
     let possibleTeeDates = []
     const currentDate = new Date()
     // this is where we could grant admin privileges to add tee times a year in advance
-    const cutoffDate = isAdmin ? new Date().getDate() + 30 : new Date().getDate() + 3
+    const cutoffDate = isAdmin ? new Date().getDate() + 30 : new Date().getDate() + 2
     while (currentDate.getDate() < cutoffDate) {
         possibleTeeDates.push(new Date(currentDate))
         currentDate.setMinutes(currentDate.getMinutes() + 10)

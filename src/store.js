@@ -7,6 +7,7 @@ setInterval(() => {
 export const getCorrectDate = (isAdmin, currentDate) => {
     // need to set this to within club hours here
     // const currentDate = new Date()
+    console.log(currentDate)
     const date = {
         year: currentDate.getFullYear(),
         month: currentDate.getMonth(),
@@ -15,13 +16,16 @@ export const getCorrectDate = (isAdmin, currentDate) => {
         hours: currentDate.getHours(),
         minutes: currentDate.getMinutes()
     }
+    console.log(date)
     if (!isAdmin) {
         // set year, months, day   holidays?
         // e.g. they are open 8 AM - 4 PM
-        if (date.hours > 16) {
+        if (date.hours >= 16) {
             // set hours
             // go to next day
             currentDate.setDate(currentDate.getDate() + 1)
+            currentDate.setHours(8)
+            currentDate.setMinutes(0)
             date.day = currentDate.getDate()
             date.dayOfTheWeek = currentDate.getDay()
             date.hours = 8
@@ -32,6 +36,7 @@ export const getCorrectDate = (isAdmin, currentDate) => {
         // set hour to next if min === 60
         date.minutes === 60 && ((date.hours += 1) && (date.minutes = 0))
     }
+    console.log(date)
     return date
 }
 
