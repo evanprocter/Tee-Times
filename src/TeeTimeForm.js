@@ -121,42 +121,39 @@ const findAvailableTeeDates = (props) => {
     // get dateFields out of corrected date
     const {year, month, day, hours, minutes} = getCorrectDate(isAdmin)
     const currentDate = new Date(year, month, day, hours, minutes)
-    const {date} = teeTimeSearch
     // this is where we could grant admin privileges to add tee times a year in advance
     const cutoffDate = isAdmin ? new Date().getDate() + 30 : new Date().getDate() + 3
     while (currentDate.getDate() < cutoffDate) {
         availableTeeDates.push(new Date(currentDate))
         currentDate.setMinutes(currentDate.getMinutes() + 10)
     } 
-    availableTeeDates = availableTeeDates.filter(teeDate => {
-                                        for (let dateField in date) {
-                                            console.log(dateField)
-                                            switch (dateField) {
-                                                case 'year':
-                                                if (teeDate.getFullYear() !== date[dateField]) {return false}
-                                                break
-                                                case 'month':
-                                                if (teeDate.getMonth() !== date[dateField]) {return false }
-                                                break
-                                                case 'day':
-                                                if (teeDate.getDate() !== date[dateField]) {
-                                                    console.log(teeDate)
-                                                    return false
-                                                }
-                                                break
-                                                case 'hours':
-                                                if (teeDate.getHours() !== date[dateField]) {return false}
-                                                break
-                                                case 'minutes':
-                                                if (teeDate.getMinutes() !== date[dateField]) {return false}
-                                                break
-                                                default:
-                                                return true
-                                            }
-                                        }
-                                        return true
-                                    })
-    console.log(availableTeeDates)
+    console.log(teeTimeSearch)
+    availableTeeDates = availableTeeDates
+    .filter(teeDate => {
+        const {date} = teeTimeSearch
+            for (let dateField in date) {
+                switch (dateField) {
+                    case 'year':
+                    if (teeDate.getFullYear() !== date[dateField]) {return false}
+                    break
+                    case 'month':
+                    if (teeDate.getMonth() !== date[dateField]) {return false }
+                    break
+                    case 'day':
+                    if (teeDate.getDate() !== date[dateField]) {return false}
+                    break
+                    case 'hours':
+                    if (teeDate.getHours() !== date[dateField]) {return false}
+                    break
+                    case 'minutes':
+                    if (teeDate.getMinutes() !== date[dateField]) {return false}
+                    break
+                    default:
+                    return true
+                }
+            }
+            return true
+        })
     return availableTeeDates
 }
 
@@ -180,8 +177,7 @@ const getAvailableOptions = (availableTeeDates) => {
     return {availableMonths, availableDays, availableHours, availableMinutes}
 }
     
-const updateForm = (event) => {
-    const {props} = this
+const updateForm = (event, props) => {
     // TeeType
     // if this checkbox was checked, apply the value, otherwise apply the old value, unless searching
     const teeType = (event.target.checked && event.target.value) || (props.isSearching ? '' : props.teeTimeSearch.teeType)
@@ -191,9 +187,11 @@ const updateForm = (event) => {
     const year = currentDate.getFullYear() //event.target.form.teeYear.value
     const month = props.isAdmin ? parseInt(event.target.form.teeMonth.value) : currentDate.getMonth()
     const day = parseInt(event.target.form.teeDay.value)
+    currentDate.setDate(day)
+    const dayOfTheWeek = currentDate.getDay()
     const hours = parseInt(event.target.form.teeHour.value)
     const minutes = parseInt(event.target.form.teeMinute.value)
-    const date = {year, month, day, hours, minutes}
+    const date = {year, month, day, dayOfTheWeek, hours, minutes}
 
     // Golfers
     const selectedGolferIDs = []
@@ -214,9 +212,6 @@ const updateForm = (event) => {
 
     // Update the teeTimeSearch control in store
     props.updateTeeTimeSearch(newTeeTime)
-
-    // find new availability based on new TeeTimeSearch
-    // should update automatically
 
     // update the users tee time if one was selected
     // overwrite date field below to create genuine Date() object
