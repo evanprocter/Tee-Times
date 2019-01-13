@@ -7,10 +7,9 @@ export default function TeeTimeForm(props) {
     
     const monthStrings = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     const {date} = props.teeTimeSearch
-    for (let dateField in date) {date[dateField] = date[dateField].toString()}
     const teeTimeDateString = (props.selectedTeeTime._id || !props.isSearching) && 
     // convert string out of military time
-    `${date.month + 1}-${date.day}-${date.year}, ${date.hours % 12 || 12}:${date.minutes.length > 1 ? date.minutes : `0${date.minutes}`} ${date.hours < 12 ? 'AM' : 'PM'}`
+    `${date.month + 1}-${date.day}-${date.year}, ${date.hours % 12 || 12}:${date.minutes > 9 ? date.minutes : `0${date.minutes}`} ${date.hours < 12 ? 'AM' : 'PM'}`
     
     // find the taken dates
     const unavailableTeeDates = props.data.allTeeTimes.map(teeTime => new Date(teeTime.date))
