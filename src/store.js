@@ -1,20 +1,7 @@
 import { createStore } from 'redux';
 
-function getCorrectDate({isAdmin, currentDate}) {
+function getCorrectDate(isAdmin) {
     // need to set this to within club hours here
-    if (!isAdmin) {
-        // set year, months, day   holidays?
-        // e.g. they are closed on monday
-        currentDate.dayOfTheWeek === 1 && (currentDate.dayOfTheWeek = 2)
-        // set hours
-        currentDate.hours > 16 && ((currentDate.hours = 8) && (currentDate.minutes = 0))
-        // set minutes
-        currentDate.minutes % 10 === 0 || (currentDate.minutes = currentDate.minutes + (10 - (currentDate.minutes % 10)))
-    }
-    return currentDate
-}
-
-function getCurrentDate() {
     const currentDate = new Date()
     const date = {
         year: currentDate.getFullYear(),
@@ -24,15 +11,34 @@ function getCurrentDate() {
         hours: currentDate.getHours(),
         minutes: currentDate.getMinutes()
     }
+    if (!isAdmin) {
+        // set year, months, day   holidays?
+        // e.g. they are closed on monday
+        if (date.dayOfTheWeek === 1) {
+            currentDate.setDate(currentDate.getDate() + 1)
+            date.dayOfTheWeek = currentDate.getDay()
+            date.day = currentDate.getDate()
+        } else if (date.hours > 16) {
+            // set hours
+            // go to next day
+            currentDate.setDate(currentDate.getDate() + 1)
+            date.day = currentDate.getDate()
+            date.dayOfTheWeek = currentDate.getDay()
+            date.hours = 8
+            date.minutes = 0
+        }
+        // set minutes
+        date.minutes % 10 === 0 || (date.minutes = date.minutes + (10 - (date.minutes % 10)))
+    }
     return date
 }
 
 setInterval(() => {
-    store.dispatch(updateTime(getCurrentDate()))
+    store.dispatch(updateTime(getCorrectDate(true)))
 }, 1000)
 
 const defaultState = {
-    currentDate: getCurrentDate(),
+    currentDate: getCorrectDate(true),
     data: {
         user: {},
         userFriends: [],
@@ -53,12 +59,12 @@ const defaultState = {
     teeTimeSearch: {
         teeType: 'walk',
         date: {
-            year: getCorrectDate({isAdmin: false, currentDate: getCurrentDate()}).year,
-            month: getCorrectDate({isAdmin: false, currentDate: getCurrentDate()}).month,
-            day: getCorrectDate({isAdmin: false, currentDate: getCurrentDate()}).day,
-            dayOfTheWeek: getCorrectDate({isAdmin: false, currentDate: getCurrentDate()}).dayOfTheWeek,
-            hours: getCorrectDate({isAdmin: false, currentDate: getCurrentDate()}).hours,
-            minutes: getCorrectDate({isAdmin: false, currentDate: getCurrentDate()}).minutes
+            year: getCorrectDate(false).year,
+            month: getCorrectDate(false).month,
+            day: getCorrectDate(false).day,
+            dayOfTheWeek: getCorrectDate(false).dayOfTheWeek,
+            hours: getCorrectDate(false).hours,
+            minutes: getCorrectDate(false).minutes
         },
         golfers: [],
         guests: 0
@@ -397,7 +403,7 @@ const teeTimes = (state=defaultState, action) => {
             currentDate: action.currentDate,
             teeTimeSearch: {
                 ...state.teeTimeSearch,
-                date: getCorrectDate({isAdmin: state.isAdmin, currentDate: action.currentDate})
+                date: getCorrectDate(state.isAdmin)
             }
         }
         case ADD_TEE_TIME.type:
