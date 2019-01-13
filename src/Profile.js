@@ -69,7 +69,7 @@ export default class Profile extends Component {
             <div className='changePicture'>
                 <label>
                     Change picture:
-                    {/* <img src={props.data.user.picture} alt='user profile'/> */}
+                    <img src={props.data.user.pictureSrc} alt='user profile'/>
                     <input 
                         type='file' name='newPicture' accept='image/*' 
                         onChange={() => this.setState({pictureUploaded: true})}
