@@ -4,8 +4,8 @@ import {getTeeTimeDate} from './store'
 export default function TeeTimeForm(props){        
     // this determines the number of golfers allowed
     const memberCount = (props.teeTimeSearch.golfers && props.teeTimeSearch.golfers.length) || 0
-    const guestMax = props.data.user.userType === 'admin' ? 4 - memberCount : 3 - memberCount
-    
+    const guestMax = props.isAdmin ? 4 - memberCount : 3 - memberCount
+
     const monthStrings = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     const dayStrings = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     const {date} = props.teeTimeSearch
@@ -100,7 +100,7 @@ export default function TeeTimeForm(props){
             Number of guests:
             <input type="number" name="guests" 
             min="0" 
-            max={`${guestMax}`} 
+            max={guestMax + 1} 
             value={props.teeTimeSearch.guests || 0} 
             onChange={event => updateForm(event, props)}/>
             {!(props.selectedTeeTime._id || 
@@ -181,7 +181,7 @@ const updateForm = (event, props) => {
 
     // Guests
     const memberCount = golfers.length
-    const guestMax = props.isAdmin ? 4 - memberCount : 3 - memberCount
+    const guestMax = props.isAdmin ? 5 - memberCount : 4 - memberCount
     const guestCount = parseInt(event.target.form.guests.value)
     const guests = guestCount > guestMax ? guestMax : guestCount
 
