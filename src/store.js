@@ -160,8 +160,6 @@ export const requestData = () => {
 }
 
 export const receiveData = (data) => {
-    console.log(Buffer.from(data.user.picture.data).toString('base64'))
-    console.log(data.user.picture && btoa(data.user.picture.data))
     return {
         ...RECEIVE_DATA,
         data: {
