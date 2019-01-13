@@ -399,8 +399,8 @@ const teeTimes = (state=defaultState, action) => {
         return {
             ...state,
             currentDate: action.currentDate,
-            // update teeTimeSearch if it is less than currentTime
-            teeTimeSearch: {
+            // update teeTimeSearch if it is less than currentTime and not currently searching
+            teeTimeSearch: !state.isSearching ? {
                 ...state.teeTimeSearch,
                 date: {
                     year: state.teeTimeSearch.date.year < action.currentDate.getFullYear() ? action.currentDate.getFullYear() : state.teeTimeSearch.date.year,
@@ -410,7 +410,7 @@ const teeTimes = (state=defaultState, action) => {
                     hours: state.teeTimeSearch.date.hours< action.currentDate.getHours() ? action.currentDate.getHours() : state.teeTimeSearch.date.hours,
                     minutes: state.teeTimeSearch.date.minutes < action.currentDate.getMinutes() ? action.currentDate.getMinutes() : state.teeTimeSearch.date.minutes,
                 }
-            }
+            } : state.teeTimeSearch
         }
         case ADD_TEE_TIME.type:
         return {
