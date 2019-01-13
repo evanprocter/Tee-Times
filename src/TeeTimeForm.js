@@ -1,4 +1,5 @@
 import React from 'react'
+import {getCorrectDate} from './store'
 
 export default function TeeTimeForm(props){        
     // this determines the number of golfers allowed
@@ -19,6 +20,7 @@ export default function TeeTimeForm(props){
     unavailableTeeDates : 
     findAvailableTeeDates(props).filter(teeDate => !unavailableTeeDates.includes(teeDate))
     const {availableMonths, availableDays, availableHours, availableMinutes} = getAvailableOptions(availableTeeDates)
+    console.log(findAvailableTeeDates(props))
     return (
         <form className={`TeeTimeForm${props.selectedTeeTime._id ? ' selectedTeeTimeForm' : ''}`} 
         onSubmit={event => {
@@ -115,41 +117,6 @@ export default function TeeTimeForm(props){
     )
 }
 
-const getCorrectDate = (isAdmin) => {
-    // need to set this to within club hours here
-    const currentDate = new Date()
-    const date = {
-        year: currentDate.getFullYear(),
-        month: currentDate.getMonth(),
-        day: currentDate.getDate(),
-        dayOfTheWeek: currentDate.getDay(),
-        hours: currentDate.getHours(),
-        minutes: currentDate.getMinutes()
-    }
-    if (!isAdmin) {
-        // set year, months, day   holidays?
-        // e.g. they are closed on monday
-        // if (date.dayOfTheWeek === 1) {
-        //     currentDate.setDate(currentDate.getDate() + 1)
-        //     date.dayOfTheWeek = currentDate.getDay()
-        //     date.day = currentDate.getDate()
-        // } else 
-        // if after 4 PM
-        if (date.hours > 16) {
-            // set hours
-            // go to next day
-            currentDate.setDate(currentDate.getDate() + 1)
-            date.day = currentDate.getDate()
-            date.dayOfTheWeek = currentDate.getDay()
-            date.hours = 8
-            date.minutes = 0
-        }
-        // set minutes
-        date.minutes % 10 === 0 || (date.minutes = date.minutes + (10 - (date.minutes % 10)))
-    }
-    return date
-}
-
 const findAvailableTeeDates = (props) => {
     const {teeTimeSearch, isAdmin} = props
     // this function filters all tee dates for those that match teetimesearch
@@ -165,6 +132,7 @@ const findAvailableTeeDates = (props) => {
         availableTeeDates.push(currentDate)
         currentDate.setMinutes(currentDate.getMinutes() + 10)
     } 
+    console.log(currentDate.day)
     return availableTeeDates.filter(teeDate => {
                                         for (let dateField in date) {
                                             switch (dateField) {

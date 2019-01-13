@@ -4,7 +4,7 @@ setInterval(() => {
     store.dispatch(updateTime(new Date())) 
 }, 60 * 1000)
 
-const getCorrectDate = (isAdmin) => {
+export const getCorrectDate = (isAdmin) => {
     // need to set this to within club hours here
     const currentDate = new Date()
     const date = {
@@ -35,7 +35,6 @@ const getCorrectDate = (isAdmin) => {
         }
         // set minutes
         date.minutes % 10 === 0 || (date.minutes = date.minutes + (10 - (date.minutes % 10)))
-        date.minutes === 60 && ((date.minutes = 0) && (date.hours += 1))
     }
     return date
 }
