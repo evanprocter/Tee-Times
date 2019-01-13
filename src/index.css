@@ -15,8 +15,9 @@ code {
 
 .LoginPage {
   background:skyblue;
+  display: flex;
+  justify-content: space-around;
 }
-
 
 /* ===============================
 Where the navbar styles reside
@@ -117,8 +118,8 @@ Where the /friends styles reside
 .LoadingPage > img {
   border-radius: 20%; 
   margin: auto;
-  width: 50%;
-  height: 50%;
+  width: 75%;
+  height: 75%;
   opacity: .15;
   transition: ease opacity 5s;
 }
