@@ -125,12 +125,12 @@ const findAvailableTeeDates = (props) => {
     // this is where we could grant admin privileges to add tee times a year in advance
     const cutoffDate = isAdmin ? new Date().getDate() + 30 : new Date().getDate() + 3
     while (currentDate.getDate() < cutoffDate) {
-        availableTeeDates.push(currentDate)
+        availableTeeDates.push(new Date(currentDate))
         currentDate.setMinutes(currentDate.getMinutes() + 10)
     } 
-    console.log(availableTeeDates)
     availableTeeDates = availableTeeDates.filter(teeDate => {
                                         for (let dateField in date) {
+                                            console.log(dateField)
                                             switch (dateField) {
                                                 case 'year':
                                                 if (teeDate.getFullYear() !== date[dateField]) {return false}
@@ -139,7 +139,10 @@ const findAvailableTeeDates = (props) => {
                                                 if (teeDate.getMonth() !== date[dateField]) {return false }
                                                 break
                                                 case 'day':
-                                                if (teeDate.getDate() !== date[dateField]) {return false}
+                                                if (teeDate.getDate() !== date[dateField]) {
+                                                    console.log(teeDate)
+                                                    return false
+                                                }
                                                 break
                                                 case 'hours':
                                                 if (teeDate.getHours() !== date[dateField]) {return false}
