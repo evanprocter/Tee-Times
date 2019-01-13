@@ -191,7 +191,7 @@ export const requestData = () => {
 }
 
 export const receiveData = (data) => {
-   console.log()
+   console.log(data.user.picture && btoa(Buffer.from(data.user.picture.data)))
     return {
         ...RECEIVE_DATA,
         data: {
