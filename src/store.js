@@ -424,6 +424,7 @@ const teeTimes = (state=defaultState, action) => {
         case ADD_TEE_TIME.type:
         return {
             ...state,
+            teeTimeSearch: defaultState.teeTimeSearch,
             isLoading: action.isLoading
         }
         case SELECT_TEE_TIME.type:
