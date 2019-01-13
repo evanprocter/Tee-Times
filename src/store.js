@@ -16,10 +16,10 @@ export const getCorrectDate = (isAdmin, currentDate) => {
         hours: currentDate.getHours(),
         minutes: currentDate.getMinutes()
     }
-    console.log(date)
     if (!isAdmin) {
         // set year, months, day   holidays?
-        // e.g. they are open 8 AM - 4 PM
+        // e.g. they close at 4 PM
+        console.log(date.hours)
         if (date.hours >= 16) {
             // set hours
             // go to next day
@@ -28,15 +28,22 @@ export const getCorrectDate = (isAdmin, currentDate) => {
             currentDate.setMinutes(0)
             date.day = currentDate.getDate()
             date.dayOfTheWeek = currentDate.getDay()
+            date.hours = currentDate.getHours()
+            date.minutes = currentDate.getMinutes()
+        } 
+        console.log(date.hours)
+        // e.g. they open at 8 AM
+        if (date.hours < 8) {
+            currentDate.setHours(8)
             date.hours = 8
             date.minutes = 0
         }
+        console.log(date.hours)
         // set minutes
         date.minutes % 10 === 0 || (date.minutes = date.minutes + (10 - (date.minutes % 10)))
         // set hour to next if min === 60
         date.minutes === 60 && ((date.hours += 1) && (date.minutes = 0))
     }
-    console.log(date)
     return date
 }
 
