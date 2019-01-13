@@ -91,6 +91,27 @@ input[type='button'], input[type='submit'], input[type='reset'] {
   cursor: pointer;
 }
 
+/*=======================================
+  Where the / styles reside (dashboard)
+========================================= */
+
+.Dashboard {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.statusMessages {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.statusMessages > * {
+  padding: 5%;
+}
 
 /* ======================================
   Where the /profile styles reside
@@ -103,12 +124,23 @@ input[type='button'], input[type='submit'], input[type='reset'] {
 /* ======================================
   Where the /teetimes styles reside
 ========================================= */
+.teeTimePage {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
 .selectedTeeTimeForm {
   background-color: aquamarine;
 }
 
 .UserTeeTimes {
   margin: 0 5%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .searchingTeeTimes {

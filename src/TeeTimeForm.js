@@ -13,9 +13,11 @@ export default function TeeTimeForm(props){
     
     // find the taken dates
     const unavailableTeeDates = props.data.allTeeTimes.map(teeTime => new Date(teeTime.date))
+    console.log(unavailableTeeDates)
     // If searching, show tee times that are already taken
     const availableTeeDates = props.isSearching ? unavailableTeeDates : 
-                                    findAvailableTeeDates(props).filter(teeDate => !unavailableTeeDates.includes(teeDate))
+                                    getPossibleTeeDates(props).filter(teeDate => !unavailableTeeDates.includes(teeDate))
+    console.log(availableTeeDates)
     const {availableMonths, availableDays, availableHours, availableMinutes} = getAvailableOptions(availableTeeDates)
     return (
         <form className={`TeeTimeForm${props.selectedTeeTime._id ? ' selectedTeeTimeForm' : ''}`} 
@@ -113,51 +115,23 @@ export default function TeeTimeForm(props){
     )
 }
 
-const findAvailableTeeDates = (props) => {
+const getPossibleTeeDates = (props) => {
     const {isAdmin} = props
     // this function filters all tee dates for those that match teetimesearch
     // create new array to hold available tee times
-    let availableTeeDates = []
+    let possibleTeeDates = []
     const currentDate = new Date()
     // this is where we could grant admin privileges to add tee times a year in advance
     const cutoffDate = isAdmin ? new Date().getDate() + 30 : new Date().getDate() + 3
     while (currentDate.getDate() < cutoffDate) {
-        availableTeeDates.push(new Date(currentDate))
+        possibleTeeDates.push(new Date(currentDate))
         currentDate.setMinutes(currentDate.getMinutes() + 10)
     } 
-    availableTeeDates = availableTeeDates.map(teeDate => {
+    possibleTeeDates = possibleTeeDates.map(teeDate => {
         const {year, month, day, hours, minutes} = getCorrectDate(props.isAdmin, teeDate)
         return new Date(year, month, day, hours, minutes)
     })
-    // .filter(teeDate => {
-    //     const {date} = teeTimeSearch
-    //         console.log(teeTimeSearch)
-    //         for (let dateField in date) {
-    //             switch (dateField) {
-    //                 case 'dayOfTheWeek':
-    //                 break
-    //                 case 'year':
-    //                 if (teeDate.getFullYear() !== date[dateField]) {return false}
-    //                 break
-    //                 case 'month':
-    //                 if (teeDate.getMonth() !== date[dateField]) {return false }
-    //                 break
-    //                 case 'day':
-    //                 if (teeDate.getDate() !== date[dateField]) {return false}
-    //                 break
-    //                 case 'hours':
-    //                 if (teeDate.getHours() !== date[dateField]) {return false}
-    //                 break
-    //                 case 'minutes':
-    //                 if (teeDate.getMinutes() !== date[dateField]) {return false}
-    //                 break
-    //                 default:
-    //                 return true
-    //             }
-    //         }
-    //         return true
-    //     })
-    return availableTeeDates
+    return possibleTeeDates
 }
 
 const getAvailableOptions = (availableTeeDates) => {

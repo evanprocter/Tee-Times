@@ -18,14 +18,17 @@ export default function Dashboard(props) {
                 const currentDate = new Date()
                 props.data.userTeeTimes.sort((teeTimeA, teeTimeB) => new Date(teeTimeA.date).getTime() < new Date(teeTimeB.date).getTime() ? -1 : 1)
                 const upcomingTeeTime = props.data.userTeeTimes.find(teeTime => new Date(teeTime.date) > currentDate)
-                const upcomingTeeTimeMessage = upcomingTeeTime ? `Your next upcoming tee time is:` : "You do not have any current upcoming tee times. Press tee times to add a new one!"
+                const currentTeeTimeMessage = upcomingTeeTime ? `Your next upcoming tee time is:` : 
+                `Your last tee time was:`
                 
                 const friendRequests = props.data.allUsers.filter(user => props.data.user.friendRequests.includes(user._id))
                 const friendRequestsMessage = friendRequests.length > 0 ? `You have ${friendRequests.length} new friend requests.` : 'You have no new friend requests.'
                 return(
-                    <div>
-                        <h4>{upcomingTeeTimeMessage}</h4>
-                        {upcomingTeeTime && <UserTeeTime teeTime={upcomingTeeTime} {...props}/>}
+                    <div className='statusMessages'>
+                        <h4>{currentTeeTimeMessage}</h4>
+                        {upcomingTeeTime ? <UserTeeTime teeTime={upcomingTeeTime} {...props}/> :
+                                <UserTeeTime teeTime={props.data.userTeeTimes[0]} {...props}/>}
+                        {!upcomingTeeTime && <h4>Click Tee Times to make a new one!</h4>}
                         <h4>{friendRequestsMessage}</h4>
                         {friendRequests && friendRequests.map(friend => <Friend key={friend._id} golfer={friend} {...props}/>)}
                     </div>
@@ -40,7 +43,7 @@ export default function Dashboard(props) {
             }}/>
             <Route exact path={'/teetimes'} render= {routeProps => {
                 return(
-                    <div>
+                    <div className='teeTimePage'>
                         <TeeTimeForm {...props}/>
                         <UserTeeTimes {...props}/>
                     </div>
