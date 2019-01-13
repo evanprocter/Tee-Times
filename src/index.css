@@ -117,8 +117,8 @@ input[type='button'], input[type='submit'], input[type='reset'] {
   Where the /profile styles reside
 ========================================= */
 
-.userPicture img {
-  width: 25%;
+.changePicture img {
+  width: 15%;
 }
 
 /* ======================================
@@ -163,6 +163,10 @@ input[type='button'], input[type='submit'], input[type='reset'] {
 /* ===============================
 Where the /friends styles reside
 ================================== */
+
+.Friend img {
+  width: 25%;
+}
 
 /* ===========================
   If we ever need a loading page again

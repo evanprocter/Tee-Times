@@ -69,7 +69,7 @@ export default class Profile extends Component {
         >
             {/* should change password, username, profile pic */}
             {/* form with inputs labeled with current values*/}
-            <div className='userPicture'>
+            <div className='changePicture'>
                 <label>
                     Change picture:
                     <img src={props.data.user.pictureSrc} alt='user profile'/>
