@@ -1,8 +1,16 @@
 import { createStore } from 'redux';
 
-function getCorrectDate() {
-    const currentDate = new Date()
-    currentDate.getMinutes() % 10 === 0 || currentDate.setMinutes(currentDate.getMinutes() + (10 - (currentDate.getMinutes() % 10)))
+function getCorrectDate({isAdmin, currentDate}) {
+    // need to set this to within club hours here
+    if (!isAdmin) {
+        // set year, months, day   holidays?
+        // e.g. they are closed on monday
+        currentDate.dayOfTheWeek === 1 && (currentDate.dayOfTheWeek = 2)
+        // set hours
+        currentDate.hours > 16 && ((currentDate.hours = 8) && (currentDate.minutes = 0))
+        // set minutes
+        currentDate.minutes % 10 === 0 || (currentDate.minutes = currentDate.minutes + (10 - (currentDate.minutes % 10)))
+    }
     return currentDate
 }
 
@@ -12,6 +20,7 @@ function getCurrentDate() {
         year: currentDate.getFullYear(),
         month: currentDate.getMonth(),
         day: currentDate.getDate(),
+        dayOfTheWeek: currentDate.getDay(),
         hours: currentDate.getHours(),
         minutes: currentDate.getMinutes()
     }
@@ -44,11 +53,12 @@ const defaultState = {
     teeTimeSearch: {
         teeType: 'walk',
         date: {
-            year: getCorrectDate().getFullYear(),
-            month: getCorrectDate().getMonth(),
-            day: getCorrectDate().getDate(),
-            hours: getCorrectDate().getHours(),
-            minutes: getCorrectDate().getMinutes()
+            year: getCorrectDate({isAdmin: false, currentDate: getCurrentDate()}).year,
+            month: getCorrectDate({isAdmin: false, currentDate: getCurrentDate()}).month,
+            day: getCorrectDate({isAdmin: false, currentDate: getCurrentDate()}).day,
+            dayOfTheWeek: getCorrectDate({isAdmin: false, currentDate: getCurrentDate()}).dayOfTheWeek,
+            hours: getCorrectDate({isAdmin: false, currentDate: getCurrentDate()}).hours,
+            minutes: getCorrectDate({isAdmin: false, currentDate: getCurrentDate()}).minutes
         },
         golfers: [],
         guests: 0
@@ -384,7 +394,11 @@ const teeTimes = (state=defaultState, action) => {
         case UPDATE_TIME.type:
         return {
             ...state,
-            currentDate: action.currentDate
+            currentDate: action.currentDate,
+            teeTimeSearch: {
+                ...state.teeTimeSearch,
+                date: getCorrectDate({isAdmin: state.isAdmin, currentDate: action.currentDate})
+            }
         }
         case ADD_TEE_TIME.type:
         return {
