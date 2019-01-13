@@ -35,18 +35,31 @@ export default class Profile extends Component {
                 const newPassword = event.target.newPassword.value
                 const fr = new FileReader()
                 fr.onload = () => {
-                    // update the user
-                    props.updateUser({
-                        _id: props.data.user._id,
-                        name: props.data.user.name,
-                        newUsername,
-                        currentPassword,
-                        newPassword,
-                        newPicture: fr.result
-                    })
+                    const canvas = document.createElement('canvas')
+                    const blobURL = window.URL.createObjectURL(new Blob([fr.result]))
+                    const image = document.createElement('img')
+                    image.src = blobURL
+                    const canvasContext = canvas.getContext('2d')
+                    canvasContext.drawImage(image, 100, 100)
+                    canvas.toBlob((imageBlob) => {
+                        const frBlob = new FileReader()
+                        frBlob.onload = () => {
+                            console.log(frBlob.result)
+                            // update the user
+                            props.updateUser({
+                                _id: props.data.user._id,
+                                name: props.data.user.name,
+                                newUsername,
+                                currentPassword,
+                                newPassword,
+                                newPicture: frBlob.result
+                            })
+                        }
+                        frBlob.readAsBinaryString(imageBlob)
+                    }, )
                 }
                 event.target.newPicture.files[0] ?
-                fr.readAsBinaryString(event.target.newPicture.files[0]) :
+                fr.readAsArrayBuffer(event.target.newPicture.files[0]) :
                 props.updateUser({
                     _id: props.data.user._id,
                     name: props.data.user.name,
