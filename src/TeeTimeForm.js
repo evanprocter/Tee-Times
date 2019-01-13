@@ -1,4 +1,5 @@
 import React from 'react'
+import {getCorrectDate} from './store'
 
 export default function TeeTimeForm(props) {
     // this determines the number of golfers allowed
@@ -7,7 +8,7 @@ export default function TeeTimeForm(props) {
     
     const monthStrings = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     const {date} = props.teeTimeSearch
-    for (let dateField in date) {date[dateField] = date[dateField].toString()}
+    // for (let dateField in date) {date[dateField] = date[dateField].toString()}
     const teeTimeDateString = (props.selectedTeeTime._id || !props.isSearching) && 
     // convert string out of military time
     `${date.month + 1}-${date.day}-${date.year}, ${date.hours % 12 || 12}:${date.minutes.length > 1 ? date.minutes : `0${date.minutes}`} ${date.hours < 12 ? 'AM' : 'PM'}`
@@ -15,7 +16,9 @@ export default function TeeTimeForm(props) {
     // find the taken dates
     const unavailableTeeDates = props.data.allTeeTimes.map(teeTime => new Date(teeTime.date))
     // find remaining dates, these are strings and can be compared directly
-    const availableTeeDates = props.isSearching ? unavailableTeeDates : findAvailableTeeDates().filter(teeDate => !unavailableTeeDates.includes(teeDate))
+    const availableTeeDates = props.isSearching ? 
+                            unavailableTeeDates : 
+                            findAvailableTeeDates(props).filter(teeDate => !unavailableTeeDates.includes(teeDate))
     // create arrays to store available options
     const availableMonths = []
     const availableDays = []
@@ -128,24 +131,43 @@ export default function TeeTimeForm(props) {
     )
 }
 
-function findAvailableTeeDates(isAdmin) {
+function findAvailableTeeDates(props) {
+    const {teeTimeSearch, isAdmin} = props
+    // this function filters all tee dates for those that match teetimesearch
     const availableTeeDates = []
-    const currentDate = new Date()
-    currentDate.setMinutes(currentDate.getMinutes() + (10 - (currentDate.getMinutes() % 10)))
-    currentDate.setSeconds(0)
-    currentDate.setMilliseconds(0)
+    const {year, month, day, hours, minutes} = getCorrectDate(isAdmin).date
+    const currentDate = new Date(year, month, day, hours, minutes)
+    const {date} = teeTimeSearch
     // this is where we could grant admin privileges to add tee times a year in advance
-    const cutoffDate = isAdmin ? currentDate.getDate() + 30 : currentDate.getDate() + 3
-    while (currentDate.getDate() < cutoffDate) {
-        availableTeeDates.push(currentDate.toISOString())
+    const cutoffDate = isAdmin ? new Date().getDate() + 30 : new Date().getDate() + 3
+    while (currentDate.day < cutoffDate) {
+        availableTeeDates.push(currentDate)
         currentDate.setMinutes(currentDate.getMinutes() + 10)
-        // this is where we set hours to the right time
-        if (currentDate.getHours() > 16) { 
-            currentDate.setDate(currentDate.getDate() + 1)
-            currentDate.setHours(8) 
-        }
     } 
-    return availableTeeDates.map(teeDate => new Date(teeDate))
+    return availableTeeDates.filter(teeDate => {
+                                        for (let dateField in date) {
+                                            switch (dateField) {
+                                                case 'year':
+                                                if (teeDate.getFullYear() !== date[dateField]) {return false}
+                                                break
+                                                case 'month':
+                                                if (teeDate.getMonth() !== date[dateField]) {return false }
+                                                break
+                                                case 'day':
+                                                if (teeDate.getDate() !== date[dateField]) {return false}
+                                                break
+                                                case 'hours':
+                                                if (teeDate.getHours() !== date[dateField]) {return false}
+                                                break
+                                                case 'minutes':
+                                                if (teeDate.getMinutes() !== date[dateField]) {return false}
+                                                break
+                                                default:
+                                                return true
+                                            }
+                                        }
+                                        return true
+                                    })
 }
 
 const updateForm = (event, props) => {
@@ -173,5 +195,7 @@ const updateForm = (event, props) => {
     const newTeeTime = { teeType, date, golfers, guests }
     props.updateTeeTimeSearch(newTeeTime)
     // overwrite date field below to create genuine Date() object
-    props.selectedTeeTime._id && props.updateTeeTime({...props.selectedTeeTime, ...newTeeTime, date: new Date(year, month, day, hours, minutes)})
-} 
+    props.selectedTeeTime._id && 
+    props.updateTeeTime({...props.selectedTeeTime, ...newTeeTime, date: new Date(year, month, day, hours, minutes)}
+    )
+}

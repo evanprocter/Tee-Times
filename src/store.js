@@ -1,76 +1,8 @@
 import { createStore } from 'redux';
 
-function getCorrectDate(isAdmin) {
-    // need to set this to within club hours here
-    const currentDate = new Date()
-    const date = {
-        year: currentDate.getFullYear(),
-        month: currentDate.getMonth(),
-        day: currentDate.getDate(),
-        dayOfTheWeek: currentDate.getDay(),
-        hours: currentDate.getHours(),
-        minutes: currentDate.getMinutes()
-    }
-    if (!isAdmin) {
-        // set year, months, day   holidays?
-        // e.g. they are closed on monday
-        if (date.dayOfTheWeek === 1) {
-            currentDate.setDate(currentDate.getDate() + 1)
-            date.dayOfTheWeek = currentDate.getDay()
-            date.day = currentDate.getDate()
-        } else if (date.hours > 16) {
-            // set hours
-            // go to next day
-            currentDate.setDate(currentDate.getDate() + 1)
-            date.day = currentDate.getDate()
-            date.dayOfTheWeek = currentDate.getDay()
-            date.hours = 8
-            date.minutes = 0
-        }
-        // set minutes
-        date.minutes % 10 === 0 || (date.minutes = date.minutes + (10 - (date.minutes % 10)))
-    }
-    return date
-}
-
 setInterval(() => {
-    store.dispatch(updateTime(getCorrectDate(true)))
+    store.dispatch(updateTime(new Date()))
 }, 1000)
-
-const defaultState = {
-    currentDate: getCorrectDate(true),
-    data: {
-        user: {},
-        userFriends: [],
-        userTeeTimes: [],
-        allUsers: [],
-        allTeeTimes: [],
-    },
-    isAdmin: false,
-    selectedTeeTime: {
-        _id: '',
-        teeType: '',
-        date: '',
-        golfers: [],
-        guests: 0
-    },
-    friendSearchTerm: '',
-    isSearching: false,
-    teeTimeSearch: {
-        teeType: 'walk',
-        date: {
-            year: getCorrectDate(false).year,
-            month: getCorrectDate(false).month,
-            day: getCorrectDate(false).day,
-            dayOfTheWeek: getCorrectDate(false).dayOfTheWeek,
-            hours: getCorrectDate(false).hours,
-            minutes: getCorrectDate(false).minutes
-        },
-        golfers: [],
-        guests: 0
-    },
-    isLoading: false,
-}
 
 // CREATE USER
 const ADD_USER = {
@@ -109,6 +41,10 @@ const SELECT_TEE_TIME = {
 
 const UPDATE_TIME = {
     type: 'UPDATE_TIME'
+}
+
+const GET_CORRECT_DATE = {
+    type: 'GET_CORRECT_DATE'
 }
 
 const UPDATE_TEE_TIME = {
@@ -228,6 +164,42 @@ export const updateTime = (currentDate) => {
     return {
         ...UPDATE_TIME,
         currentDate
+    }
+}
+
+export const getCorrectDate = (isAdmin) => {
+    // need to set this to within club hours here
+    const currentDate = new Date()
+    const date = {
+        year: currentDate.getFullYear(),
+        month: currentDate.getMonth(),
+        day: currentDate.getDate(),
+        dayOfTheWeek: currentDate.getDay(),
+        hours: currentDate.getHours(),
+        minutes: currentDate.getMinutes()
+    }
+    if (!isAdmin) {
+        // set year, months, day   holidays?
+        // e.g. they are closed on monday
+        if (date.dayOfTheWeek === 1) {
+            currentDate.setDate(currentDate.getDate() + 1)
+            date.dayOfTheWeek = currentDate.getDay()
+            date.day = currentDate.getDate()
+        } else if (date.hours > 16) {
+            // set hours
+            // go to next day
+            currentDate.setDate(currentDate.getDate() + 1)
+            date.day = currentDate.getDate()
+            date.dayOfTheWeek = currentDate.getDay()
+            date.hours = 8
+            date.minutes = 0
+        }
+        // set minutes
+        date.minutes % 10 === 0 || (date.minutes = date.minutes + (10 - (date.minutes % 10)))
+    }
+    return {
+        ...GET_CORRECT_DATE,
+        date
     }
 }
 
@@ -365,6 +337,43 @@ export const deleteTeeTime = (teeTime) => {
     }
 }
 
+// default state
+const defaultState = {
+    currentDate: new Date(),
+    data: {
+        user: {},
+        userFriends: [],
+        userTeeTimes: [],
+        allUsers: [],
+        allTeeTimes: [],
+    },
+    isAdmin: false,
+    selectedTeeTime: {
+        _id: '',
+        teeType: '',
+        date: '',
+        golfers: [],
+        guests: 0
+    },
+    friendSearchTerm: '',
+    isSearching: false,
+    teeTimeSearch: {
+        teeType: 'walk',
+        date: {
+            year: getCorrectDate(false).date.year,
+            month: getCorrectDate(false).date.month,
+            day: getCorrectDate(false).date.day,
+            dayOfTheWeek: getCorrectDate(false).date.dayOfTheWeek,
+            hours: getCorrectDate(false).date.hours,
+            minutes: getCorrectDate(false).date.minutes
+        },
+        golfers: [],
+        guests: 0
+    },
+    isLoading: false,
+}
+
+
 // REDUCER
 const teeTimes = (state=defaultState, action) => {
     if (!action) {
@@ -401,9 +410,13 @@ const teeTimes = (state=defaultState, action) => {
         return {
             ...state,
             currentDate: action.currentDate,
+        }
+        case GET_CORRECT_DATE.type:
+        return {
+            ...state,
             teeTimeSearch: {
                 ...state.teeTimeSearch,
-                date: getCorrectDate(state.isAdmin)
+                date: action.date
             }
         }
         case ADD_TEE_TIME.type:
