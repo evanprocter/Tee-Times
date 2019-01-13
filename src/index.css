@@ -25,6 +25,11 @@ html, body, #root, .App, .TeeTimes {
   box-sizing: border-box;
 }
 
+.TeeTimes {
+  display: flex;
+  flex-direction: column;
+}
+
 .LoginPage {
   background:skyblue;
   display: flex;
@@ -46,6 +51,27 @@ html, body, #root, .App, .TeeTimes {
 
 .adminLogin:hover {
   cursor: pointer;
+}
+
+/* ===========================
+  Loading Page styles
+============================== */
+
+.LoadingPage {
+  flex: 1;
+}
+
+.LoadingPage > img {
+  border-radius: 20%;
+  width: 100%;
+  height: 100%;
+  padding: 2%;
+  opacity: .15;
+  transition: ease opacity 5s;
+}
+
+.LoadingPage > img:hover {
+  opacity: .75;
 }
 
 /* ===============================
@@ -168,29 +194,4 @@ Where the /friends styles reside
 
 .Friend img {
   width: 25%;
-}
-
-/* ===========================
-  If we ever need a loading page again
-============================== */
-
-.LoadingPage {
-  position: absolute;
-  margin: auto;
-  height: 100%;
-  width: 100%;
-  display: flex;
-}
-
-.LoadingPage > img {
-  border-radius: 20%; 
-  margin: auto;
-  width: 75%;
-  height: 75%;
-  opacity: .15;
-  transition: ease opacity 5s;
-}
-
-.LoadingPage > img:hover {
-  opacity: .75;
 }
