@@ -104,9 +104,7 @@ export default class Profile extends Component {
                         onFocus={event => {
                             this.setState({
                                 newPassword: '',
-                                pictureUploaded: false
                             })
-                            event.target.form.newPicture.value = ''
                         }}
                     />
                 </label>
@@ -130,9 +128,7 @@ export default class Profile extends Component {
                         onFocus={event => {
                             this.setState({
                                 usernameSearchTerm: '',
-                                pictureUploaded: false
                             })
-                            event.target.form.newPicture.value = ''
                         }}
                         autoComplete='off'
                     />

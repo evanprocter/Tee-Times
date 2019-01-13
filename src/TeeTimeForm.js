@@ -1,11 +1,12 @@
 import React from 'react'
 
 export default function TeeTimeForm(props) {
+    // this determines the number of golfers allowed
     const memberCount = (props.teeTimeSearch.golfers && props.teeTimeSearch.golfers.length) || 0
     const guestMax = props.data.user.userType === 'admin' ? 4 - memberCount : 3 - memberCount
+    
     const monthStrings = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-
-    const {date} = props.teeTimeSearch
+    const date = props.currentDate
     const teeTimeDateString = (props.selectedTeeTime._id || !props.isSearching) && 
     `${date.month + 1}-${date.day}-${date.year}, ${date.hours % 12 || 12}:${date.minutes.toString().length > 1 ? date.minutes : `0${date.minutes}`} ${date.hours < 12 ? 'AM' : 'PM'}`
     
@@ -136,7 +137,8 @@ function findAvailableTeeDates(isAdmin) {
     while (currentDate.getDate() < cutoffDate) {
         availableTeeDates.push(currentDate.toISOString())
         currentDate.setMinutes(currentDate.getMinutes() + 10)
-        if (currentDate.getHours() > 16) {
+        // this is where we set hours to the right time
+        if (currentDate.getHours() > 16) { 
             currentDate.setDate(currentDate.getDate() + 1)
             currentDate.setHours(8) 
         }

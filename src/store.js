@@ -7,7 +7,15 @@ function getCorrectDate() {
 }
 
 function getCurrentDate() {
-    return new Date()
+    const currentDate = new Date()
+    const date = {
+        year: currentDate.getFullYear(),
+        month: currentDate.getMonth(),
+        day: currentDate.getDate(),
+        hours: currentDate.getHours(),
+        minutes: currentDate.getMinutes()
+    }
+    return date
 }
 
 setInterval(() => {
@@ -15,6 +23,7 @@ setInterval(() => {
 }, 1000)
 
 const defaultState = {
+    currentDate: getCurrentDate(),
     data: {
         user: {},
         userFriends: [],
