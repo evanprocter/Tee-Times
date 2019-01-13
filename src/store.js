@@ -192,10 +192,10 @@ export const requestData = () => {
 
 export const receiveData = (data) => {
     const userFriends = data.allUsers.filter(golfer => {
-        if (golfer._id.toString() === data.user._id.toString()) {
+        if (golfer._id === data.user._id) {
             return false
         } else {
-            return data.user.friends.find(friendID => golfer._id === friendID)
+            return data.user.friends && data.user.friends.find(friendID => golfer._id === friendID)
         }
     })
     return {

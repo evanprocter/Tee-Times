@@ -2,7 +2,6 @@ import React from 'react'
 
 export default function UserTeeTime(props) {
         const {teeTime, isPast, isSearching} = props
-        console.log(props)
         const editClassName = teeTime._id === props.selectedTeeTime._id ? ' teeTimeEdit' : ''
         const teeDate = new Date(teeTime.date)
         const dateOptions = {

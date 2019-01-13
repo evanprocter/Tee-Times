@@ -64,14 +64,16 @@ Where the navbar styles reside
   color: green;
 }
 
-.navlink:first-child img {
-  height: 2em;
+.navlink:nth-child(2) {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .navlink img {
   background-color: rgba(200, 255, 100, .5);
   width: 15%;
-  margin: auto;
+  height: 15%;
 }
 
 .navlink.active {
