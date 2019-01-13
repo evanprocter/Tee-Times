@@ -1,9 +1,44 @@
-import { createStore } from 'redux';
-import { getCorrectDate } from './TeeTimeForm'
+import { createStore } from 'redux'
 
 setInterval(() => {
     store.dispatch(updateTime(new Date())) 
 }, 60 * 1000)
+
+const getCorrectDate = (isAdmin) => {
+    // need to set this to within club hours here
+    const currentDate = new Date()
+    const date = {
+        year: currentDate.getFullYear(),
+        month: currentDate.getMonth(),
+        day: currentDate.getDate(),
+        dayOfTheWeek: currentDate.getDay(),
+        hours: currentDate.getHours(),
+        minutes: currentDate.getMinutes()
+    }
+    if (!isAdmin) {
+        // set year, months, day   holidays?
+        // e.g. they are closed on monday
+        // if (date.dayOfTheWeek === 1) {
+        //     currentDate.setDate(currentDate.getDate() + 1)
+        //     date.dayOfTheWeek = currentDate.getDay()
+        //     date.day = currentDate.getDate()
+        // } else 
+        // if after 4 PM
+        if (date.hours > 16) {
+            // set hours
+            // go to next day
+            currentDate.setDate(currentDate.getDate() + 1)
+            date.day = currentDate.getDate()
+            date.dayOfTheWeek = currentDate.getDay()
+            date.hours = 8
+            date.minutes = 0
+        }
+        // set minutes
+        date.minutes % 10 === 0 || (date.minutes = date.minutes + (10 - (date.minutes % 10)))
+        date.minutes === 60 && ((date.minutes = 0) && (date.hours += 1))
+    }
+    return date
+}
 
 // default state
 const defaultState = {
