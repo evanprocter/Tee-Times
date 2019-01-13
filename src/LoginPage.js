@@ -26,24 +26,29 @@ export default function LoginPage(props) {
                         props.addUser({
                             name: event.target.form[0].value, 
                             password: event.target.form[1].value, 
+                            adminPassword: event.target.form[4].value,
                             picture: null, 
                             userType: 'basic'
                         })
                     }
                 }}
-            /> 
-            <input type='button' value='register as admin' 
-                onClick={event => {
-                    if (!props.data.allUsers.map(user => user.name).includes(event.target.form[0].value)) {
-                        props.addUser({
-                            name: event.target.form[0].value, 
-                            password: event.target.form[1].value, 
-                            picture: null, 
-                            userType: 'admin'
-                        })
-                    }
-                }}
             />
+            <div className='adminLogin'>
+                <input type='password' placeholder='password' name='adminPassword' /> 
+                <input type='button' value='register as admin' 
+                    onClick={event => {
+                        if (!props.data.allUsers.map(user => user.name).includes(event.target.form[0].value)) {
+                            props.addUser({
+                                name: event.target.form[0].value, 
+                                password: event.target.form[1].value, 
+                                adminPassword: event.target.form[4].value,
+                                picture: null, 
+                                userType: 'admin'
+                            })
+                        }
+                    }}
+                />
+            </div>
         </form>
     )
 }
