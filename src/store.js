@@ -191,6 +191,7 @@ export const requestData = () => {
 }
 
 export const receiveData = (data) => {
+   console.log()
     return {
         ...RECEIVE_DATA,
         data: {
@@ -198,7 +199,10 @@ export const receiveData = (data) => {
             user: {
                 ...data.user,
                 pictureSrc: data.user.picture && `data:image/png;base64,${btoa(Buffer.from(data.user.picture.data))}`
-            }
+            },
+            allUsers: [...data.allUsers.map(user => {
+                return {...user, pictureSrc: user.picture && `data:image/png;base64,${btoa(Buffer.from(user.picture.data))}`}
+            })]
         },
         isLoading: false
     }
@@ -359,7 +363,9 @@ export const deleteTeeTime = (teeTime) => {
     }
 }
 
-// REDUCER
+// ===========================================
+//      REDUCER
+// ===========================================
 const teeTimes = (state=defaultState, action) => {
     if (!action) {
         return state

@@ -1,13 +1,15 @@
 import React from 'react'
 
 export default function Friend(props) {
+    const isFriend = props.data.userFriends.map(friend => friend._id).includes(props.golfer._id)
+    const friendRequested = props.data.user.friendRequests.find(friendRequest => friendRequest === props.golfer._id)
     return (
         <div className='Friend'>
-            <img src={props.golfer.pictureSrc} alt={`User's friend ${props.golfer.name}`}/>
+            <img src={props.golfer.pictureSrc} alt={`user's friend ${props.golfer.name}`}/>
             <h4>{props.golfer.name}</h4>
             {/* depending on relationship, show various buttons */}
-            {((!props.data.userFriends.map(friend => friend._id).includes(props.golfer._id) 
-            && props.data.user.friendRequests.find(friendRequest => friendRequest === props.golfer._id))
+            {((!isFriend
+            && friendRequested)
             && 
                 ( 
                     <>
@@ -16,8 +18,8 @@ export default function Friend(props) {
                     </>
                 )
             ) ||
-            (!props.data.userFriends.map(friend => friend._id).includes(props.golfer._id) && 
-            ((!props.golfer.friendRequests.find(friendRequest => friendRequest === props.data.user._id)
+            (!isFriend && 
+            ((!friendRequested
             && 
             <input type='button' value='request friend' onClick={() => props.requestFriend({requestingFriend: props.data.user, requestedFriend: props.golfer})}/>) 
             ||

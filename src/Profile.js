@@ -62,11 +62,14 @@ export default class Profile extends Component {
                 })
                 event.target.newPicture.value = ''
             }}
-            onReset={() => this.setState({newPassword: '', usernameSearchTerm: '', pictureUploaded: false})}
+            onReset={event => {
+                this.setState({newPassword: '', usernameSearchTerm: '', pictureUploaded: false})
+                event.target.newPicture.value = ''
+            }}
         >
             {/* should change password, username, profile pic */}
             {/* form with inputs labeled with current values*/}
-            <div className='changePicture'>
+            <div className='userPicture'>
                 <label>
                     Change picture:
                     <img src={props.data.user.pictureSrc} alt='user profile'/>

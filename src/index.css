@@ -117,7 +117,7 @@ input[type='button'], input[type='submit'], input[type='reset'] {
   Where the /profile styles reside
 ========================================= */
 
-.changePicture img {
+.userPicture img {
   width: 25%;
 }
 
