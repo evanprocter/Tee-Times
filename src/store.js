@@ -29,6 +29,8 @@ export const getCorrectDate = (isAdmin, currentDate) => {
         }
         // set minutes
         date.minutes % 10 === 0 || (date.minutes = date.minutes + (10 - (date.minutes % 10)))
+        // set hour to next if min === 60
+        date.minutes === 60 && ((date.hours += 1) && (date.minutes = 0))
     }
     return date
 }

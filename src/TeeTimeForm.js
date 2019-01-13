@@ -14,11 +14,11 @@ export default function TeeTimeForm(props){
     
     // find the taken dates
     const unavailableTeeDates = props.data.allTeeTimes.map(teeTime => new Date(teeTime.date))
-    console.log(unavailableTeeDates)
     // If searching, show tee times that are already taken
     const availableTeeDates = props.isSearching ? unavailableTeeDates : 
-                                    getPossibleTeeDates(props).filter(teeDate => !unavailableTeeDates.includes(teeDate))
-    console.log(availableTeeDates)
+                                    getPossibleTeeDates(props).filter(teeDate => {
+                                        return !unavailableTeeDates.includes(teeDate)
+                                    })
     const {availableMonths, availableDays, availableHours, availableMinutes} = getAvailableOptions(availableTeeDates)
     return (
         <form className={`TeeTimeForm${props.selectedTeeTime._id ? ' selectedTeeTimeForm' : ''}`} 
