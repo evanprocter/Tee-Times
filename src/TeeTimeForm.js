@@ -1,5 +1,5 @@
 import React from 'react'
-import {getCorrectDate} from './store'
+import {getTeeTimeDate} from './store'
 
 export default function TeeTimeForm(props){        
     // this determines the number of golfers allowed
@@ -129,7 +129,7 @@ const getPossibleTeeDates = (props) => {
         currentDate.setMinutes(currentDate.getMinutes() + 10)
     } 
     possibleTeeDates = possibleTeeDates.map(teeDate => {
-        const {year, month, day, hours, minutes} = getCorrectDate(props.isAdmin, teeDate)
+        const {year, month, day, hours, minutes} = getTeeTimeDate(props.isAdmin, teeDate)
         return new Date(year, month, day, hours, minutes)
     })
     return possibleTeeDates

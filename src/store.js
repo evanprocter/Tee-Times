@@ -4,10 +4,29 @@ setInterval(() => {
     store.dispatch(updateTime(new Date())) 
 }, 60 * 1000)
 
-export const getCorrectDate = (isAdmin, currentDate) => {
+export const getTeeTimeDate = (isAdmin, currentDate) => {
     // need to set this to within club hours here
-    // const currentDate = new Date()
-    console.log(currentDate)
+    if (!isAdmin) {
+        // set year, months, day   holidays?
+        // e.g. tee times are every ten minutes
+        if (currentDate.getMinutes() % 10 !== 0) {
+            console.log(currentDate)
+            currentDate.setMinutes(currentDate.getMinutes() + (10 - (currentDate.getMinutes() % 10)))
+        }
+        // e.g. they close at 4 PM
+        if (currentDate.getHours() >= 16) {
+            // set hours
+            // go to next day
+            currentDate.setDate(currentDate.getDate() + 1)
+            currentDate.setHours(8)
+            currentDate.setMinutes(0)
+        } 
+        // e.g. they open at 8 AM
+        if (currentDate.getHours() < 8) {
+            currentDate.setHours(8)
+            currentDate.setMinutes(0)
+        }
+    }
     const date = {
         year: currentDate.getFullYear(),
         month: currentDate.getMonth(),
@@ -15,34 +34,6 @@ export const getCorrectDate = (isAdmin, currentDate) => {
         dayOfTheWeek: currentDate.getDay(),
         hours: currentDate.getHours(),
         minutes: currentDate.getMinutes()
-    }
-    if (!isAdmin) {
-        // set year, months, day   holidays?
-        // e.g. they close at 4 PM
-        console.log(date.hours)
-        if (date.hours >= 16) {
-            // set hours
-            // go to next day
-            currentDate.setDate(currentDate.getDate() + 1)
-            currentDate.setHours(8)
-            currentDate.setMinutes(0)
-            date.day = currentDate.getDate()
-            date.dayOfTheWeek = currentDate.getDay()
-            date.hours = currentDate.getHours()
-            date.minutes = currentDate.getMinutes()
-        } 
-        console.log(date.hours)
-        // e.g. they open at 8 AM
-        if (date.hours < 8) {
-            currentDate.setHours(8)
-            date.hours = 8
-            date.minutes = 0
-        }
-        console.log(date.hours)
-        // set minutes
-        date.minutes % 10 === 0 || (date.minutes = date.minutes + (10 - (date.minutes % 10)))
-        // set hour to next if min === 60
-        date.minutes === 60 && ((date.hours += 1) && (date.minutes = 0))
     }
     return date
 }
@@ -69,7 +60,7 @@ const defaultState = {
     isSearching: false,
     teeTimeSearch: {
         teeType: 'walk',
-        date: {...getCorrectDate(false, new Date())},
+        date: {...getTeeTimeDate(false, new Date())},
         golfers: [],
         guests: 0
     },
