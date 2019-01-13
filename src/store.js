@@ -6,6 +6,14 @@ function getCorrectDate() {
     return currentDate
 }
 
+function getCurrentDate() {
+    return new Date()
+}
+
+setInterval(() => {
+    store.dispatch(updateTime(getCurrentDate()))
+}, 1000)
+
 const defaultState = {
     data: {
         user: {},
@@ -72,6 +80,10 @@ const UPDATE_USER = {
 
 const SELECT_TEE_TIME = {
     type: 'SELECT_TEE_TIME'
+}
+
+const UPDATE_TIME = {
+    type: 'UPDATE_TIME'
 }
 
 const UPDATE_TEE_TIME = {
@@ -184,6 +196,13 @@ export const updateUser = (user) => {
     return {
         ...UPDATE_USER,
         isLoading: true
+    }
+}
+
+export const updateTime = (currentDate) => {
+    return {
+        ...UPDATE_TIME,
+        currentDate
     }
 }
 
@@ -352,6 +371,11 @@ const teeTimes = (state=defaultState, action) => {
         return {
             ...state,
             isLoading: action.isLoading
+        }
+        case UPDATE_TIME.type:
+        return {
+            ...state,
+            currentDate: action.currentDate
         }
         case ADD_TEE_TIME.type:
         return {

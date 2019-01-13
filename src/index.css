@@ -44,6 +44,10 @@ html, body, #root, .App, .TeeTimes {
   justify-content: space-around;
 }
 
+.adminLogin:hover {
+  cursor: pointer;
+}
+
 /* ===============================
 Where the navbar styles reside
 ================================== */
