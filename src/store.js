@@ -191,7 +191,13 @@ export const requestData = () => {
 }
 
 export const receiveData = (data) => {
-   console.log(data.user.picture && btoa(Buffer.from(data.user.picture.data)))
+    const userFriends = data.allUsers.filter(golfer => {
+        if (golfer._id.toString() === data.user._id.toString()) {
+            return false
+        } else {
+            return data.user.friends.find(friendID => golfer._id === friendID)
+        }
+    })
     return {
         ...RECEIVE_DATA,
         data: {
@@ -200,6 +206,7 @@ export const receiveData = (data) => {
                 ...data.user,
                 pictureSrc: data.user.picture && `data:image/png;base64,${btoa(Buffer.from(data.user.picture.data))}`
             },
+            userFriends,
             allUsers: [...data.allUsers.map(user => {
                 return {...user, pictureSrc: user.picture && `data:image/png;base64,${btoa(Buffer.from(user.picture.data))}`}
             })]
