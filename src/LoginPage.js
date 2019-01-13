@@ -1,7 +1,9 @@
 import React from 'react'
+import LoadingPage from './LoadingPage'
 
 export default function LoginPage(props) {
     return (
+        <>
         <form className="LoginPage" 
             onSubmit={event => {
                 event.preventDefault()
@@ -50,5 +52,7 @@ export default function LoginPage(props) {
                 />
             </div>
         </form>
+        {props.isLoading && <LoadingPage />}
+        </>
     )
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Route} from 'react-router-dom'
-// Switch
 import NavBar from './NavBar'
+import LoadingPage from './LoadingPage'
 import TeeTimeForm from './TeeTimeForm'
 import UserTeeTimes from './UserTeeTimes'
 import Friends from './Friends'
@@ -13,8 +13,8 @@ export default function Dashboard(props) {
     return (
         <div className="Dashboard">
             <NavBar {...props} />
-            {/* <Switch> */}
-            <Route exact path={'/'} render= {routeProps => {
+            {(props.isLoading && <LoadingPage />) ||
+            (<><Route exact path={'/'} render= {routeProps => {
                 const currentDate = new Date()
                 props.data.userTeeTimes.sort((teeTimeA, teeTimeB) => new Date(teeTimeA.date).getTime() < new Date(teeTimeB.date).getTime() ? -1 : 1)
                 const upcomingTeeTime = props.data.userTeeTimes.find(teeTime => new Date(teeTime.date) > currentDate)
@@ -54,7 +54,7 @@ export default function Dashboard(props) {
                     <Friends {...props}/>
                 )
             }}/>
-            {/* </Switch> */}
+            </>)}
         </div>
     )
 }
