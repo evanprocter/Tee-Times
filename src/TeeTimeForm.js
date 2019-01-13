@@ -127,12 +127,14 @@ const findAvailableTeeDates = (props) => {
         availableTeeDates.push(new Date(currentDate))
         currentDate.setMinutes(currentDate.getMinutes() + 10)
     } 
-    console.log(teeTimeSearch)
     availableTeeDates = availableTeeDates
     .filter(teeDate => {
         const {date} = teeTimeSearch
+            console.log(teeTimeSearch)
             for (let dateField in date) {
                 switch (dateField) {
+                    case 'dayOfTheWeek':
+                    break
                     case 'year':
                     if (teeDate.getFullYear() !== date[dateField]) {return false}
                     break
