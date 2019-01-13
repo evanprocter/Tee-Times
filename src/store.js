@@ -10,7 +10,6 @@ export const getTeeTimeDate = (isAdmin, currentDate) => {
         // set year, months, day   holidays?
         // e.g. tee times are every ten minutes
         if (currentDate.getMinutes() % 10 !== 0) {
-            console.log(currentDate)
             currentDate.setMinutes(currentDate.getMinutes() + (10 - (currentDate.getMinutes() % 10)))
         }
         // e.g. they close at 4 PM
