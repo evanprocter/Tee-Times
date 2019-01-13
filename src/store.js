@@ -4,9 +4,9 @@ setInterval(() => {
     store.dispatch(updateTime(new Date())) 
 }, 60 * 1000)
 
-export const getCorrectDate = (isAdmin) => {
+export const getCorrectDate = (isAdmin, currentDate) => {
     // need to set this to within club hours here
-    const currentDate = new Date()
+    // const currentDate = new Date()
     const date = {
         year: currentDate.getFullYear(),
         month: currentDate.getMonth(),
@@ -24,7 +24,9 @@ export const getCorrectDate = (isAdmin) => {
         //     date.day = currentDate.getDate()
         // } else 
         // if after 4 PM
+        console.log(date)
         if (date.hours > 16) {
+            console.log(date)
             // set hours
             // go to next day
             currentDate.setDate(currentDate.getDate() + 1)
@@ -61,7 +63,7 @@ const defaultState = {
     isSearching: false,
     teeTimeSearch: {
         teeType: 'walk',
-        date: {...getCorrectDate(false)},
+        date: {...getCorrectDate(false, new Date())},
         golfers: [],
         guests: 0
     },
