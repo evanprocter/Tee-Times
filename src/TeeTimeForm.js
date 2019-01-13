@@ -9,18 +9,14 @@ export default function TeeTimeForm(props){
     const monthStrings = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     const {date} = props.teeTimeSearch
     const teeTimeDateString = (props.selectedTeeTime._id || !props.isSearching) && 
-    // convert string out of military time
     `${date.month + 1}-${date.day}-${date.year}, ${date.hours % 12 || 12}:${date.minutes > 9 ? date.minutes : `0${date.minutes}`} ${date.hours < 12 ? 'AM' : 'PM'}`
     
     // find the taken dates
     const unavailableTeeDates = props.data.allTeeTimes.map(teeTime => new Date(teeTime.date))
-    // find remaining dates, these are strings and can be compared directly
     // If searching, show tee times that are already taken
-    const availableTeeDates = props.isSearching ? 
-    unavailableTeeDates : 
-    findAvailableTeeDates(props).filter(teeDate => !unavailableTeeDates.includes(teeDate))
+    const availableTeeDates = props.isSearching ? unavailableTeeDates : 
+                                    findAvailableTeeDates(props).filter(teeDate => !unavailableTeeDates.includes(teeDate))
     const {availableMonths, availableDays, availableHours, availableMinutes} = getAvailableOptions(availableTeeDates)
-    console.log(findAvailableTeeDates(props))
     return (
         <form className={`TeeTimeForm${props.selectedTeeTime._id ? ' selectedTeeTimeForm' : ''}`} 
         onSubmit={event => {
@@ -121,19 +117,19 @@ const findAvailableTeeDates = (props) => {
     const {teeTimeSearch, isAdmin} = props
     // this function filters all tee dates for those that match teetimesearch
     // create new array to hold available tee times
-    const availableTeeDates = []
+    let availableTeeDates = []
     // get dateFields out of corrected date
     const {year, month, day, hours, minutes} = getCorrectDate(isAdmin)
     const currentDate = new Date(year, month, day, hours, minutes)
     const {date} = teeTimeSearch
     // this is where we could grant admin privileges to add tee times a year in advance
     const cutoffDate = isAdmin ? new Date().getDate() + 30 : new Date().getDate() + 3
-    while (currentDate.day < cutoffDate) {
+    while (currentDate.getDate() < cutoffDate) {
         availableTeeDates.push(currentDate)
         currentDate.setMinutes(currentDate.getMinutes() + 10)
     } 
-    console.log(currentDate.day)
-    return availableTeeDates.filter(teeDate => {
+    console.log(availableTeeDates)
+    availableTeeDates = availableTeeDates.filter(teeDate => {
                                         for (let dateField in date) {
                                             switch (dateField) {
                                                 case 'year':
@@ -157,6 +153,8 @@ const findAvailableTeeDates = (props) => {
                                         }
                                         return true
                                     })
+    console.log(availableTeeDates)
+    return availableTeeDates
 }
 
 const getAvailableOptions = (availableTeeDates) => {
