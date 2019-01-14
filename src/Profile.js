@@ -11,7 +11,6 @@ let blobUrl = blob => {
     return urls.get(blob)
   } else {
     let url = URL.createObjectURL(blob)  
-    console.log(url)
     urls.set(blob, url)
     return url
   }
@@ -58,6 +57,7 @@ export default class Profile extends Component {
                     const myCanvas = document.getElementById('myCanvas')
                     const myImage = document.getElementById('myImage')
                     const canvasContext = myCanvas.getContext('2d')
+                    console.log(myImage)
                     // draw image takes (img, x, y, w, h)
                     canvasContext.drawImage(myImage, 0, 0, 40, 40)
                     myCanvas.toBlob((imageBlob) => {
@@ -113,14 +113,13 @@ export default class Profile extends Component {
                             })
                         }}
                     />
-                    <canvas id='myCanvas' ref='myCanvas' width={100} height={100}/>  
-                    <img src={this.state.imageLoaded ? blobUrl(this.state.file) : props.data.user.pictureSrc} alt='uploaded profile'/>
+                    <canvas id='myCanvas' width={100} height={100}/>  
+                    <img id='myImage' src={this.state.imageLoaded ? blobUrl(this.state.imageFile) : props.data.user.pictureSrc} alt='uploaded profile'/>
                 </label>
                 <input type='button' value='Upload' onClick={event => {
                     const imageFile = event.target.form.newPicture.files[0]
-                    console.log(imageFile)
-                    // const imageLoaded = imageFile && true
-                    // this.setState({imageFile, imageLoaded})
+                    const imageLoaded = imageFile && true
+                    this.setState({imageFile, imageLoaded})
                 }}/>
                 {this.state.imageLoaded && submitDiv}
             </div>
