@@ -25,10 +25,14 @@ export default function TeeTimeForm(props){
         onSubmit={event => {
             event.preventDefault()
             // basic user's automatically added to teetime
-            const golfer = props.data.user.userType === 'admin' ? null : props.data.user 
+            {/* const golfer = props.isAdmin ? null : props.data.user  */}
             const {date} = props.teeTimeSearch
             const teeDate = [date.year, date.month, date.day, date.hours, date.minutes]
-            props.selectedTeeTime._id || props.addTeeTime({...props.teeTimeSearch, date: new Date(...teeDate), golfers: [...props.teeTimeSearch.golfers, golfer]})
+            console.log(props.teeTimeSearch)
+            props.selectedTeeTime._id || props.addTeeTime({
+                ...props.teeTimeSearch, 
+                date: new Date(...teeDate), 
+                golfers: [...props.teeTimeSearch.golfers]})
         }}
         >
         <input type="checkbox" name="walkride" value="walk" 
@@ -89,7 +93,7 @@ export default function TeeTimeForm(props){
                     // event.persist()
                     updateForm(event, props)
                 }}
-                value={props.teeTimeSearch.golfers && props.teeTimeSearch.golfers.map(golfer => golfer._id)}
+                value={props.teeTimeSearch.golfers}
                 >
                 {props.isAdmin || props.isSearching ? 
                 props.data.allUsers.map(user => <option key={user._id} value={user._id}>{`${user.name}`}</option>) : 
@@ -172,12 +176,13 @@ const updateForm = (event, props) => {
     const date = {year, month, day, dayOfTheWeek, hours, minutes}
 
     // Golfers
-    const selectedGolferIDs = []
+    let golfers = []
     for (let selectedGolfer of event.target.form.golfers.selectedOptions) {
-        selectedGolferIDs.push(selectedGolfer.value)
+        golfers.push(selectedGolfer.value)
     }
-    let golfers = props.data.allUsers.filter(user => selectedGolferIDs.includes(user._id))       
-    golfers = props.isAdmin || props.isSearching ? golfers : [...golfers, props.data.user]
+
+    // let golfers = props.data.allUsers.filter(user => selectedGolferIDs.includes(user._id))       
+    golfers = props.isAdmin || props.isSearching ? golfers : [...golfers, props.data.user._id]
 
     // Guests
     const memberCount = golfers.length

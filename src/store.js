@@ -191,6 +191,7 @@ export const requestData = () => {
 }
 
 export const receiveData = (data) => {
+    console.log(data)
     const userFriends = data.allUsers.filter(golfer => {
         if (golfer._id === data.user._id) {
             return false
@@ -198,6 +199,14 @@ export const receiveData = (data) => {
             return data.user.friends && data.user.friends.find(friendID => golfer._id === friendID)
         }
     })
+    const userTeeTimes = data.allUsers.filter(golfer => {
+        if (golfer._id === data.user._id) {
+            return false
+        } else {
+            return data.user.friends && data.user.friends.find(friendID => golfer._id === friendID)
+        }
+    })
+    console.log(data)
     return {
         ...RECEIVE_DATA,
         data: {
@@ -316,6 +325,7 @@ export const requestFriend = friends => {
     }
 }
 export const approveFriend = friends => {
+    console.log(friends)
     fetch('/approveFriend', {
         method: 'post',
         body: JSON.stringify(friends),
