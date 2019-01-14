@@ -4,6 +4,18 @@ import React, {Component} from 'react'
 // import Root from './Root';
 // import store from './store';
 
+let urls = new WeakMap()
+
+let blobUrl = blob => {
+  if (urls.has(blob)) {
+    return urls.get(blob)
+  } else {
+    let url = URL.createObjectURL(blob)
+    urls.set(blob, url)
+    return url
+  }
+}
+
 export default class Profile extends Component {
     constructor(props) {
         super(props)
