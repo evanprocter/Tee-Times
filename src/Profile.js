@@ -23,7 +23,7 @@ export default class Profile extends Component {
             // keep track of each field with this component
             newPassword: '',
             usernameSearchTerm: '',
-            file: null,
+            imageFile: null,
             imageLoaded: false,
         }
     }
@@ -52,36 +52,29 @@ export default class Profile extends Component {
                 const newUsername = event.target.newUsername.value
                 const currentPassword = event.target.currentPassword.value
                 const newPassword = event.target.newPassword.value
-                const fr = new FileReader()
-                fr.onload = () => {
-                    const myCanvas = document.getElementById('myCanvas')
-                    createImageBitmap(new Blob([fr.result]))
-                    .then(myImageBitmap => {
 
-                        const canvasContext = myCanvas.getContext('2d')
-                        console.log(myImageBitmap)
-                        // draw image takes (img, x, y, w, h)
-                        canvasContext.drawImage(myImageBitmap, 0, 0, 40, 40)
-                        console.log(canvasContext)
-                        myCanvas.toBlob((imageBlob) => {
-                            const frBlob = new FileReader()
-                            frBlob.onload = () => {
-                                // update the user
-                                props.updateUser({
-                                    _id: props.data.user._id,
-                                    name: props.data.user.name,
-                                    newUsername,
-                                    currentPassword,
-                                    newPassword,
-                                    newPicture: frBlob.result
-                                })
-                            }
-                            frBlob.readAsBinaryString(imageBlob)
-                        }, 'image/png', .5)
-                    })
-                }
-                event.target.newPicture.files[0] ?
-                    this.setState({file: event.target.newPicture.files[0]}) :
+                if (imageLoaded) {
+                    const myCanvas = document.getElementById('myCanvas')
+                    const myImage = document.getElementById('myImage')
+                    const canvasContext = myCanvas.getContext('2d')
+                    // draw image takes (img, x, y, w, h)
+                    canvasContext.drawImage(myImage, 0, 0, 40, 40)
+                    myCanvas.toBlob((imageBlob) => {
+                        const fr = new FileReader()
+                        fr.onload = () => {
+                            // update the user
+                            props.updateUser({
+                                _id: props.data.user._id,
+                                name: props.data.user.name,
+                                newUsername,
+                                currentPassword,
+                                newPassword,
+                                newPicture: fr.result
+                            })
+                        }
+                        fr.readAsBinaryString(imageBlob)
+                    }, 'image/png', .5)
+                } else {
                     props.updateUser({
                         _id: props.data.user._id,
                         name: props.data.user.name,
@@ -90,15 +83,17 @@ export default class Profile extends Component {
                         newPassword,
                         newPicture: ''
                     })
+                }
                 this.setState({
                     newPassword: '',
                     usernameSearchTerm: '',
+                    imageFile: null,
                     imageLoaded: false,
                 })
                 event.target.newPicture.value = ''
             }}
             onReset={event => {
-                this.setState({newPassword: '', usernameSearchTerm: '', pictureUploaded: false})
+                this.setState({newPassword: '', usernameSearchTerm: '', imageFile: null, imageloaded: false})
                 event.target.newPicture.value = ''
             }}
         >
@@ -118,9 +113,13 @@ export default class Profile extends Component {
                         }}
                     />
                     <canvas id='myCanvas' ref='myCanvas' width={100} height={100}/>  
-                    <img src={this.state.imageLoaded && blobUrl(this.state.file) || props.data.user.pictureSrc} alt='uploaded profile'/>
+                    <img src={this.state.imageLoaded ? blobUrl(this.state.file) : props.data.user.pictureSrc} alt='uploaded profile'/>
                 </label>
-                {this.state.pictureUploaded && submitDiv}
+                <input type='button' value='Upload' onClick={event => {
+                    const imageFile = event.target.form.newPicture.files[0]
+                    this.setState({imageFile})
+                }}/>
+                {this.state.imageLoaded && submitDiv}
             </div>
             <div className='changeUsername'>
                 <label>
