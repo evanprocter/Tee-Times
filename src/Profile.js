@@ -59,7 +59,7 @@ export default class Profile extends Component {
                     const canvasContext = myCanvas.getContext('2d')
                     console.log(myImage)
                     // draw image takes (img, x, y, w, h)
-                    canvasContext.drawImage(myImage, 0, 0, 40, 40)
+                    canvasContext.drawImage(myImage, 0, 0, 100, 100)
                     myCanvas.toBlob((imageBlob) => {
                         const fr = new FileReader()
                         fr.onload = () => {
@@ -114,7 +114,8 @@ export default class Profile extends Component {
                         }}
                     />
                     {this.state.imageLoaded && <canvas id='myCanvas' width={100} height={100}/> } 
-                    <img id='myImage' src={this.state.imageLoaded ? blobUrl(this.state.imageFile) : props.data.user.pictureSrc} alt='uploaded profile'/>
+                    <img id='myImage' src={this.state.imageLoaded ? blobUrl(this.state.imageFile) : props.data.user.pictureSrc} 
+                    alt='uploaded profile' width={100} height={100}/>
                 </label>
                 <input type='button' value='Upload' onClick={event => {
                     const imageFile = event.target.form.newPicture.files[0]
