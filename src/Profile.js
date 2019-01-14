@@ -53,13 +53,14 @@ export default class Profile extends Component {
                         resizingPicture: true,
                     }, () => {
                         const myCanvas = document.getElementById('myCanvas')
-                        createImageBitmap(new Blob([fr.result]))
-                        .then(myImageBitmap => {
-
+                        // createImageBitmap(new Blob([fr.result]))
+                        // .then(myImageBitmap => {
+                            const myImage = new Image(100, 100)
+                            myImage.src = URL.createObjectURL(new Blob([fr.result]))
                             const canvasContext = myCanvas.getContext('2d')
-                            console.log(myImageBitmap)
+                            // console.log(myImageBitmap)
                             // draw image takes (img, x, y, w, h)
-                            canvasContext.drawImage(myImageBitmap, 0, 0, 100, 100)
+                            canvasContext.drawImage(myImage, 0, 0, 100, 100)
                             console.log(canvasContext)
                             myCanvas.toBlob((imageBlob) => {
                                 const frBlob = new FileReader()
@@ -77,7 +78,7 @@ export default class Profile extends Component {
                                 frBlob.readAsBinaryString(imageBlob)
                             }, 'image/png', .5)
                         })
-                    })
+                    // })
                 }
                 event.target.newPicture.files[0] ?
                     fr.readAsArrayBuffer(event.target.newPicture.files[0]) :
