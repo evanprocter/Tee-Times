@@ -10,7 +10,8 @@ let blobUrl = blob => {
   if (urls.has(blob)) {
     return urls.get(blob)
   } else {
-    let url = URL.createObjectURL(blob)
+    let url = URL.createObjectURL(blob)  
+    console.log(url)
     urls.set(blob, url)
     return url
   }
@@ -53,7 +54,7 @@ export default class Profile extends Component {
                 const currentPassword = event.target.currentPassword.value
                 const newPassword = event.target.newPassword.value
 
-                if (imageLoaded) {
+                if (this.state.imageLoaded) {
                     const myCanvas = document.getElementById('myCanvas')
                     const myImage = document.getElementById('myImage')
                     const canvasContext = myCanvas.getContext('2d')
@@ -104,7 +105,7 @@ export default class Profile extends Component {
                     Change picture:
                     <input 
                         type='file' name='newPicture' accept='image/*' 
-                        onChange={() => this.setState({pictureUploaded: true})}
+                        // onChange={() => this.setState({pictureUploaded: true})}
                         onFocus={() => {
                             this.setState({
                                 usernameSearchTerm: '',
@@ -117,7 +118,9 @@ export default class Profile extends Component {
                 </label>
                 <input type='button' value='Upload' onClick={event => {
                     const imageFile = event.target.form.newPicture.files[0]
-                    this.setState({imageFile})
+                    console.log(imageFile)
+                    // const imageLoaded = imageFile && true
+                    // this.setState({imageFile, imageLoaded})
                 }}/>
                 {this.state.imageLoaded && submitDiv}
             </div>
