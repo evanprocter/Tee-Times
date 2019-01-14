@@ -1,5 +1,8 @@
 import React, {Component} from 'react'
-import ReactDOM from 'react-dom'
+// need stuff for picture manipulation
+// import ReactDOM from 'react-dom'
+// import Root from './Root';
+// import store from './store';
 
 export default class Profile extends Component {
     constructor(props) {
@@ -8,7 +11,17 @@ export default class Profile extends Component {
             pictureUploaded: false,
             newPassword: '',
             usernameSearchTerm: '',
+            resizingPicture: false,
+            blobURL: ''
         }
+    }
+
+    componentDidUpdate() {
+        this.state.resizingPicture && 
+        this.setState({
+            resizingPicture: false,
+            blobURL: ''
+        })
     }
 
     render() {
@@ -36,31 +49,35 @@ export default class Profile extends Component {
                 const newPassword = event.target.newPassword.value
                 const fr = new FileReader()
                 fr.onload = () => {
-                    let myCanvas = React.createElement('canvas', {id: 'myCanvas'})
-                    ReactDOM.render(myCanvas, document.getElementById('root'))
-                    myCanvas = document.getElementById('myCanvas')
-                    const blobURL = URL.createObjectURL(new Blob([fr.result], {type: 'image/png'}))
-                    let myImage = React.createElement('img', {id: 'myImage', src: blobURL, alt: 'uploaded profile'})
-                    ReactDOM.render(myImage, document.getElementById('root'))
-                    myImage = document.getElementById('myImage')
-                    const canvasContext = myCanvas.getContext('2d')
-                    canvasContext.drawImage(myImage, 0, 0, 40, 40)
-                    myCanvas.toBlob((imageBlob) => {
-                        const frBlob = new FileReader()
-                        frBlob.onload = () => {
-                            console.log(frBlob.result.length)
-                            // update the user
-                            props.updateUser({
-                                _id: props.data.user._id,
-                                name: props.data.user.name,
-                                newUsername,
-                                currentPassword,
-                                newPassword,
-                                newPicture: frBlob.result
-                            })
-                        }
-                        frBlob.readAsBinaryString(imageBlob)
-                    }, 'image/png')
+                    this.setState({
+                        resizingPicture: true,
+                    }, () => {
+                        const myCanvas = document.getElementById('myCanvas')
+                        createImageBitmap(new Blob([fr.result]))
+                        .then(myImageBitmap => {
+
+                            const canvasContext = myCanvas.getContext('2d')
+                            console.log(myImageBitmap)
+                            // draw image takes (img, x, y, w, h)
+                            canvasContext.drawImage(myImageBitmap, 0, 0, 40, 40)
+                            console.log(canvasContext)
+                            myCanvas.toBlob((imageBlob) => {
+                                const frBlob = new FileReader()
+                                frBlob.onload = () => {
+                                    // update the user
+                                    props.updateUser({
+                                        _id: props.data.user._id,
+                                        name: props.data.user.name,
+                                        newUsername,
+                                        currentPassword,
+                                        newPassword,
+                                        newPicture: frBlob.result
+                                    })
+                                }
+                                frBlob.readAsBinaryString(imageBlob)
+                            }, 'image/png', .5)
+                        })
+                    })
                 }
                 event.target.newPicture.files[0] ?
                     fr.readAsArrayBuffer(event.target.newPicture.files[0]) :
@@ -89,7 +106,9 @@ export default class Profile extends Component {
             <div className='changePicture'>
                 <label>
                     Change picture:
-                    <img src={props.data.user.pictureSrc} alt='user profile'/>
+                    <canvas id='myCanvas' ref='myCanvas' width={100} height={100}>  
+                        <img src={this.state.blobURL || props.data.user.pictureSrc} alt={`user's profile`}/>
+                    </canvas>
                     <input 
                         type='file' name='newPicture' accept='image/*' 
                         onChange={() => this.setState({pictureUploaded: true})}
