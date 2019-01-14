@@ -178,7 +178,7 @@ const updateForm = (event, props) => {
     // Golfers
     let golfers = []
     for (let selectedGolfer of event.target.form.golfers.selectedOptions) {
-        selectedGolferIDs.push(selectedGolfer.value)
+        golfers.push(selectedGolfer.value)
     }
 
     // let golfers = props.data.allUsers.filter(user => selectedGolferIDs.includes(user._id))       

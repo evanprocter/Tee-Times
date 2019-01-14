@@ -25,7 +25,12 @@ export default function UserTeeTime(props) {
                 <p>{dateString}</p>
                 <p>{teeTime.teeType}</p>
                 <p>{teeTime.golfers.filter(golferID => props.isAdmin || golferID !== props.data.user._id)
-                    .map(golferID => props.data.allUsers.find(golfer => golfer._id === golferID).name).join(', ')}
+                    .map(golferID => {
+                        console.log(golferID)
+                        const golfer =  props.data.allUsers.find(golfer => golfer._id === golferID)
+                        console.log(golfer)
+                        return golfer.name
+                        }).join(', ')}
                 </p>
                 {teeTime.guests > 0 && <p>{`${teeTime.guests} guests`}</p>}
                 {props.selectedTeeTime._id === teeTime._id && <input type="button" value="Remove Tee Time" onClick={event => props.deleteTeeTime(props.selectedTeeTime)}/>}
