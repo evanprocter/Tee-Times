@@ -113,7 +113,7 @@ export default class Profile extends Component {
                             })
                         }}
                     />
-                    <canvas id='myCanvas' width={100} height={100}/>  
+                    {this.state.imageLoaded && <canvas id='myCanvas' width={100} height={100}/> } 
                     <img id='myImage' src={this.state.imageLoaded ? blobUrl(this.state.imageFile) : props.data.user.pictureSrc} alt='uploaded profile'/>
                 </label>
                 <input type='button' value='Upload' onClick={event => {
