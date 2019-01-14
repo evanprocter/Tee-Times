@@ -59,7 +59,7 @@ export default class Profile extends Component {
                             const canvasContext = myCanvas.getContext('2d')
                             console.log(myImageBitmap)
                             // draw image takes (img, x, y, w, h)
-                            canvasContext.drawImage(myImageBitmap, 0, 0, 40, 40)
+                            canvasContext.drawImage(myImageBitmap, 0, 0, 100, 100)
                             console.log(canvasContext)
                             myCanvas.toBlob((imageBlob) => {
                                 const frBlob = new FileReader()
@@ -106,9 +106,8 @@ export default class Profile extends Component {
             <div className='changePicture'>
                 <label>
                     Change picture:
-                    <canvas id='myCanvas' ref='myCanvas' width={100} height={100}>  
-                        <img src={this.state.blobURL || props.data.user.pictureSrc} alt={`user's profile`}/>
-                    </canvas>
+                    {this.state.resizingPicture ? <canvas id='myCanvas' ref='myCanvas' width={100} height={100}/> :
+                    <img src={props.data.user.pictureSrc} alt={`user's profile`}/>}
                     <input 
                         type='file' name='newPicture' accept='image/*' 
                         onChange={() => this.setState({pictureUploaded: true})}
