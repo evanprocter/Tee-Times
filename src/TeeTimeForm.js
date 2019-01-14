@@ -176,12 +176,13 @@ const updateForm = (event, props) => {
     const date = {year, month, day, dayOfTheWeek, hours, minutes}
 
     // Golfers
-    const selectedGolferIDs = []
+    let golfers = []
     for (let selectedGolfer of event.target.form.golfers.selectedOptions) {
-        selectedGolferIDs.push(selectedGolfer.value)
+        golfers.push(selectedGolfer.value)
     }
-    let golfers = props.data.allUsers.filter(user => selectedGolferIDs.includes(user._id))       
-    golfers = props.isAdmin || props.isSearching ? golfers : [...golfers, props.data.user]
+
+    // let golfers = props.data.allUsers.filter(user => selectedGolferIDs.includes(user._id))       
+    golfers = props.isAdmin || props.isSearching ? golfers : [...golfers, props.data.user._id]
 
     // Guests
     const memberCount = golfers.length
