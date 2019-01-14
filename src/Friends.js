@@ -20,4 +20,4 @@ export default function Friends(props) {
             .map(friend => <Friend key={friend._id} golfer={friend} {...props}/>)}
        </div>
     )
-}
+} 
