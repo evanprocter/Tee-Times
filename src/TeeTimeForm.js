@@ -25,10 +25,14 @@ export default function TeeTimeForm(props){
         onSubmit={event => {
             event.preventDefault()
             // basic user's automatically added to teetime
-            const golfer = props.data.user.userType === 'admin' ? null : props.data.user 
+            {/* const golfer = props.isAdmin ? null : props.data.user  */}
             const {date} = props.teeTimeSearch
             const teeDate = [date.year, date.month, date.day, date.hours, date.minutes]
-            props.selectedTeeTime._id || props.addTeeTime({...props.teeTimeSearch, date: new Date(...teeDate), golfers: [...props.teeTimeSearch.golfers, golfer]})
+            console.log(props.teeTimeSearch)
+            props.selectedTeeTime._id || props.addTeeTime({
+                ...props.teeTimeSearch, 
+                date: new Date(...teeDate), 
+                golfers: [...props.teeTimeSearch.golfers]})
         }}
         >
         <input type="checkbox" name="walkride" value="walk" 
