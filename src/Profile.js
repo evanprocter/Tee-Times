@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import ReactDOM from 'react-dom'
 
 export default class Profile extends Component {
     constructor(props) {
@@ -35,16 +36,19 @@ export default class Profile extends Component {
                 const newPassword = event.target.newPassword.value
                 const fr = new FileReader()
                 fr.onload = () => {
-                    const canvas = document.createElement('canvas')
-                    const blobURL = window.URL.createObjectURL(new Blob([fr.result]))
-                    const image = document.createElement('img')
-                    image.src = blobURL
-                    const canvasContext = canvas.getContext('2d')
-                    canvasContext.drawImage(image, 100, 100)
-                    canvas.toBlob((imageBlob) => {
+                    let myCanvas = React.createElement('canvas', {id: 'myCanvas'})
+                    ReactDOM.render(myCanvas, document.getElementById('root'))
+                    myCanvas = document.getElementById('myCanvas')
+                    const blobURL = URL.createObjectURL(new Blob([fr.result], {type: 'image/png'}))
+                    let myImage = React.createElement('img', {id: 'myImage', src: blobURL, alt: 'uploaded profile'})
+                    ReactDOM.render(myImage, document.getElementById('root'))
+                    myImage = document.getElementById('myImage')
+                    const canvasContext = myCanvas.getContext('2d')
+                    canvasContext.drawImage(myImage, 0, 0, 40, 40)
+                    myCanvas.toBlob((imageBlob) => {
                         const frBlob = new FileReader()
                         frBlob.onload = () => {
-                            console.log(frBlob.result)
+                            console.log(frBlob.result.length)
                             // update the user
                             props.updateUser({
                                 _id: props.data.user._id,
@@ -56,18 +60,18 @@ export default class Profile extends Component {
                             })
                         }
                         frBlob.readAsBinaryString(imageBlob)
-                    }, )
+                    }, 'image/png')
                 }
                 event.target.newPicture.files[0] ?
-                fr.readAsArrayBuffer(event.target.newPicture.files[0]) :
-                props.updateUser({
-                    _id: props.data.user._id,
-                    name: props.data.user.name,
-                    newUsername,
-                    currentPassword,
-                    newPassword,
-                    newPicture: ''
-                })
+                    fr.readAsArrayBuffer(event.target.newPicture.files[0]) :
+                    props.updateUser({
+                        _id: props.data.user._id,
+                        name: props.data.user.name,
+                        newUsername,
+                        currentPassword,
+                        newPassword,
+                        newPicture: ''
+                    })
                 this.setState({
                     newPassword: '',
                     usernameSearchTerm: '',

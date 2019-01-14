@@ -59,6 +59,8 @@ html, body, #root, .App, .TeeTimes {
 
 .LoadingPage {
   position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 .LoadingPage > img {
