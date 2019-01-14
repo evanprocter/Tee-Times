@@ -26,9 +26,7 @@ export default function UserTeeTime(props) {
                 <p>{teeTime.teeType}</p>
                 <p>{teeTime.golfers.filter(golferID => props.isAdmin || golferID !== props.data.user._id)
                     .map(golferID => {
-                        console.log(golferID)
                         const golfer =  props.data.allUsers.find(golfer => golfer._id === golferID)
-                        console.log(golfer)
                         return golfer.name
                         }).join(', ')}
                 </p>

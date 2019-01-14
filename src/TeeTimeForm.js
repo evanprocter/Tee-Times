@@ -25,10 +25,8 @@ export default function TeeTimeForm(props){
         onSubmit={event => {
             event.preventDefault()
             // basic user's automatically added to teetime
-            {/* const golfer = props.isAdmin ? null : props.data.user  */}
             const {date} = props.teeTimeSearch
             const teeDate = [date.year, date.month, date.day, date.hours, date.minutes]
-            console.log(props.teeTimeSearch)
             props.selectedTeeTime._id || props.addTeeTime({
                 ...props.teeTimeSearch, 
                 date: new Date(...teeDate), 
