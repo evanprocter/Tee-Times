@@ -93,7 +93,7 @@ export default function TeeTimeForm(props){
                     // event.persist()
                     updateForm(event, props)
                 }}
-                value={props.teeTimeSearch.golfers && props.teeTimeSearch.golfers.map(golfer => golfer._id)}
+                value={props.teeTimeSearch.golfers}
                 >
                 {props.isAdmin || props.isSearching ? 
                 props.data.allUsers.map(user => <option key={user._id} value={user._id}>{`${user.name}`}</option>) : 
