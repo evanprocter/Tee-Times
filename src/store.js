@@ -1,6 +1,6 @@
 import { createStore } from 'redux'
 
-const isDev = true
+const isDev = false
 const DB_URL = 'http://api.evanprocter.com'
 
 setInterval(() => {
