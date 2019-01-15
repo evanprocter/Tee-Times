@@ -16,8 +16,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:3003",
-  "homepage": "http://teetimes.collinargo.com",
+  "proxy": "https://localhost:3003",
+  "homepage": "https://teetimes.collinargo.com",
   "eslintConfig": {
     "extends": "react-app"
   },
