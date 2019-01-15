@@ -1,7 +1,7 @@
 import { createStore } from 'redux'
 
 const isDev = false
-const DB_URL = 'http://api.evanprocter.com'
+const DB_URL = 'https://api.evanprocter.com'
 
 setInterval(() => {
     store.dispatch(updateTime(new Date())) 
