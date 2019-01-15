@@ -61,7 +61,7 @@ export default function TeeTimeForm(props){
                 {availableDays.map(teeDay => <option key={teeDay} value={teeDay}>{`${teeDay}`}</option>)}
             </select>
         </label>
-        {props.teeTimeSearch.date.day || (
+        {/* {props.teeTimeSearch.date.day || ( */}
             <>
                 <label>
                     Hour:
@@ -70,7 +70,7 @@ export default function TeeTimeForm(props){
                         {availableHours.map(teeHour => <option key={teeHour} value={teeHour}>{`${teeHour % 12 || 12} ${teeHour < 12 ? 'AM' : 'PM'}`}</option>)}
                     </select>
                 </label>
-                {props.teeTimeSearch.date.hours && (
+                {/* {props.teeTimeSearch.date.hours && ( */}
                     <label>
                         Minute:
                         <select name='teeMinute' value={props.teeTimeSearch.date.minutes} onChange={event => updateForm(event, props)}>
@@ -78,9 +78,9 @@ export default function TeeTimeForm(props){
                             {availableMinutes.map(teeMinute => <option key={teeMinute} value={teeMinute}>{`${teeMinute.toString().length > 1 ? teeMinute : `0${teeMinute}`}`}</option>)}
                         </select>
                     </label>
-                )}
+                {/* )} */}
             </>
-        )}
+        {/* )} */}
         <h6>{!(props.selectedTeeTime._id || props.isSearching) && teeTimeDateString}</h6>
         <label>
             Select other members:
