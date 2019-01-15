@@ -1,5 +1,8 @@
 import { createStore } from 'redux'
 
+const isDev = true
+const DB_URL = 'http://api.evanprocter.com'
+
 setInterval(() => {
     store.dispatch(updateTime(new Date())) 
 }, 60 * 1000)
@@ -143,7 +146,7 @@ const DELETE_TEE_TIME = {
 }
 
 export const addUser = (user) => {
-    fetch('https://api.evanprocter.com/register', {
+    fetch(`${!isDev ? DB_URL : ''}/register`, {
         method: 'post',
         body: JSON.stringify(user),
         headers: {'Content-Type': 'application/json'}
@@ -151,13 +154,13 @@ export const addUser = (user) => {
     .then(res => res.json())
     .then(data => store.dispatch(receiveData(data)))
     return {
-        ...ADD_USER,
+        ...ADD_USER, 
         isLoading: true
     }
-}
+} 
 
 export const loginUser = (user) => {
-    fetch('https://api.evanprocter.com/login', {
+    fetch(`${!isDev ? DB_URL : ''}/login`, {
         method: 'post',
         body: JSON.stringify(user),
         headers: {'Content-Type' : 'application/json'}
@@ -171,7 +174,7 @@ export const loginUser = (user) => {
 }
 
 export const logoutUser = () => {
-    fetch('https://api.evanprocter.com/logout')
+    fetch(`${!isDev ? DB_URL : ''}/logout`)
     .then(res => res.json())
     .then(data => store.dispatch(receiveData(data)))
     return {
@@ -181,7 +184,7 @@ export const logoutUser = () => {
 }
 
 export const requestData = () => {
-    fetch('https://api.evanprocter.com/data')
+    fetch(`${!isDev ? DB_URL : ''}/data`)
     .then(res => res.json())
     .then(data => store.dispatch(receiveData(data)))
     return {
@@ -216,7 +219,7 @@ export const receiveData = (data) => {
 }
 
 export const updateUser = (user) => {
-    fetch('https://api.evanprocter.com/updateUser', {
+    fetch(`${!isDev ? DB_URL : ''}/updateUser`, {
         method: 'post',
         body: JSON.stringify(user),
         headers: {'Content-Type': 'application/json'}
@@ -237,7 +240,7 @@ export const updateTime = (currentDate) => {
 }
 
 export const addTeeTime = (teeTime) => {
-    fetch('https://api.evanprocter.com/teetime', {
+    fetch(`${!isDev ? DB_URL : ''}/teetime`, {
         method: 'post',
         body: JSON.stringify({teeTime}),
         headers: {'Content-Type' : 'application/json'}
@@ -269,7 +272,7 @@ export const selectTeeTime = (teeTime) => {
 }
 
 export const updateTeeTime = (teeTime) => {
-    fetch('https://api.evanprocter.com/updateTeeTime', {
+    fetch(`${!isDev ? DB_URL : ''}/updateTeeTime`, {
         method: 'post',
         body: JSON.stringify({teeTime}),
         headers: {'Content-Type': 'application/json'}
@@ -303,7 +306,7 @@ export const searchTeeTimes = () => {
 }
 
 export const requestFriend = friends => {
-    fetch('https://api.evanprocter.com/requestFriend', {
+    fetch(`${!isDev ? DB_URL : ''}/requestFriend`, {
         method: 'post',
         body: JSON.stringify(friends),
         headers: {'Content-Type': 'application/json'}
@@ -317,7 +320,7 @@ export const requestFriend = friends => {
 }
 export const approveFriend = friends => {
     console.log(friends)
-    fetch('https://api.evanprocter.com/approveFriend', {
+    fetch(`${!isDev ? DB_URL : ''}/approveFriend`, {
         method: 'post',
         body: JSON.stringify(friends),
         headers: {'Content-Type': 'application/json'}
@@ -330,7 +333,7 @@ export const approveFriend = friends => {
     }
 }
 export const denyFriend = friends => {
-    fetch('https://api.evanprocter.com/denyFriend', {
+    fetch(`${!isDev ? DB_URL : ''}/denyFriend`, {
         method: 'post',
         body: JSON.stringify(friends),
         headers: {'Content-Type': 'application/json'}
@@ -344,7 +347,7 @@ export const denyFriend = friends => {
 }
 
 export const deleteUser = (user) => {
-    fetch('https://api.evanprocter.com/user', {
+    fetch(`${!isDev ? DB_URL : ''}/user`, {
         method: 'delete',
         body: JSON.stringify({user}),
         headers: {'Content-Type': 'application/json'}
@@ -358,7 +361,7 @@ export const deleteUser = (user) => {
 }
 
 export const deleteTeeTime = (teeTime) => {
-    fetch('https://api.evanprocter.com/teetime', {
+    fetch(`${!isDev ? DB_URL : ''}/teetime`, {
         method: 'delete',
         body: JSON.stringify({teeTime}),
         headers: {'Content-Type' : 'application/json'}
