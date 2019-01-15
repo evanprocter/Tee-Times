@@ -17,6 +17,7 @@
     "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:3003",
+  "homepage" : "http://teetimes.collinargo.com",
   "eslintConfig": {
     "extends": "react-app"
   },
