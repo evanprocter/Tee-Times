@@ -177,7 +177,10 @@ export const loginUser = (user) => {
 }
 
 export const logoutUser = () => {
-    fetch(`${!isDev ? DB_URL : ''}/logout`)
+    fetch(`${!isDev ? DB_URL : ''}/logout`, {
+        method: 'get',
+        credentials: 'include'
+    })
     .then(res => res.json())
     .then(data => store.dispatch(receiveData(data)))
     return {
@@ -187,7 +190,10 @@ export const logoutUser = () => {
 }
 
 export const requestData = () => {
-    fetch(`${!isDev ? DB_URL : ''}/data`)
+    fetch(`${!isDev ? DB_URL : ''}/data`, {
+        method: 'get',
+        credentials: 'include'
+    })
     .then(res => res.json())
     .then(data => store.dispatch(receiveData(data)))
     return {
