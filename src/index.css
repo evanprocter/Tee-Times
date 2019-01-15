@@ -33,9 +33,10 @@ html, body, #root, .App, .TeeTimes {
 .LoginPage {
   background:skyblue;
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
-  height: 10%;
   align-items: center;
+  margin: auto;
 }
 
 .LoginPage > * {
@@ -45,7 +46,6 @@ html, body, #root, .App, .TeeTimes {
 .adminLogin {
   height: 100%;
   display: flex;
-  flex-direction: column;
   justify-content: space-around;
 }
 
