@@ -149,6 +149,7 @@ const DELETE_TEE_TIME = {
 export const addUser = (user) => {
     fetch(`${!isDev ? DB_URL : ''}/register`, {
         method: 'post',
+        credentials: 'include',
         body: JSON.stringify(user),
         headers: {'Content-Type': 'application/json'}
     })
@@ -163,6 +164,7 @@ export const addUser = (user) => {
 export const loginUser = (user) => {
     fetch(`${!isDev ? DB_URL : ''}/login`, {
         method: 'post',
+        credentials: 'include',
         body: JSON.stringify(user),
         headers: {'Content-Type' : 'application/json'}
     })
@@ -222,6 +224,7 @@ export const receiveData = (data) => {
 export const updateUser = (user) => {
     fetch(`${!isDev ? DB_URL : ''}/updateUser`, {
         method: 'post',
+        credentials: 'include',
         body: JSON.stringify(user),
         headers: {'Content-Type': 'application/json'}
     })
@@ -243,6 +246,7 @@ export const updateTime = (currentDate) => {
 export const addTeeTime = (teeTime) => {
     fetch(`${!isDev ? DB_URL : ''}/teetime`, {
         method: 'post',
+        credentials: 'include',
         body: JSON.stringify({teeTime}),
         headers: {'Content-Type' : 'application/json'}
     })
@@ -275,6 +279,7 @@ export const selectTeeTime = (teeTime) => {
 export const updateTeeTime = (teeTime) => {
     fetch(`${!isDev ? DB_URL : ''}/updateTeeTime`, {
         method: 'post',
+        credentials: 'include',
         body: JSON.stringify({teeTime}),
         headers: {'Content-Type': 'application/json'}
     })
@@ -309,6 +314,7 @@ export const searchTeeTimes = () => {
 export const requestFriend = friends => {
     fetch(`${!isDev ? DB_URL : ''}/requestFriend`, {
         method: 'post',
+        credentials: 'include',
         body: JSON.stringify(friends),
         headers: {'Content-Type': 'application/json'}
     })
@@ -323,6 +329,7 @@ export const approveFriend = friends => {
     console.log(friends)
     fetch(`${!isDev ? DB_URL : ''}/approveFriend`, {
         method: 'post',
+        credentials: 'include',
         body: JSON.stringify(friends),
         headers: {'Content-Type': 'application/json'}
     })
@@ -336,6 +343,7 @@ export const approveFriend = friends => {
 export const denyFriend = friends => {
     fetch(`${!isDev ? DB_URL : ''}/denyFriend`, {
         method: 'post',
+        credentials: 'include',
         body: JSON.stringify(friends),
         headers: {'Content-Type': 'application/json'}
     })
@@ -350,6 +358,7 @@ export const denyFriend = friends => {
 export const deleteUser = (user) => {
     fetch(`${!isDev ? DB_URL : ''}/user`, {
         method: 'delete',
+        credentials: 'include',
         body: JSON.stringify({user}),
         headers: {'Content-Type': 'application/json'}
     })
@@ -364,6 +373,7 @@ export const deleteUser = (user) => {
 export const deleteTeeTime = (teeTime) => {
     fetch(`${!isDev ? DB_URL : ''}/teetime`, {
         method: 'delete',
+        credentials: 'include',
         body: JSON.stringify({teeTime}),
         headers: {'Content-Type' : 'application/json'}
     })
