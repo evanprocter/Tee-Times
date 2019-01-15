@@ -143,7 +143,7 @@ const DELETE_TEE_TIME = {
 }
 
 export const addUser = (user) => {
-    fetch('/register', {
+    fetch('localhost:3003/register', {
         method: 'post',
         body: JSON.stringify(user),
         headers: {'Content-Type': 'application/json'}
@@ -157,7 +157,7 @@ export const addUser = (user) => {
 }
 
 export const loginUser = (user) => {
-    fetch('/login', {
+    fetch('localhost:3003/login', {
         method: 'post',
         body: JSON.stringify(user),
         headers: {'Content-Type' : 'application/json'}
@@ -171,7 +171,7 @@ export const loginUser = (user) => {
 }
 
 export const logoutUser = () => {
-    fetch('/logout')
+    fetch('localhost:3003/logout')
     .then(res => res.json())
     .then(data => store.dispatch(receiveData(data)))
     return {
@@ -181,7 +181,7 @@ export const logoutUser = () => {
 }
 
 export const requestData = () => {
-    fetch('data')
+    fetch('localhost:3003/data')
     .then(res => res.json())
     .then(data => store.dispatch(receiveData(data)))
     return {
@@ -216,7 +216,7 @@ export const receiveData = (data) => {
 }
 
 export const updateUser = (user) => {
-    fetch('/updateUser', {
+    fetch('localhost:3003/updateUser', {
         method: 'post',
         body: JSON.stringify(user),
         headers: {'Content-Type': 'application/json'}
@@ -237,7 +237,7 @@ export const updateTime = (currentDate) => {
 }
 
 export const addTeeTime = (teeTime) => {
-    fetch('/teetime', {
+    fetch('localhost:3003/teetime', {
         method: 'post',
         body: JSON.stringify({teeTime}),
         headers: {'Content-Type' : 'application/json'}
@@ -269,7 +269,7 @@ export const selectTeeTime = (teeTime) => {
 }
 
 export const updateTeeTime = (teeTime) => {
-    fetch('/updateTeeTime', {
+    fetch('localhost:3003/updateTeeTime', {
         method: 'post',
         body: JSON.stringify({teeTime}),
         headers: {'Content-Type': 'application/json'}
@@ -303,7 +303,7 @@ export const searchTeeTimes = () => {
 }
 
 export const requestFriend = friends => {
-    fetch('/requestFriend', {
+    fetch('localhost:3003/requestFriend', {
         method: 'post',
         body: JSON.stringify(friends),
         headers: {'Content-Type': 'application/json'}
@@ -317,7 +317,7 @@ export const requestFriend = friends => {
 }
 export const approveFriend = friends => {
     console.log(friends)
-    fetch('/approveFriend', {
+    fetch('localhost:3003/approveFriend', {
         method: 'post',
         body: JSON.stringify(friends),
         headers: {'Content-Type': 'application/json'}
@@ -330,7 +330,7 @@ export const approveFriend = friends => {
     }
 }
 export const denyFriend = friends => {
-    fetch('/denyFriend', {
+    fetch('localhost:3003/denyFriend', {
         method: 'post',
         body: JSON.stringify(friends),
         headers: {'Content-Type': 'application/json'}
@@ -344,7 +344,7 @@ export const denyFriend = friends => {
 }
 
 export const deleteUser = (user) => {
-    fetch('/user', {
+    fetch('localhost:3003/user', {
         method: 'delete',
         body: JSON.stringify({user}),
         headers: {'Content-Type': 'application/json'}
@@ -358,7 +358,7 @@ export const deleteUser = (user) => {
 }
 
 export const deleteTeeTime = (teeTime) => {
-    fetch('/teetime', {
+    fetch('localhost:3003/teetime', {
         method: 'delete',
         body: JSON.stringify({teeTime}),
         headers: {'Content-Type' : 'application/json'}
