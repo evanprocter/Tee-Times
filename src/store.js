@@ -143,7 +143,7 @@ const DELETE_TEE_TIME = {
 }
 
 export const addUser = (user) => {
-    fetch('http://api.evanprocter.com/register', {
+    fetch('https://api.evanprocter.com/register', {
         method: 'post',
         body: JSON.stringify(user),
         headers: {'Content-Type': 'application/json'}
@@ -157,7 +157,7 @@ export const addUser = (user) => {
 }
 
 export const loginUser = (user) => {
-    fetch('http://api.evanprocter.com/login', {
+    fetch('https://api.evanprocter.com/login', {
         method: 'post',
         body: JSON.stringify(user),
         headers: {'Content-Type' : 'application/json'}
@@ -171,7 +171,7 @@ export const loginUser = (user) => {
 }
 
 export const logoutUser = () => {
-    fetch('http://api.evanprocter.com/logout')
+    fetch('https://api.evanprocter.com/logout')
     .then(res => res.json())
     .then(data => store.dispatch(receiveData(data)))
     return {
@@ -181,7 +181,7 @@ export const logoutUser = () => {
 }
 
 export const requestData = () => {
-    fetch('http://api.evanprocter.com/data')
+    fetch('https://api.evanprocter.com/data')
     .then(res => res.json())
     .then(data => store.dispatch(receiveData(data)))
     return {
@@ -216,7 +216,7 @@ export const receiveData = (data) => {
 }
 
 export const updateUser = (user) => {
-    fetch('http://api.evanprocter.com/updateUser', {
+    fetch('https://api.evanprocter.com/updateUser', {
         method: 'post',
         body: JSON.stringify(user),
         headers: {'Content-Type': 'application/json'}
@@ -237,7 +237,7 @@ export const updateTime = (currentDate) => {
 }
 
 export const addTeeTime = (teeTime) => {
-    fetch('http://api.evanprocter.com/teetime', {
+    fetch('https://api.evanprocter.com/teetime', {
         method: 'post',
         body: JSON.stringify({teeTime}),
         headers: {'Content-Type' : 'application/json'}
@@ -269,7 +269,7 @@ export const selectTeeTime = (teeTime) => {
 }
 
 export const updateTeeTime = (teeTime) => {
-    fetch('http://api.evanprocter.com/updateTeeTime', {
+    fetch('https://api.evanprocter.com/updateTeeTime', {
         method: 'post',
         body: JSON.stringify({teeTime}),
         headers: {'Content-Type': 'application/json'}
@@ -303,7 +303,7 @@ export const searchTeeTimes = () => {
 }
 
 export const requestFriend = friends => {
-    fetch('http://api.evanprocter.com/requestFriend', {
+    fetch('https://api.evanprocter.com/requestFriend', {
         method: 'post',
         body: JSON.stringify(friends),
         headers: {'Content-Type': 'application/json'}
@@ -317,7 +317,7 @@ export const requestFriend = friends => {
 }
 export const approveFriend = friends => {
     console.log(friends)
-    fetch('http://api.evanprocter.com/approveFriend', {
+    fetch('https://api.evanprocter.com/approveFriend', {
         method: 'post',
         body: JSON.stringify(friends),
         headers: {'Content-Type': 'application/json'}
@@ -330,7 +330,7 @@ export const approveFriend = friends => {
     }
 }
 export const denyFriend = friends => {
-    fetch('http://api.evanprocter.com/denyFriend', {
+    fetch('https://api.evanprocter.com/denyFriend', {
         method: 'post',
         body: JSON.stringify(friends),
         headers: {'Content-Type': 'application/json'}
@@ -344,7 +344,7 @@ export const denyFriend = friends => {
 }
 
 export const deleteUser = (user) => {
-    fetch('http://api.evanprocter.com/user', {
+    fetch('https://api.evanprocter.com/user', {
         method: 'delete',
         body: JSON.stringify({user}),
         headers: {'Content-Type': 'application/json'}
@@ -358,7 +358,7 @@ export const deleteUser = (user) => {
 }
 
 export const deleteTeeTime = (teeTime) => {
-    fetch('http://api.evanprocter.com/teetime', {
+    fetch('https://api.evanprocter.com/teetime', {
         method: 'delete',
         body: JSON.stringify({teeTime}),
         headers: {'Content-Type' : 'application/json'}
