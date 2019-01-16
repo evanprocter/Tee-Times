@@ -228,11 +228,15 @@ input[type='button'], input[type='submit'], input[type='reset'] {
   height: 100%;
 }
 
-Profile > * {
+.Profile > * {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   flex: 1;
+}
+
+.changeUsername {
+  flex: 0 1 15%;
 }
 
 .changePicture img {

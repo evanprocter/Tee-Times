@@ -131,7 +131,6 @@ export default class Profile extends Component {
                 </label>
                 <label>
                     {/* change user name */}
-                    Change username:
                     <input 
                         type='text' name='newUsername'
                         placeholder={'new username'}
