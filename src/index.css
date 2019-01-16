@@ -43,6 +43,10 @@ h4, p {
 
 .TeeTimes > h1 {
   font-family: 'IM Fell DW Pica', serif;
+  color: rgba(255, 225, 50, .9);
+  margin: 10% 10% 0;
+  font-size: 4em;
+  text-shadow: -2px 2px 0px red;
 }
 
 .LoginPage {

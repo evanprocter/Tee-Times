@@ -5,7 +5,7 @@ export default function Friends(props) {
    const friends = props.friends || props.data.allUsers
     return (
         <div className='Friends'>
-           {props.friends || <input 
+           {!props.friends && <input 
                 type='text' name='friendName' 
                 placeholder={'friend\'s name'} 
                 value={props.friendSearchTerm} 
