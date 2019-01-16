@@ -28,29 +28,65 @@ html, body, #root, .App, .TeeTimes {
 .TeeTimes {
   display: flex;
   flex-direction: column;
+  background-image: url('12th-hole.jpg');
+  background-size: cover;
 }
 
 .LoginPage {
-  background:skyblue;
+  background-color:rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  margin: auto;
+  margin: 15%;
+  padding: 5%;
+  border-radius: 5%;
+  border: 3px solid whitesmoke;
 }
 
 .LoginPage > * {
   flex: 1;
+  padding: 10%;
+  width: 100%;
+}
+
+.LoginPage > label {
+  display: flex;
+  justify-content: space-between;
+  color: rgba(255, 225, 50, 0.9);
+}
+
+.userLogin {
+  display: flex;
+  justify-content: space-around;
+}
+
+input[type="text"], input[type="password"] {
+  background-color: rgba(255, 255, 255, .2);
+  color: rgba(255, 225, 50, .9);
+  font-size: 1rem;
+  text-align: center;
+  margin: auto;
+}
+
+::placeholder {
+  color: rgba(255, 225, 50, .5);
 }
 
 .adminLogin {
   height: 100%;
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
+
 
 .adminLogin:hover {
   cursor: pointer;
+}
+
+.adminLogin > * {
+  margin: 10%;
 }
 
 /* ===========================
@@ -115,7 +151,7 @@ Where the navbar styles reside
 input[type='button'], input[type='submit'], input[type='reset'] {
   background:none!important;
   padding:0!important;
-  color: green;
+  color: rgba(255, 225, 50, 0.9);
   border: none;
   font: inherit;
   cursor: pointer;

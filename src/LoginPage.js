@@ -11,13 +11,11 @@ export default function LoginPage(props) {
                 })
             }}
         >
-            <label name='name'> 
-                Name:
-                <input type='text' name='name'/>
+            <label value='name' name='name'> 
+                <input type='text' name='name' placeholder='name'/>
             </label>
-            <label>
-                Password:
-                <input type='password' name='password' />
+            <label value='password' name='password'>
+                <input type='password' name='password' placeholder='password' />
             </label>
             <div className="userLogin">
                 <input type='submit' value='login'/>
@@ -36,7 +34,7 @@ export default function LoginPage(props) {
                 />
             </div>
             <div className='adminLogin'>
-                <input type='password' placeholder='password' name='adminPassword' /> 
+                <input type='password' placeholder='admin password' name='adminPassword' /> 
                 <input type='button' value='register as admin' 
                     onClick={event => {
                         if (!props.data.allUsers.map(user => user.name).includes(event.target.form[0].value)) {
