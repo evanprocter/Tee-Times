@@ -124,10 +124,13 @@ Where the navbar styles reside
 }
 
 .NavBar > * {
-  margin: 0;
+  height: 100%;
   flex: 1;
   color:rgba(255, 225, 50, .9);
   text-decoration: none;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .navlink:nth-child(2) {
@@ -137,13 +140,12 @@ Where the navbar styles reside
 }
 
 .navlink img {
-  background-color: rgba(200, 255, 100, .5);
   width: 15%;
-  height: 15%;
 }
 
 .navlink.active {
   color:whitesmoke;
+  background-color: rgba(255, 225, 50, .1);
 }
 
 /* .navlink.active img {
