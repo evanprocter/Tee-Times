@@ -17,6 +17,7 @@ export default class TeeTimes extends Component {
         (isLoggedIn && (props.location.pathname === '/login' && <Redirect to='/'/>)) || 
         ( 
             <div className="TeeTimes" >
+                {!isLoggedIn && <h1>Tee</h1>}
                 {props.isLoading && <LoadingPage />}
                 <Switch>
                     <Route 
@@ -29,6 +30,7 @@ export default class TeeTimes extends Component {
                         render={routeProps => <Dashboard {...props}/>}
                     />
                 </Switch>
+                {!isLoggedIn && <h1>Times</h1>}
             </div>
         )
     }
