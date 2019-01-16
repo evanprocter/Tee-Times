@@ -1,68 +1,57 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Tee Times App
+## Origin Story
+My partner, Collin Argo, Co-founder of Tee Times and I both realized we had a passion not only for web developing, but also when it came to golfing. We came up with this idea thanks to Hoover Country Club based in Birmingham, Alabma. Hoover Country Club currently does not have a way to set a tee time's online so we jumped at the opportunity of trying to make that possible. This app allows for users to log in, set and edit teetimes with specific options(walk/ride, etc) to choose from. This app also allows for users to add other members as friends and add them to future tee times.
 
-## Available Scripts
+## Stack
+- We used a MERN stack to develop this app
+- Built using Redux and React bootstrapped with create-react-app 
+- React used to update multiple values on the scorecard simultaneously
+- Uses Redux to track overall status of the game and to integrate with a planned future backend. 
+- Includes React Router to navigate the app and to select holes to edit.
+- MongoDB, Express was what we used for our databas. 
 
-In the project directory, you can run:
+## Development
+- This was our final Capstone Project as we finish up at Digital Crafts full stack immersive bootcamp.
+- Developed through a series of iterative development cycles.
+- Began with a list of features we wanted and as well as possible issues that might arrive.
+- Addressed each of them one by one on seperate git branches.
+- We would then start the same cycle again after merging the changes to master.
 
-### `npm start`
+### How It Works
+- User is brought to a login page where they can register if needed.
+- From there the user will be brought to their dashboard. 
+- At this point the user can see if they have any upcoming tee times.
+- The user then has the option of clicking on a nav bar at the top of the page where they can go to their edit profile page, set a tee time page or the friends page where they can add other members in their club as friends so they can schedule future tee times together.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Guts
+#### Redux
+- Entire state of the app is maintained at the top level of the app
+- State passed down to scorecard components
+- Store mostly setup to hold all of the user's rounds and courses as well as the current round and course
+- For the MVP, these are the same.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+#### React Router
+- Sits at the top of the app
+- Directs traffic to components appropriately
+- Eventually will be helpful in sending the user to a login page and displaying different courses or holes
+- Right now employed to select holes to add shots or edit par
+- Involves a combination of route paraments and dynamic links.
 
-### `npm test`
+## Deployment
+- Available as a live demo at 
+https://evanprocter.com
+- Registered with Google Domains and is hosted on an AWS server
+- PM2 is used to run the app continuously
+- nginx directs network traffic to it
+- certbot was used to generate SSL certificates for the site
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Challenges
+- different perspectives on certain features and ideas
+- paradox of choice
+- learning new technology(MongoDB)
+- time
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## Future Plans
+- include Country Club reservations and calendar for dinner and future events
+- integrate Collin's scorecard app which can be found: https://scorecard.collinargo.com 
+- make it accessible to tennis players as well and other sports like swimming along with golf and allowing these users to set times for lessons and other events.
