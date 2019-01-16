@@ -43,15 +43,15 @@ export default function UserTeeTimes(props) {
     const futureTeeTimes = userTeeTimes.filter(teeTime => new Date(teeTime.date) > currentDate)
     const pastTeeTimes = userTeeTimes.filter(teeTime => new Date(teeTime.date) <= currentDate)
     return (
-        <div className={`UserTeeTimes${props.isSearching ? ' searchingTeeTimes' : ''}`}>
+        <div className={`UserTeeTimes`}>
             <div className='teeSearchButton'><input type="button" value="Tee Time Search" onClick={props.searchTeeTimes}/></div>
-            <div className='upcomingTeeTimes'>
+            <div className={`upcomingTeeTimes${props.isSearching ? ' searchingTeeTimes' : ''}`}>
                 <h4>Here is a list of your upcoming tee times!</h4>
                 {futureTeeTimes.map(teeTime => {
                     return <UserTeeTime key={teeTime._id} isPast={false} teeTime={teeTime} {...props}/>
                 })}
             </div>
-            <div className='completedTeeTimes'>
+            <div className={`completedTeeTimes${props.isSearching ? ' searchingTeeTimes' : ''}`}>
                 <h4>Here are your completed tee times!</h4>
                 {pastTeeTimes.map(teeTime => {
                     return <UserTeeTime key={teeTime._id} isPast={true} teeTime={teeTime} {...props}/>

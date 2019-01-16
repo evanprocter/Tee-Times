@@ -55,8 +55,8 @@ h4, p {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  margin: 15%;
-  padding: 5%;
+  margin: 10%;
+  padding: 2%;
   border-radius: 5%;
   border: 3px solid whitesmoke;
   height: 100%;
@@ -194,9 +194,8 @@ input[type='button'], input[type='submit'], input[type='reset'] {
 }
 
 .Dashboard > :last-child {
-  overflow: scroll;
   height: 100%;
-  padding: 5%;
+  padding: 2%;
 }
 
 .statusMessages {
@@ -258,6 +257,7 @@ input[type='button'], input[type='submit'], input[type='reset'] {
   border: solid whitesmoke 2px;
   border-radius: 4%;
   padding: 2%;
+  margin: auto;
 }
 
 .TeeTimeForm > * {
@@ -279,7 +279,7 @@ label > select {
 }
 
 .UserTeeTimes > * {
-  margin: 2%;
+  margin: 1%;
   padding: 2%;
   border: solid whitesmoke 2px;
   border-radius: 2%;
@@ -290,6 +290,10 @@ label > select {
   width: 22%;
   margin-right: auto;
   margin-left: auto;
+}
+
+.upcomingTeeTimes, .completedTeeTimes {
+  overflow: scroll;
 }
 
 .searchingTeeTimes {
