@@ -21,7 +21,7 @@ export default function TeeTimeForm(props){
                                     })
     const {availableMonths, availableDays, availableHours, availableMinutes} = getAvailableOptions(availableTeeDates)
     return (
-        <form className={`TeeTimeForm${props.selectedTeeTime._id ? ' selectedTeeTimeForm' : ''}`} 
+        <form className={`TeeTimeForm${props.selectedTeeTime._id ? ' selectedTeeTimeForm' : ''}${props.isSearching ? ' searchingTeeTimes' : ''}`} 
         onSubmit={event => {
             event.preventDefault()
             // basic user's automatically added to teetime
