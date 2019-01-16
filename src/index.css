@@ -305,8 +305,8 @@ Where the /friends styles reside
 }
 
 .Friends > * {
-  padding: 5%;
-  margin: 5%;
+  padding: 3%;
+  margin: 3%;
 }
 
 .searchFriends {
@@ -321,6 +321,7 @@ Where the /friends styles reside
   background-color: rgba(0, 0, 0, .5);
   border: solid 2px whitesmoke;
   border-radius: 4%;
+  overflow: scroll;
 }
 
 .friendRequestStatus > .Friends > .friendsList {
