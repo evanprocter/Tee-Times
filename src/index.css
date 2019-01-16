@@ -25,7 +25,11 @@ html, body, #root, .App, .TeeTimes {
   box-sizing: border-box;
 }
 
-label, h4, p {
+label {
+  color: rgba(255, 225, 50, .9);
+}
+
+h4, p {
   color: whitesmoke;
 }
 
@@ -222,6 +226,14 @@ input[type='button'], input[type='submit'], input[type='reset'] {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+}
+
+.TeeTimeForm > * {
+  padding: 2%;
+}
+
+label > select {
+  min-width: 5em;
 }
 
 .selectedTeeTimeForm {

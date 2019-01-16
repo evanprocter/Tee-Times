@@ -33,12 +33,16 @@ export default function TeeTimeForm(props){
                 golfers: [...props.teeTimeSearch.golfers]})
         }}
         >
-        <input type="checkbox" name="walkride" value="walk" 
+        <label>
+            Walk<input type="checkbox" name="walkride" value="walk" 
             checked={props.teeTimeSearch.teeType === "walk"} 
-            onChange={event => updateForm(event, props)} />Walk<br/>
-        <input type="checkbox" name="walkride" value="ride" 
+            onChange={event => updateForm(event, props)} />
+        </label>
+        <label>
+            Ride<input type="checkbox" name="walkride" value="ride" 
             checked={props.teeTimeSearch.teeType === "ride"} 
-            onChange={event => updateForm(event, props)} />Ride<br/>
+            onChange={event => updateForm(event, props)} />
+        </label>
         <h4>Select a date:</h4>
             {props.isAdmin && (
                 <>    
