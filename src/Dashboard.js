@@ -5,7 +5,6 @@ import TeeTimeForm from './TeeTimeForm'
 import UserTeeTimes from './UserTeeTimes'
 import Friends from './Friends'
 import UserTeeTime from './UserTeeTime';
-import Friend from './Friend';
 import Profile from './Profile';
 
 export default function Dashboard(props) {
@@ -52,6 +51,7 @@ export default function Dashboard(props) {
                 return <Profile {...props}/>
             }}/>
             <Route exact path={'/teetimes'} render= {routeProps => {
+                console.log(props.data.allTeeTimes)
                 return(
                     <div className='teeTimePage'>
                         <TeeTimeForm {...props}/>
