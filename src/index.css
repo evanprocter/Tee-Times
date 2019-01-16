@@ -268,8 +268,8 @@ label > select {
   min-width: 5em;
 }
 
-.selectedTeeTimeForm {
-  background-color: aquamarine;
+.selectedTeeTime {
+  background-color: rgba(0, 90, 255, 0.1);
 }
 
 .UserTeeTimes {

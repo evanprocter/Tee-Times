@@ -42,21 +42,27 @@ export default function UserTeeTimes(props) {
     }) : userTeeTimes
     const futureTeeTimes = userTeeTimes.filter(teeTime => new Date(teeTime.date) > currentDate)
     const pastTeeTimes = userTeeTimes.filter(teeTime => new Date(teeTime.date) <= currentDate)
+    const {year, month, day, hours, minutes} = props.selectedTeeTime.date
     return (
-        <div className={`UserTeeTimes`}>
-            <div className={`teeSearchButton${props.isSearching ? ' searchingTeeTimes' : ''}`}><input type="button" value="Tee Time Search" onClick={props.searchTeeTimes}/></div>
-            <div className={`upcomingTeeTimes${props.isSearching ? ' searchingTeeTimes' : ''}`}>
-                <h4>Here is a list of your upcoming tee times!</h4>
-                {futureTeeTimes.map(teeTime => {
-                    return <UserTeeTime key={teeTime._id} isPast={false} teeTime={teeTime} {...props}/>
-                })}
+        props.selectedTeeTime._id ? 
+        <UserTeeTime teeTime={{...props.selectedTeeTime, date: new Date(year, month, day, hours, minutes)}} {...props}/> : 
+        (<div className={`UserTeeTimes`}>
+                <div className={`teeSearchButton${props.isSearching ? ' searchingTeeTimes' : ''}`}>
+                    <input type="button" value="Tee Time Search" onClick={props.searchTeeTimes}/>
+                </div>
+                <div className={`upcomingTeeTimes${props.isSearching ? ' searchingTeeTimes' : ''}`}>
+                    <h4>Here is a list of your upcoming tee times!</h4>
+                    {futureTeeTimes.map(teeTime => {
+                        return <UserTeeTime key={teeTime._id} isPast={false} teeTime={teeTime} {...props}/>
+                    })}
+                </div>
+                <div className={`completedTeeTimes${props.isSearching ? ' searchingTeeTimes' : ''}`}>
+                    <h4>Here are your completed tee times!</h4>
+                    {pastTeeTimes.map(teeTime => {
+                        return <UserTeeTime key={teeTime._id} isPast={true} teeTime={teeTime} {...props}/>
+                    })}
+                </div>
             </div>
-            <div className={`completedTeeTimes${props.isSearching ? ' searchingTeeTimes' : ''}`}>
-                <h4>Here are your completed tee times!</h4>
-                {pastTeeTimes.map(teeTime => {
-                    return <UserTeeTime key={teeTime._id} isPast={true} teeTime={teeTime} {...props}/>
-                })}
-            </div>
-        </div>
+        )
     )
 }
