@@ -154,9 +154,8 @@ export default class Profile extends Component {
                 submitDiv}
             </div>
             <div className='changePassword'>
-                <label>Change Password: </label>
                 <label>
-                    New password:
+                    Change password:
                     <input 
                         type='password' name='newPassword'
                         placeholder={'new password'}

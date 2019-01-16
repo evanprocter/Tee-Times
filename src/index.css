@@ -221,6 +221,19 @@ input[type='button'], input[type='submit'], input[type='reset'] {
 /* ======================================
   Where the /profile styles reside
 ========================================= */
+.Profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+}
+
+Profile > * {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  flex: 1;
+}
 
 .changePicture img {
   width: 15%;
