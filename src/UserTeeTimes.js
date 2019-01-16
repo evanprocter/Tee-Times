@@ -3,7 +3,7 @@ import UserTeeTime from './UserTeeTime'
 
 export default function UserTeeTimes(props) {
     const currentDate = new Date()
-    let userTeeTimes = props.isAdmin || props.isSearching ? props.data.allTeeTimes : props.data.userTeeTimes
+    let userTeeTimes = (props.isAdmin || props.isSearching) ? props.data.allTeeTimes : props.data.userTeeTimes
     userTeeTimes.sort((teeTimeA, teeTimeB) => new Date(teeTimeA.date).getTime() > new Date(teeTimeB.date).getTime() ? -1 : 1)
     userTeeTimes = props.isSearching ? userTeeTimes.filter(teeTime => {
         for (let dateField in props.teeTimeSearch) {
