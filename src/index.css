@@ -243,6 +243,11 @@ input[type='button'], input[type='submit'], input[type='reset'] {
 .teeTime {
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
+}
+
+.teeTime > p {
+  color: rgba(255, 225, 50, .9)
 }
  
 .teeTimeEdit {
@@ -257,8 +262,17 @@ input[type='button'], input[type='submit'], input[type='reset'] {
 Where the /friends styles reside
 ================================== */
 
+.friendsList {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Friend {
+  padding: 5%;
+}
+
 .Friend img {
-  width: 25%;
+  width: 75%;
 }
 
 .Friend > h4 {
