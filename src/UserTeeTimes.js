@@ -42,10 +42,14 @@ export default function UserTeeTimes(props) {
     }) : userTeeTimes
     const futureTeeTimes = userTeeTimes.filter(teeTime => new Date(teeTime.date) > currentDate)
     const pastTeeTimes = userTeeTimes.filter(teeTime => new Date(teeTime.date) <= currentDate)
-    const {year, month, day, hours, minutes} = props.selectedTeeTime.date
+    let selectedDate
+    if (props.selectedTeeTime._id) {
+        const {year, month, day, hours, minutes} = props.selectedTeeTime.date
+        selectedDate = new Date(year, month, day, hours, minutes)
+    }
     return (
         props.selectedTeeTime._id ? 
-        <UserTeeTime teeTime={{...props.selectedTeeTime, date: new Date(year, month, day, hours, minutes)}} {...props}/> : 
+        <UserTeeTime teeTime={{...props.selectedTeeTime, date: selectedDate}} {...props}/> : 
         (<div className={`UserTeeTimes`}>
                 <div className={`teeSearchButton${props.isSearching ? ' searchingTeeTimes' : ''}`}>
                     <input type="button" value="Tee Time Search" onClick={props.searchTeeTimes}/>

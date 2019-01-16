@@ -257,7 +257,7 @@ input[type='button'], input[type='submit'], input[type='reset'] {
   border: solid whitesmoke 2px;
   border-radius: 4%;
   padding: 2%;
-  margin: auto;
+  margin: 2% auto;
 }
 
 .TeeTimeForm > * {
@@ -268,7 +268,14 @@ label > select {
   min-width: 5em;
 }
 
+
 .selectedTeeTime {
+  border: solid whitesmoke 2px;
+  background-color: rgba(0, 90, 255, 0.1);
+  border-radius: 2%;
+}
+
+.selectedTeeTimeForm {
   background-color: rgba(0, 90, 255, 0.1);
 }
 
@@ -304,6 +311,7 @@ label > select {
   display: flex;
   justify-content: space-between;
   cursor: pointer;
+  padding: 2%;
 }
 
 .teeTime > p {
