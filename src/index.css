@@ -243,3 +243,7 @@ Where the /friends styles reside
 .Friend img {
   width: 25%;
 }
+
+.Friend > h4 {
+  color: whitesmoke;
+}
