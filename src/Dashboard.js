@@ -49,11 +49,7 @@ export default function Dashboard(props) {
                 )
             }}/>
             <Route exact path={'/profile'} render= {routeProps => {
-                return(
-                    <div>
-                        <Profile {...props}/>
-                    </div>
-                )
+                return <Profile {...props}/>
             }}/>
             <Route exact path={'/teetimes'} render= {routeProps => {
                 return(
