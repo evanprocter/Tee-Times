@@ -20,15 +20,30 @@ export default function Dashboard(props) {
                 `Your last tee time was:`
                 const lastTeeTime = props.data.userTeeTimes[0]
                 const friendRequests = props.data.allUsers.filter(user => props.data.user.friendRequests.includes(user._id))
-                const friendRequestsMessage = friendRequests.length > 0 ? `You have ${friendRequests.length} new friend requests.` : 'You have no new friend requests.'
+                const friendRequestsMessage = friendRequests.length > 0 ? 
+                `You have ${friendRequests.length} new friend requests.` : 'You have no new friend requests.'
                 return(
                     <div className='statusMessages'>
-                        <h4>{currentTeeTimeMessage}</h4>
-                        {(upcomingTeeTime && <UserTeeTime teeTime={upcomingTeeTime} {...props}/>) ||
-                                (lastTeeTime && <UserTeeTime teeTime={props.data.userTeeTimes[0]} {...props}/>) || 'Never!'}
-                        {!upcomingTeeTime && <h4>Click Tee Times to make a new one!</h4>}
-                        <h4>{friendRequestsMessage}</h4>
-                        {friendRequests && friendRequests.map(friend => <Friend key={friend._id} golfer={friend} {...props}/>)}
+                        <div className="teeTimeStatus">
+                            <h4>{currentTeeTimeMessage}</h4>
+                            {(upcomingTeeTime &&
+                                <UserTeeTime teeTime={upcomingTeeTime} {...props}/>) ||
+                            (lastTeeTime &&
+                                <UserTeeTime teeTime={props.data.userTeeTimes[0]} {...props}/>) || 
+                                <p>
+                                    No previous tee times. Click tee times to add one!
+                                </p>
+                            }
+                            {!upcomingTeeTime && <h4>Click Tee Times to make a new one!</h4>}
+                        </div>
+                        <div className="friendRequestStatus">
+                            <h4>{friendRequestsMessage}</h4>
+                            {(friendRequests.length > 0 && 
+                            friendRequests.map(friend => <Friend key={friend._id} golfer={friend} {...props}/>)) ||
+                            <p>
+                                Click friends to add one!
+                            </p>}
+                        </div>
                     </div>
                 )
             }}/>

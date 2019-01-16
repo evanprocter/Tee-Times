@@ -81,7 +81,7 @@ export default function TeeTimeForm(props){
                 {/* )} */}
             </>
         {/* )} */}
-        <h6>{!(props.selectedTeeTime._id || props.isSearching) && teeTimeDateString}</h6>
+        <h4>{!(props.selectedTeeTime._id || props.isSearching) && teeTimeDateString}</h4>
         <label>
             Select other members:
             <select name="golfers" multiple 
