@@ -118,12 +118,16 @@ Where the navbar styles reside
   justify-content: space-around;
   /* the line below is what set the navlink text down from the top*/
   align-items: center;
+  height: 10%;
+  background-color: rgba(0, 0, 0, .6);
+  border-bottom: solid 2px whitesmoke;
 }
 
 .NavBar > * {
   margin: 0;
   flex: 1;
-  color: green;
+  color:rgba(255, 225, 50, .9);
+  text-decoration: none;
 }
 
 .navlink:nth-child(2) {
@@ -139,12 +143,12 @@ Where the navbar styles reside
 }
 
 .navlink.active {
-  color: yellow;
+  color:whitesmoke;
 }
 
-.navlink.active img {
+/* .navlink.active img {
   background-color: rgba(255, 255, 0, 0.5);
-}
+} */
 
 input[type='button'], input[type='submit'], input[type='reset'] {
   background:none!important;
