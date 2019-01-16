@@ -232,6 +232,10 @@ input[type='button'], input[type='submit'], input[type='reset'] {
   flex-direction: column;
   justify-content: space-around;
   flex: 1;
+  background-color: rgba(0,0,0,.6);
+  border: solid whitesmoke 2px;
+  border-radius: 2%;
+  margin: 2%;
 }
 
 .changeUsername {
