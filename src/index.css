@@ -30,6 +30,7 @@ html, body, #root, .App, .TeeTimes {
   flex-direction: column;
   background-image: url('12th-hole.jpg');
   background-size: cover;
+  opacity: .85;
 }
 
 .LoginPage {
@@ -42,11 +43,11 @@ html, body, #root, .App, .TeeTimes {
   padding: 5%;
   border-radius: 5%;
   border: 3px solid whitesmoke;
+  height: 100%;
 }
 
 .LoginPage > * {
   flex: 1;
-  padding: 10%;
   width: 100%;
 }
 
@@ -78,15 +79,12 @@ input[type="text"], input[type="password"] {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  flex-direction: column;
 }
 
 
 .adminLogin:hover {
   cursor: pointer;
-}
-
-.adminLogin > * {
-  margin: 10%;
 }
 
 /* ===========================
