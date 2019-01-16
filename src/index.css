@@ -269,10 +269,11 @@ Where the /friends styles reside
 
 .Friend {
   padding: 5%;
+  flex: 0;
 }
 
 .Friend img {
-  width: 75%;
+  width: 50%;
 }
 
 .Friend > h4 {

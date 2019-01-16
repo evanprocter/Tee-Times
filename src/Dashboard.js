@@ -38,8 +38,9 @@ export default function Dashboard(props) {
                         </div>
                         <div className="friendRequestStatus">
                             <h4>{friendRequestsMessage}</h4>
-                            {(friendRequests.length > 0 && 
-                            friendRequests.map(friend => <Friend key={friend._id} golfer={friend} {...props}/>)) ||
+                            <Friends friends={friendRequests} {...props}></Friends>
+                            {/* {(friendRequests.length > 0 && 
+                            friendRequests.map(friend => <Friend key={friend._id} golfer={friend} {...props}/>)) || */}
                             <p>
                                 Click friends to add one!
                             </p>}
