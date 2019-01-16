@@ -131,6 +131,7 @@ Where the navbar styles reside
   display: flex;
   justify-content: space-around;
   align-items: center;
+  cursor: pointer;
 }
 
 .navlink:nth-child(2) {
