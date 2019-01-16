@@ -166,6 +166,11 @@ input[type='button'], input[type='submit'], input[type='reset'] {
   justify-content: flex-start;
 }
 
+.Dashboard > :last-child {
+  overflow: scroll;
+  height: 100%;
+}
+
 .statusMessages {
   flex: 1;
   display: flex;
