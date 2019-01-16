@@ -5,13 +5,15 @@ export default function Friends(props) {
    const friends = props.friends || props.data.allUsers
     return (
         <div className='Friends'>
-           {!props.friends && <input 
-                type='text' name='friendName' 
-                placeholder={'friend\'s name'} 
-                value={props.friendSearchTerm} 
-                onChange={event => props.updateFriendSearch(event.target.value)}
-                autoComplete='off'
-            />}
+            {!props.friends && <div className='searchFriends'>
+                <input 
+                    type='text' name='friendName' 
+                    placeholder={'friend\'s name'} 
+                    value={props.friendSearchTerm} 
+                    onChange={event => props.updateFriendSearch(event.target.value)}
+                    autoComplete='off'
+                    />
+            </div>}
             {/* {props.friendSearchTerm === '' ? 
             props.d.map(friend => <Friend key={friend._id} golfer={friend} {...props}/>)
             : */}

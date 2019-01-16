@@ -299,12 +299,33 @@ label > select {
 Where the /friends styles reside
 ================================== */
 
+.Dashboard > .Friends {
+  display: flex;
+  flex-direction: column;
+}
+
+.Friends > * {
+  padding: 5%;
+  margin: 5%;
+}
+
+.searchFriends {
+  background-color: rgba(0, 0, 0, 0.6);
+  border: solid 2px whitesmoke;
+  border-radius: 2%;
+}
+
 .friendsList {
   display: flex;
   flex-wrap: wrap;
   background-color: rgba(0, 0, 0, .5);
   border: solid 2px whitesmoke;
   border-radius: 4%;
+}
+
+.friendRequestStatus > .Friends > .friendsList {
+  border: unset;
+  background-color: unset;
 }
 
 .Friend {
