@@ -45,9 +45,6 @@ export default function TeeTimeForm(props){
                     onChange={event => updateForm(event, props)} />
                 </label>
             </div>
-            <div className={`teeSearchButton${props.isSearching ? ' searchingTeeTimes' : ''}`}>
-                <input type="button" value="Tee Time Search" onClick={props.searchTeeTimes}/>
-            </div>
             <div className='teeDate'>
                 <h4>Select a date:</h4>
                 {props.isAdmin && (
@@ -113,15 +110,20 @@ export default function TeeTimeForm(props){
                     max={guestMax + 1} 
                     value={props.teeTimeSearch.guests || 0} 
                     onChange={event => updateForm(event, props)}/>
-                    {!(props.selectedTeeTime._id || 
-                        props.isSearching) && 
-                        <input 
-                        type="submit" 
-                        value="Request Tee Time" 
-                        onClick={event => updateForm(event, props)}
-                        />
-                    }
                 </label>
+            </div>
+            <div className='teeFormButtons'>
+                <div className={`teeSearchButton${props.isSearching ? ' searchingTeeTimes' : ''}`}>
+                    <input type="button" value="Tee Time Search" onClick={props.searchTeeTimes}/>
+                </div>
+                {!(props.selectedTeeTime._id || 
+                    props.isSearching) && 
+                    <input 
+                    type="submit" 
+                    value="Request Tee Time" 
+                    onClick={event => updateForm(event, props)}
+                    />
+                }
             </div>
         </form>
     )
