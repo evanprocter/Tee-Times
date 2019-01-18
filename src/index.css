@@ -276,6 +276,7 @@ input[type='button'], input[type='submit'], input[type='reset'] {
 
 label > select {
   min-width: 5em;
+  background: rgba(255, 255, 255, 0.8);
 }
 
 
@@ -323,6 +324,7 @@ label > select {
   justify-content: space-between;
   cursor: pointer;
   padding: 2%;
+  flex-wrap: wrap;
 }
 
 .teeTime > p {
@@ -334,7 +336,7 @@ label > select {
 }
 
 .teeTime > input {
-  margin: auto 0;
+  margin: auto;
 }
 
 /* ===============================
