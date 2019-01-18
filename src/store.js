@@ -15,7 +15,10 @@ export const getTeeTimeDate = (isAdmin, currentDate) => {
         // e.g. tee times are every ten minutes
         // set to next ten minute increment
         if (currentDate.getMinutes() % 10 !== 0) {
-            currentDate.setMinutes(currentDate.getMinutes() + (10 - (currentDate.getMinutes() % 10) + 10))
+            currentDate.setMinutes(currentDate.getMinutes() + (10 - (currentDate.getMinutes() % 10)))
+        } else {
+            // this will get next ten min increment when at hh:00
+            currentDate.setMinutes(currentDate.getMinutes() + 10)
         }
         // e.g. they close at 4 PM
         if (currentDate.getHours() >= 16) {
