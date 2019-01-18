@@ -20,7 +20,6 @@ export default function TeeTimeForm(props){
             // unavailableTeeDates doesn't include 
             return !unavailableTeeDates.find(unavailableDate => unavailableDate.getTime() === teeDate.getTime()) 
         })
-    console.log(availableTeeDates)
     const {availableMonths, availableDays, availableHours, availableMinutes} = 
         getAvailableOptions(availableTeeDates, date)
     return (
@@ -153,31 +152,34 @@ const getPossibleTeeDates = (props) => {
         const {year, month, day, hours, minutes} = getTeeTimeDate(props.isAdmin, teeDate)
         return new Date(year, month, day, hours, minutes)
     })
-    console.log(possibleTeeDates.length)
     return possibleTeeDates
 }
 
 const getAvailableOptions = (availableTeeDates, date) => {
+    console.log(availableTeeDates)
+    console.log(date)
+    let teeDates = availableTeeDates.map(teeDate => teeDate)
+    console.log(teeDates)
     // create arrays to store available options
     const availableMonths = []
     const availableDays = []
     const availableHours = []
     const availableMinutes = []
     // add available options to arrays if they do not already contain them)
-    availableTeeDates.filter(teeDate => teeDate.getFullYear() === date.year)
-    .forEach(teeDate => {
+    teeDates = teeDates.filter(teeDate => teeDate.getFullYear() === date.year)
+    teeDates.forEach(teeDate => {
         availableMonths.includes(teeDate.getMonth()) || availableMonths.push(teeDate.getMonth())
     })
-    availableTeeDates.filter(teeDate => teeDate.getMonth() === date.month)
-    .forEach(teeDate => {
+    teeDates = teeDates.filter(teeDate => teeDate.getMonth() === date.month)
+    teeDates.forEach(teeDate => {
         availableDays.includes(teeDate.getDate()) || availableDays.push(teeDate.getDate())
     })
-    availableTeeDates.filter(teeDate => teeDate.getDate() === date.day)
-    .forEach(teeDate => {
+    teeDates = teeDates.filter(teeDate => teeDate.getDate() === date.day)
+    teeDates.forEach(teeDate => {
         availableHours.includes(teeDate.getHours()) || availableHours.push(teeDate.getHours())
     })
-    availableTeeDates.filter(teeDate => teeDate.getHours() === date.hours)
-    .forEach(teeDate => {
+    teeDates = teeDates.filter(teeDate => teeDate.getHours() === date.hours)
+    teeDates.forEach(teeDate => {
         availableMinutes.includes(teeDate.getMinutes()) || availableMinutes.push(teeDate.getMinutes())
     })
     
@@ -185,6 +187,7 @@ const getAvailableOptions = (availableTeeDates, date) => {
     availableDays.sort((dayA, dayB) => dayA - dayB)
     availableHours.sort((hourA, hourB) => hourA - hourB)
     availableMinutes.sort((minuteA, minuteB) => minuteA - minuteB)
+    console.log(availableMonths, availableDays, availableHours, availableMinutes)
     return {availableMonths, availableDays, availableHours, availableMinutes}
 }
     
