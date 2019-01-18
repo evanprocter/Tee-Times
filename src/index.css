@@ -283,12 +283,12 @@ label > select {
 
 .selectedTeeTime {
   border: solid whitesmoke 2px;
-  background-color: rgba(0, 90, 255, 0.1);
+  background-color: rgba(0, 30, 130, 0.5);
   border-radius: 2%;
 }
 
 .selectedTeeTimeForm {
-  background-color: rgba(0, 90, 255, 0.1);
+  background-color: rgba(0, 30, 130, 0.5);
 }
 
 .UserTeeTimes {
@@ -317,7 +317,7 @@ label > select {
 }
 
 .searchingTeeTimes {
-  background-color: rgba(255, 61, 61, .1);;
+  background-color: rgba(125, 0, 0, 0.5);;
 }
 
 .teeTime {
