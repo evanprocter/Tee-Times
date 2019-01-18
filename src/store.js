@@ -10,7 +10,7 @@ setInterval(() => {
 
 export const getTeeTimeDate = (isAdmin, currentDate) => {
     // need to set this to within club hours here
-    if (!isAdmin) {
+    // if (!isAdmin) {
         // set year, months, day   holidays?
         // e.g. tee times are every ten minutes
         if (currentDate.getMinutes() % 10 !== 0) {
@@ -29,7 +29,7 @@ export const getTeeTimeDate = (isAdmin, currentDate) => {
             currentDate.setHours(8)
             currentDate.setMinutes(0)
         }
-    }
+    // }
     const date = {
         year: currentDate.getFullYear(),
         month: currentDate.getMonth(),
