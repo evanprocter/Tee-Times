@@ -17,9 +17,9 @@ export default function UserTeeTimes(props) {
                 const {year, month, day, hours, minutes} = props.teeTimeSearch.date
                 const teeTimeSearchDate = new Date(
                                                     year,
-                                                    month || teeTimeDate.getMonth(), // these will not be 0 or the value of the tee time
-                                                    day || teeTimeDate.getDate(), 
-                                                    hours || teeTimeDate.getHours(), 
+                                                    month !== -1 ? month : teeTimeDate.getMonth(), // these will not be 0 or the value of the tee time
+                                                    day !== -1 ? day : teeTimeDate.getDate(), 
+                                                    hours !== -1 ? hours : teeTimeDate.getHours(), 
                                                     minutes !== -1 ? minutes : teeTimeDate.getMinutes()
                                                 )
                 // if there is a date selected and it matches
