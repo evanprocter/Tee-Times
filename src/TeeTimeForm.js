@@ -116,9 +116,9 @@ export default function TeeTimeForm(props){
                 </label>
             </div>
             <div className='teeFormButtons'>
-                <div className={`teeSearchButton${props.isSearching ? ' searchingTeeTimes' : ''}`}>
+                {!props.selectedTeeTime._id && <div className={`teeSearchButton${props.isSearching ? ' searchingTeeTimes' : ''}`}>
                     <input type="button" value={`${props.isSearching ? 'Disable ' : 'Enable '}Tee Time Search`} onClick={props.searchTeeTimes}/>
-                </div>
+                </div>}
                 {!(props.selectedTeeTime._id || 
                     props.isSearching) && 
                     <input 
@@ -174,7 +174,8 @@ const getAvailableOptions = (availableTeeDates) => {
 const updateForm = (event, props) => {
     // TeeType
     // if this checkbox was checked, apply the value, otherwise apply the old value, unless searching
-    const teeType = (event.target.checked && event.target.value) || (props.isSearching ? '' : props.teeTimeSearch.teeType)
+    const teeType = (event.target.checked && event.target.value) || 
+        (props.isSearching ? '' : props.teeTimeSearch.teeType)
     
     // Date
     const currentDate = new Date()
@@ -210,6 +211,7 @@ const updateForm = (event, props) => {
 
     // update the users tee time if one was selected
     // overwrite date field below to create genuine Date() object
+    console.log(newTeeTime)
     props.selectedTeeTime._id && 
     props.updateTeeTime({...props.selectedTeeTime, ...newTeeTime, date: new Date(year, month, day, hours, minutes)}
     )

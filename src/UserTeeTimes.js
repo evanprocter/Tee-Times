@@ -44,8 +44,14 @@ export default function UserTeeTimes(props) {
     const pastTeeTimes = userTeeTimes.filter(teeTime => new Date(teeTime.date) <= currentDate)
     let selectedDate
     if (props.selectedTeeTime._id) {
-        const {year, month, day, hours, minutes} = props.selectedTeeTime.date
-        selectedDate = new Date(year, month, day, hours, minutes)
+        console.log(props.selectedTeeTime)
+        // if the selectedTeeTime date is not in the correct format
+        if (props.selectedTeeTime.date.year) {
+            const {year, month, day, hours, minutes} = props.selectedTeeTime.date
+            selectedDate = new Date(year, month, day, hours, minutes)
+        } else {
+            selectedDate = new Date(props.selectedTeeTime.date)
+        }
     }
     return (
         props.selectedTeeTime._id ? 

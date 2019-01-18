@@ -52,7 +52,6 @@ export default function Dashboard(props) {
                 return <Profile {...props}/>
             }}/>
             <Route exact path={'/teetimes'} render= {routeProps => {
-                console.log(props.data.allTeeTimes)
                 return(
                     <div className='teeTimePage'>
                         <TeeTimeForm {...props}/>
