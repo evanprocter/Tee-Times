@@ -276,6 +276,7 @@ export const selectTeeTime = (teeTime) => {
             year: date.getFullYear(),
             month: date.getMonth(),
             day: date.getDate(),
+            dayOfTheWeek: date.getDay(),
             hours: date.getHours(),
             minutes: date.getMinutes()
         }
@@ -434,7 +435,8 @@ const teeTimes = (state=defaultState, action) => {
             ...state,
             currentDate: action.currentDate,
             // update teeTimeSearch if it is less than currentTime and not currently searching
-            teeTimeSearch: !state.isSearching ? {
+             // and not currently selected tee time
+            teeTimeSearch: !(state.isSearching || state.selectedTeeTime._id)? {
                 ...state.teeTimeSearch,
                 date: {
                     year: state.teeTimeSearch.date.year < action.currentDate.getFullYear() ? action.currentDate.getFullYear() : state.teeTimeSearch.date.year,
@@ -485,7 +487,7 @@ const teeTimes = (state=defaultState, action) => {
         return {
             ...state,
             teeTimeSearch: !state.isSearching ? 
-                            {teeType: '', date: {year: new Date().getFullYear(), month: 0, day: 0, hours: 0, minutes: -1}, golfers: [], guests: 0} : 
+                            {teeType: '', date: {year: new Date().getFullYear(), month: -1, day: -1, hours: -1, minutes: -1}, golfers: [], guests: 0} : 
                             defaultState.teeTimeSearch,
             isSearching: !state.isSearching,
             selectedTeeTime: {}

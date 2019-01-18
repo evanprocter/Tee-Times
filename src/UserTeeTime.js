@@ -17,6 +17,7 @@ export default function UserTeeTime(props) {
     return (
         <div key={teeTime._id} className={`teeTime${editClassName}`} 
         onClick={isPast || isSearching ? null : event => {
+            // if not at teetimes page, on dashboard, go to teetimes
             if (props.location.pathname !== '/teetimes') {
                 props.history.push('/teetimes')
             } else {

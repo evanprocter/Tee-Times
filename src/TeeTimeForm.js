@@ -9,6 +9,8 @@ export default function TeeTimeForm(props){
     const monthStrings = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     const dayStrings = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     const {date} = props.teeTimeSearch
+    console.log(props.selectedTeeTime.date)
+    console.log(date)
     const teeTimeDateString = (props.selectedTeeTime._id || !props.isSearching) && 
     `${dayStrings[date.dayOfTheWeek]}, ${date.month + 1}-${date.day}-${date.year}, ${date.hours % 12 || 12}:${date.minutes > 9 ? date.minutes : `0${date.minutes}`} ${date.hours < 12 ? 'AM' : 'PM'}`
     
@@ -16,10 +18,22 @@ export default function TeeTimeForm(props){
     const unavailableTeeDates = props.data.allTeeTimes.map(teeTime => new Date(teeTime.date))
     // If searching, show tee times that are already taken
     const availableTeeDates = props.isSearching ? unavailableTeeDates : 
-                                    getPossibleTeeDates(props).filter(teeDate => {
-                                        return !unavailableTeeDates.includes(teeDate)
-                                    })
-    const {availableMonths, availableDays, availableHours, availableMinutes} = getAvailableOptions(availableTeeDates)
+        getPossibleTeeDates(props).filter(teeDate => {
+            // console.log(date.year, date.year === teeDate.getFullYear())
+            // console.log(date.month, date.month === teeDate.getMonth())
+            // console.log(date.day, date.day === teeDate.getDate())
+            // console.log(date.hours, date.hours === teeDate.getHours())
+            // console.log(date.minutes, date.minutes === teeDate.getMinutes())
+            // unavailableTeeDates doesn't include 
+            return !unavailableTeeDates.includes(teeDate) 
+            // &&
+            // ((!date.year || teeDate.getFullYear() === date.year) &&
+            // (!date.month || teeDate.getMonth() === date.month) &&
+            // (!date.day || teeDate.getDate() === date.day) &&
+            // (!date.hours || teeDate.getHours() === date.hours) &&
+            // (!date.minutes || teeDate.getMinutes() === date.minutes))
+        })
+    const {availableMonths, availableDays, availableHours, availableMinutes} = getAvailableOptions(availableTeeDates, date)
     return (
         <form 
         className={`TeeTimeForm
@@ -153,7 +167,7 @@ const getPossibleTeeDates = (props) => {
     return possibleTeeDates
 }
 
-const getAvailableOptions = (availableTeeDates) => {
+const getAvailableOptions = (availableTeeDates, date) => {
     // create arrays to store available options
     const availableMonths = []
     const availableDays = []

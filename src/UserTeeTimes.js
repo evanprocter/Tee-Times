@@ -3,6 +3,7 @@ import UserTeeTime from './UserTeeTime'
 
 export default function UserTeeTimes(props) {
     const currentDate = new Date()
+    // if user is admin or app is in search mode, return all tee times, otherwise just the user's tee times
     let userTeeTimes = (props.isAdmin || props.isSearching) ? props.data.allTeeTimes : props.data.userTeeTimes
     userTeeTimes = props.isSearching ? userTeeTimes.filter(teeTime => {
         for (let dateField in props.teeTimeSearch) {
@@ -45,7 +46,6 @@ export default function UserTeeTimes(props) {
         .sort((teeTimeA, teeTimeB) => new Date(teeTimeA.date).getTime() > new Date(teeTimeB.date).getTime() ? -1 : 1)
     let selectedDate
     if (props.selectedTeeTime._id) {
-        console.log(props.selectedTeeTime)
         // if the selectedTeeTime date is not in the correct format
         if (props.selectedTeeTime.date.year) {
             const {year, month, day, hours, minutes} = props.selectedTeeTime.date
