@@ -9,7 +9,6 @@ export default function TeeTimeForm(props){
     const monthStrings = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     const dayStrings = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     const {date} = props.teeTimeSearch
-    console.log(props.selectedTeeTime.date)
     console.log(date)
     const teeTimeDateString = (props.selectedTeeTime._id || !props.isSearching) && 
     `${dayStrings[date.dayOfTheWeek]}, ${date.month + 1}-${date.day}-${date.year}, ${date.hours % 12 || 12}:${date.minutes > 9 ? date.minutes : `0${date.minutes}`} ${date.hours < 12 ? 'AM' : 'PM'}`
@@ -81,7 +80,7 @@ export default function TeeTimeForm(props){
                 <label>
                     Day:
                     <select name='teeDay' value={props.teeTimeSearch.date.day} onChange={event => updateForm(event, props)}>
-                        {props.isSearching && <option value='0'> - </option>}
+                        {props.isSearching && <option value='-1'> - </option>}
                         {availableDays.map(teeDay => <option key={teeDay} value={teeDay}>{`${teeDay}`}</option>)}
                     </select>
                 </label>
@@ -89,7 +88,7 @@ export default function TeeTimeForm(props){
                     <label>
                         Hour:
                         <select name='teeHour' value={props.teeTimeSearch.date.hours} onChange={event => updateForm(event, props)}>
-                            {props.isSearching && <option value='0'> - </option>}
+                            {props.isSearching && <option value='-1'> - </option>}
                             {availableHours.map(teeHour => <option key={teeHour} value={teeHour}>{`${teeHour % 12 || 12} ${teeHour < 12 ? 'AM' : 'PM'}`}</option>)}
                         </select>
                     </label>
@@ -203,7 +202,6 @@ const updateForm = (event, props) => {
     const hours = parseInt(event.target.form.teeHour.value)
     const minutes = parseInt(event.target.form.teeMinute.value)
     const date = {year, month, day, dayOfTheWeek, hours, minutes}
-
     // Golfers
     let golfers = []
     for (let selectedGolfer of event.target.form.golfers.selectedOptions) {
@@ -227,7 +225,6 @@ const updateForm = (event, props) => {
 
     // update the users tee time if one was selected
     // overwrite date field below to create genuine Date() object
-    console.log(newTeeTime)
     props.selectedTeeTime._id && 
     props.updateTeeTime({...props.selectedTeeTime, ...newTeeTime, date: new Date(year, month, day, hours, minutes)}
     )

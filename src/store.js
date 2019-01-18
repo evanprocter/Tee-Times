@@ -487,7 +487,15 @@ const teeTimes = (state=defaultState, action) => {
         return {
             ...state,
             teeTimeSearch: !state.isSearching ? 
-                            {teeType: '', date: {year: new Date().getFullYear(), month: -1, day: -1, hours: -1, minutes: -1}, golfers: [], guests: 0} : 
+                            {teeType: '',
+                            date: {year: new Date().getFullYear(),
+                                    month: -1, 
+                                    day: -1,
+                                    dayOfTheWeek: -1, 
+                                    hours: -1, 
+                                    minutes: -1}, 
+                            golfers: [], 
+                            guests: 0} : 
                             defaultState.teeTimeSearch,
             isSearching: !state.isSearching,
             selectedTeeTime: {}
