@@ -8,39 +8,39 @@ setInterval(() => {
     store.dispatch(updateTime(new Date())) 
 }, 60 * 1000)
 
-export const getTeeTimeDate = (isAdmin, currentDate) => {
+export const getTeeTimeDate = (isAdmin, teeDate) => {
     // need to set this to within club hours here
     // if (!isAdmin) {
         // set year, months, day   holidays?
         // e.g. tee times are every ten minutes
         // set to next ten minute increment
-        if (currentDate.getMinutes() % 10 !== 0) {
-            currentDate.setMinutes(currentDate.getMinutes() + (10 - (currentDate.getMinutes() % 10)))
+        if (teeDate.getMinutes() % 10 !== 0) {
+            teeDate.setMinutes(teeDate.getMinutes() + (10 - (teeDate.getMinutes() % 10)))
         } else {
             // this will get next ten min increment when at hh:00
-            currentDate.setMinutes(currentDate.getMinutes() + 10)
+            teeDate.setMinutes(teeDate.getMinutes() + 10)
         }
         // e.g. they close at 4 PM
-        if (currentDate.getHours() >= 16) {
+        if (teeDate.getHours() >= 16) {
             // set hours
             // go to next day
-            currentDate.setDate(currentDate.getDate() + 1)
-            currentDate.setHours(8)
-            currentDate.setMinutes(0)
+            teeDate.setDate(teeDate.getDate() + 1)
+            teeDate.setHours(8)
+            teeDate.setMinutes(0)
         } 
         // e.g. they open at 8 AM
-        if (currentDate.getHours() < 8) {
-            currentDate.setHours(8)
-            currentDate.setMinutes(0)
+        if (teeDate.getHours() < 8) {
+            teeDate.setHours(8)
+            teeDate.setMinutes(0)
         }
     // }
     const date = {
-        year: currentDate.getFullYear(),
-        month: currentDate.getMonth(),
-        day: currentDate.getDate(),
-        dayOfTheWeek: currentDate.getDay(),
-        hours: currentDate.getHours(),
-        minutes: currentDate.getMinutes()
+        year: teeDate.getFullYear(),
+        month: teeDate.getMonth(),
+        day: teeDate.getDate(),
+        dayOfTheWeek: teeDate.getDay(),
+        hours: teeDate.getHours(),
+        minutes: teeDate.getMinutes()
     }
     return date
 }
@@ -438,14 +438,15 @@ const teeTimes = (state=defaultState, action) => {
              // and not currently selected tee time
             teeTimeSearch: !(state.isSearching || state.selectedTeeTime._id)? {
                 ...state.teeTimeSearch,
-                date: {
-                    year: state.teeTimeSearch.date.year < action.currentDate.getFullYear() ? action.currentDate.getFullYear() : state.teeTimeSearch.date.year,
-                    month: state.teeTimeSearch.date.month < action.currentDate.getMonth() ? action.currentDate.getMonth() : state.teeTimeSearch.date.month,
-                    day: state.teeTimeSearch.date.day < action.currentDate.getDate() ? action.currentDate.getDate() : state.teeTimeSearch.date.day,
-                    dayOfTheWeek: state.teeTimeSearch.date.dayOfTheWeek < action.currentDate.getDay() ? action.currentDate.getDay() : state.teeTimeSearch.date.dayOfTheWeek,
-                    hours: state.teeTimeSearch.date.hours< action.currentDate.getHours() ? action.currentDate.getHours() : state.teeTimeSearch.date.hours,
-                    minutes: state.teeTimeSearch.date.minutes < action.currentDate.getMinutes() ? action.currentDate.getMinutes() : state.teeTimeSearch.date.minutes,
-                }
+                date: getTeeTimeDate(state.isAdmin, action.currentDate)
+                // {
+                //     year: state.teeTimeSearch.date.year < action.currentDate.getFullYear() ? action.currentDate.getFullYear() : state.teeTimeSearch.date.year,
+                //     month: state.teeTimeSearch.date.month < action.currentDate.getMonth() ? action.currentDate.getMonth() : state.teeTimeSearch.date.month,
+                //     day: state.teeTimeSearch.date.day < action.currentDate.getDate() ? action.currentDate.getDate() : state.teeTimeSearch.date.day,
+                //     dayOfTheWeek: state.teeTimeSearch.date.dayOfTheWeek < action.currentDate.getDay() ? action.currentDate.getDay() : state.teeTimeSearch.date.dayOfTheWeek,
+                //     hours: state.teeTimeSearch.date.hours< action.currentDate.getHours() ? action.currentDate.getHours() : state.teeTimeSearch.date.hours,
+                //     minutes: state.teeTimeSearch.date.minutes < action.currentDate.getMinutes() ? action.currentDate.getMinutes() : state.teeTimeSearch.date.minutes,
+                // }
             } : state.teeTimeSearch
         }
         case ADD_TEE_TIME.type:

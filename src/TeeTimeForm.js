@@ -18,11 +18,11 @@ export default function TeeTimeForm(props){
     // If searching, show tee times that are already taken
     const availableTeeDates = props.isSearching ? unavailableTeeDates : 
         getPossibleTeeDates(props).filter(teeDate => {
-            // console.log(date.year, date.year === teeDate.getFullYear())
-            // console.log(date.month, date.month === teeDate.getMonth())
-            // console.log(date.day, date.day === teeDate.getDate())
-            // console.log(date.hours, date.hours === teeDate.getHours())
-            // console.log(date.minutes, date.minutes === teeDate.getMinutes())
+            console.log(date.year, date.year === teeDate.getFullYear())
+            console.log(date.month, date.month === teeDate.getMonth())
+            console.log(date.day, date.day === teeDate.getDate(), teeDate.getDate())
+            console.log(date.hours, date.hours === teeDate.getHours())
+            console.log(date.minutes, date.minutes === teeDate.getMinutes())
             // unavailableTeeDates doesn't include 
             return !unavailableTeeDates.includes(teeDate) 
             // &&
