@@ -132,6 +132,7 @@ export default function TeeTimeForm(props){
     )
 }
 
+// gets all possible tee times from now until 2 days from now
 const getPossibleTeeDates = (props) => {
     const {isAdmin} = props
     // this function filters all tee dates for those that match teetimesearch
@@ -144,6 +145,7 @@ const getPossibleTeeDates = (props) => {
         possibleTeeDates.push(new Date(currentDate))
         currentDate.setMinutes(currentDate.getMinutes() + 10)
     } 
+    // maps possible dates to course hours
     possibleTeeDates = possibleTeeDates.map(teeDate => {
         const {year, month, day, hours, minutes} = getTeeTimeDate(props.isAdmin, teeDate)
         return new Date(year, month, day, hours, minutes)
