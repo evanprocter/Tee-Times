@@ -16,6 +16,7 @@ html, body, #root, .App, .TeeTimes {
   width: 100%;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 
@@ -312,7 +313,7 @@ label > select {
 }
 
 .upcomingTeeTimes, .completedTeeTimes {
-  overflow: scroll;
+  overflow: auto;
 }
 
 .searchingTeeTimes {
@@ -365,7 +366,7 @@ Where the /friends styles reside
   background-color: rgba(0, 0, 0, .5);
   border: solid 2px whitesmoke;
   border-radius: 4%;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .friendRequestStatus > .Friends > .friendsList {
