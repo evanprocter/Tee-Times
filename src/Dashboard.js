@@ -37,7 +37,8 @@ export default function Dashboard(props) {
                         </div>
                         <div className="friendRequestStatus">
                             <h4>{friendRequestsMessage}</h4>
-                            <Friends friends={friendRequests} {...props}></Friends>
+                            {friendRequests.length > 0 &&
+                                <Friends friends={friendRequests} {...props}></Friends>}
                             {/* {(friendRequests.length > 0 && 
                             friendRequests.map(friend => <Friend key={friend._id} golfer={friend} {...props}/>)) || */}
                             <p>
