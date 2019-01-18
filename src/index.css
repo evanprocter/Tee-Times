@@ -261,8 +261,8 @@ input[type='button'], input[type='submit'], input[type='reset'] {
   border: solid whitesmoke 2px;
   border-radius: 4%;
   padding: 2%;
-  margin: 2% auto;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .TeeTimeForm > * {
@@ -296,8 +296,9 @@ label > select {
 }
 
 .UserTeeTimes > * {
+  flex: 1;
   margin: 1%;
-  padding: 2%;
+  padding: 5%;
   border: solid whitesmoke 2px;
   border-radius: 2%;
   background-color: rgba(0, 0, 0, 0.6);

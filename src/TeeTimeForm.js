@@ -21,7 +21,10 @@ export default function TeeTimeForm(props){
                                     })
     const {availableMonths, availableDays, availableHours, availableMinutes} = getAvailableOptions(availableTeeDates)
     return (
-        <form className={`TeeTimeForm${props.selectedTeeTime._id ? ' selectedTeeTimeForm' : ''}${props.isSearching ? ' searchingTeeTimes' : ''}`} 
+        <form 
+        className={`TeeTimeForm
+            ${props.selectedTeeTime._id ? ' selectedTeeTimeForm' : ''}
+            ${props.isSearching ? ' searchingTeeTimes' : ''}`} 
             onSubmit={event => {
                 event.preventDefault()
                 // basic user's automatically added to teetime
@@ -114,7 +117,7 @@ export default function TeeTimeForm(props){
             </div>
             <div className='teeFormButtons'>
                 <div className={`teeSearchButton${props.isSearching ? ' searchingTeeTimes' : ''}`}>
-                    <input type="button" value="Tee Time Search" onClick={props.searchTeeTimes}/>
+                    <input type="button" value="Enable Tee Time Search" onClick={props.searchTeeTimes}/>
                 </div>
                 {!(props.selectedTeeTime._id || 
                     props.isSearching) && 
