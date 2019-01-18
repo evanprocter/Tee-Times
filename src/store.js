@@ -1,8 +1,8 @@
 import { createStore } from 'redux'
 
-const isDev = true
-const isEv = true
-const DB_URL = isEv ? 'https://api.evanprocter.com' : 'https://api.teetimes.collinargo.com'
+// const isDev = true
+// const isEv = true
+// const DB_URL = isEv ? 'https://api.evanprocter.com' : 'https://api.teetimes.collinargo.com'
 
 setInterval(() => {
     store.dispatch(updateTime(new Date())) 
@@ -147,7 +147,7 @@ const DELETE_TEE_TIME = {
 }
 
 export const addUser = (user) => {
-    fetch(`${!isDev ? DB_URL : ''}/register`, {
+    fetch(`/register`, {
         method: 'post',
         credentials: 'include',
         body: JSON.stringify(user),
@@ -162,7 +162,7 @@ export const addUser = (user) => {
 } 
 
 export const loginUser = (user) => {
-    fetch(`${!isDev ? DB_URL : ''}/login`, {
+    fetch(`/login`, {
         method: 'post',
         credentials: 'include',
         body: JSON.stringify(user),
@@ -177,7 +177,7 @@ export const loginUser = (user) => {
 }
 
 export const logoutUser = () => {
-    fetch(`${!isDev ? DB_URL : ''}/logout`, {
+    fetch(`/logout`, {
         method: 'get',
         credentials: 'include'
     })
@@ -190,7 +190,7 @@ export const logoutUser = () => {
 }
 
 export const requestData = () => {
-    fetch(`${!isDev ? DB_URL : ''}/data`, {
+    fetch(`/data`, {
         method: 'get',
         credentials: 'include'
     })
@@ -228,7 +228,7 @@ export const receiveData = (data) => {
 }
 
 export const updateUser = (user) => {
-    fetch(`${!isDev ? DB_URL : ''}/updateUser`, {
+    fetch(`/updateUser`, {
         method: 'post',
         credentials: 'include',
         body: JSON.stringify(user),
@@ -250,7 +250,7 @@ export const updateTime = (currentDate) => {
 }
 
 export const addTeeTime = (teeTime) => {
-    fetch(`${!isDev ? DB_URL : ''}/teetime`, {
+    fetch(`/teetime`, {
         method: 'post',
         credentials: 'include',
         body: JSON.stringify({teeTime}),
@@ -283,7 +283,7 @@ export const selectTeeTime = (teeTime) => {
 }
 
 export const updateTeeTime = (teeTime) => {
-    fetch(`${!isDev ? DB_URL : ''}/updateTeeTime`, {
+    fetch(`/updateTeeTime`, {
         method: 'post',
         credentials: 'include',
         body: JSON.stringify({teeTime}),
@@ -318,7 +318,7 @@ export const searchTeeTimes = () => {
 }
 
 export const requestFriend = friends => {
-    fetch(`${!isDev ? DB_URL : ''}/requestFriend`, {
+    fetch(`/requestFriend`, {
         method: 'post',
         credentials: 'include',
         body: JSON.stringify(friends),
@@ -333,7 +333,7 @@ export const requestFriend = friends => {
 }
 export const approveFriend = friends => {
     console.log(friends)
-    fetch(`${!isDev ? DB_URL : ''}/approveFriend`, {
+    fetch(`/approveFriend`, {
         method: 'post',
         credentials: 'include',
         body: JSON.stringify(friends),
@@ -347,7 +347,7 @@ export const approveFriend = friends => {
     }
 }
 export const denyFriend = friends => {
-    fetch(`${!isDev ? DB_URL : ''}/denyFriend`, {
+    fetch(`/denyFriend`, {
         method: 'post',
         credentials: 'include',
         body: JSON.stringify(friends),
@@ -362,7 +362,7 @@ export const denyFriend = friends => {
 }
 
 export const deleteUser = (user) => {
-    fetch(`${!isDev ? DB_URL : ''}/user`, {
+    fetch(`/user`, {
         method: 'delete',
         credentials: 'include',
         body: JSON.stringify({user}),
@@ -377,7 +377,7 @@ export const deleteUser = (user) => {
 }
 
 export const deleteTeeTime = (teeTime) => {
-    fetch(`${!isDev ? DB_URL : ''}/teetime`, {
+    fetch(`/teetime`, {
         method: 'delete',
         credentials: 'include',
         body: JSON.stringify({teeTime}),
