@@ -4,7 +4,6 @@ import UserTeeTime from './UserTeeTime'
 export default function UserTeeTimes(props) {
     const currentDate = new Date()
     let userTeeTimes = (props.isAdmin || props.isSearching) ? props.data.allTeeTimes : props.data.userTeeTimes
-    userTeeTimes.sort((teeTimeA, teeTimeB) => new Date(teeTimeA.date).getTime() > new Date(teeTimeB.date).getTime() ? -1 : 1)
     userTeeTimes = props.isSearching ? userTeeTimes.filter(teeTime => {
         for (let dateField in props.teeTimeSearch) {
             // if filtering on date
@@ -41,7 +40,9 @@ export default function UserTeeTimes(props) {
         return true
     }) : userTeeTimes
     const futureTeeTimes = userTeeTimes.filter(teeTime => new Date(teeTime.date) > currentDate)
+        .sort((teeTimeA, teeTimeB) => new Date(teeTimeA.date).getTime() > new Date(teeTimeB.date).getTime() ? 1 : -1)
     const pastTeeTimes = userTeeTimes.filter(teeTime => new Date(teeTime.date) <= currentDate)
+        .sort((teeTimeA, teeTimeB) => new Date(teeTimeA.date).getTime() > new Date(teeTimeB.date).getTime() ? -1 : 1)
     let selectedDate
     if (props.selectedTeeTime._id) {
         console.log(props.selectedTeeTime)
