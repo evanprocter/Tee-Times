@@ -52,13 +52,13 @@ export default function UserTeeTimes(props) {
         <UserTeeTime teeTime={{...props.selectedTeeTime, date: selectedDate}} {...props}/> : 
         (<div className={`UserTeeTimes`}>
                 <div className={`upcomingTeeTimes${props.isSearching ? ' searchingTeeTimes' : ''}`}>
-                    <h4>Here is a list of your upcoming tee times!</h4>
+                    <h4>{'Upcoming Tee Times'}</h4>
                     {futureTeeTimes.map(teeTime => {
                         return <UserTeeTime key={teeTime._id} isPast={false} teeTime={teeTime} {...props}/>
                     })}
                 </div>
                 <div className={`completedTeeTimes${props.isSearching ? ' searchingTeeTimes' : ''}`}>
-                    <h4>Here are your completed tee times!</h4>
+                    <h4>{'Completed Tee Times'}</h4>
                     {pastTeeTimes.map(teeTime => {
                         return <UserTeeTime key={teeTime._id} isPast={true} teeTime={teeTime} {...props}/>
                     })}
