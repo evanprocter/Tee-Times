@@ -18,8 +18,9 @@ export default function TeeTimeForm(props){
     const availableTeeDates = props.isSearching ? unavailableTeeDates : 
         getPossibleTeeDates(props).filter(teeDate => {
             // unavailableTeeDates doesn't include 
-            return !unavailableTeeDates.includes(teeDate) 
+            return !unavailableTeeDates.find(unavailableDate => unavailableDate.getTime() === teeDate.getTime()) 
         })
+    console.log(availableTeeDates)
     const {availableMonths, availableDays, availableHours, availableMinutes} = 
         getAvailableOptions(availableTeeDates, date)
     return (
@@ -144,8 +145,6 @@ const getPossibleTeeDates = (props) => {
     // this is where we could grant admin privileges to add tee times a year in advance
     const cutoffDate = isAdmin ? new Date().getDate() + 7 : new Date().getDate() + 2
     while (currentDate.getDate() <= cutoffDate) {
-        console.log(currentDate.getDate())
-        console.log(currentDate.getHours())
         possibleTeeDates.push(new Date(currentDate))
         currentDate.setMinutes(currentDate.getMinutes() + 10)
     } 
@@ -154,6 +153,7 @@ const getPossibleTeeDates = (props) => {
         const {year, month, day, hours, minutes} = getTeeTimeDate(props.isAdmin, teeDate)
         return new Date(year, month, day, hours, minutes)
     })
+    console.log(possibleTeeDates.length)
     return possibleTeeDates
 }
 
