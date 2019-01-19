@@ -490,11 +490,11 @@ const teeTimes = (state=defaultState, action) => {
             teeTimeSearch: !state.isSearching ? 
                             {teeType: '',
                             date: {year: new Date().getFullYear(),
-                                    month: -1, 
-                                    day: -1,
-                                    dayOfTheWeek: -1, 
-                                    hours: -1, 
-                                    minutes: -1}, 
+                                    month: false, 
+                                    day: false,
+                                    dayOfTheWeek: false, 
+                                    hours: false, 
+                                    minutes: false}, 
                             golfers: [], 
                             guests: 0} : 
                             defaultState.teeTimeSearch,
