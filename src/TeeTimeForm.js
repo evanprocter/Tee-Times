@@ -68,7 +68,7 @@ export default function TeeTimeForm(props){
                 )}
                 <label>
                     Day:
-                    <select name='teeDay' value={props.teeTimeSearch.date.day} onChange={event => updateForm(event, props)}>
+                    <select name='teeDay' value={`${props.teeTimeSearch.date.day}`} onChange={event => updateForm(event, props)}>
                         {props.isSearching && <option value='false'> - </option>}
                         {availableDays.map(teeDay => <option key={teeDay} value={teeDay}>{`${teeDay}`}</option>)}
                     </select>
@@ -76,14 +76,14 @@ export default function TeeTimeForm(props){
                 <>
                     <label>
                         Hour:
-                        <select name='teeHour' value={props.teeTimeSearch.date.hours} onChange={event => updateForm(event, props)}>
+                        <select name='teeHour' value={`${props.teeTimeSearch.date.hours}`} onChange={event => updateForm(event, props)}>
                             {props.isSearching && <option value='false'> - </option>}
                             {availableHours.map(teeHour => <option key={teeHour} value={teeHour}>{`${teeHour % 12 || 12} ${teeHour < 12 ? 'AM' : 'PM'}`}</option>)}
                         </select>
                     </label>
                         <label>
                             Minute:
-                            <select name='teeMinute' value={props.teeTimeSearch.date.minutes} onChange={event => updateForm(event, props)}>
+                            <select name='teeMinute' value={`${props.teeTimeSearch.date.minutes}`} onChange={event => updateForm(event, props)}>
                                 {props.isSearching && <option value='false'> - </option>}
                                 {availableMinutes.map(teeMinute => <option key={teeMinute} value={teeMinute}>{`${teeMinute.toString().length > 1 ? teeMinute : `0${teeMinute}`}`}</option>)}
                             </select>
@@ -157,8 +157,6 @@ const getPossibleTeeDates = (props) => {
 
 const getAvailableOptions = (availableTeeDates, date) => {
     let teeDates = availableTeeDates.map(teeDate => teeDate)
-    console.log(date.month)
-    console.log(!date.month)
     // create arrays to store available options
     const availableMonths = []
     const availableDays = []
@@ -186,7 +184,6 @@ const getAvailableOptions = (availableTeeDates, date) => {
     availableDays.sort((dayA, dayB) => dayA - dayB)
     availableHours.sort((hourA, hourB) => hourA - hourB)
     availableMinutes.sort((minuteA, minuteB) => minuteA - minuteB)
-    console.log(availableMonths, availableDays, availableHours, availableMinutes)
     return {availableMonths, availableDays, availableHours, availableMinutes}
 }
     
