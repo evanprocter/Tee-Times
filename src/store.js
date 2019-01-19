@@ -1,42 +1,46 @@
 import { createStore } from 'redux'
 
-const isDev = true
-const isEv = true
-const DB_URL = isEv ? 'https://api.evanprocter.com' : 'https://api.teetimes.collinargo.com'
+// const isDev = true
+// const isEv = true
+// const DB_URL = isEv ? 'https://api.evanprocter.com' : 'https://api.teetimes.collinargo.com'
 
 setInterval(() => {
     store.dispatch(updateTime(new Date())) 
 }, 60 * 1000)
 
-export const getTeeTimeDate = (isAdmin, currentDate) => {
+export const getTeeTimeDate = (isAdmin, teeDate) => {
     // need to set this to within club hours here
-    if (!isAdmin) {
+    // if (!isAdmin) {
         // set year, months, day   holidays?
         // e.g. tee times are every ten minutes
-        if (currentDate.getMinutes() % 10 !== 0) {
-            currentDate.setMinutes(currentDate.getMinutes() + (10 - (currentDate.getMinutes() % 10)))
+        // set to next ten minute increment
+        if (teeDate.getMinutes() % 10 !== 0) {
+            teeDate.setMinutes(teeDate.getMinutes() + (10 - (teeDate.getMinutes() % 10)))
+        } else {
+            // this will get next ten min increment when at hh:00
+            teeDate.setMinutes(teeDate.getMinutes() + 10)
         }
         // e.g. they close at 4 PM
-        if (currentDate.getHours() >= 16) {
+        if (teeDate.getHours() >= 16) {
             // set hours
             // go to next day
-            currentDate.setDate(currentDate.getDate() + 1)
-            currentDate.setHours(8)
-            currentDate.setMinutes(0)
+            teeDate.setDate(teeDate.getDate() + 1)
+            teeDate.setHours(8)
+            teeDate.setMinutes(0)
         } 
         // e.g. they open at 8 AM
-        if (currentDate.getHours() < 8) {
-            currentDate.setHours(8)
-            currentDate.setMinutes(0)
+        if (teeDate.getHours() < 8) {
+            teeDate.setHours(8)
+            teeDate.setMinutes(0)
         }
-    }
+    // }
     const date = {
-        year: currentDate.getFullYear(),
-        month: currentDate.getMonth(),
-        day: currentDate.getDate(),
-        dayOfTheWeek: currentDate.getDay(),
-        hours: currentDate.getHours(),
-        minutes: currentDate.getMinutes()
+        year: teeDate.getFullYear(),
+        month: teeDate.getMonth(),
+        day: teeDate.getDate(),
+        dayOfTheWeek: teeDate.getDay(),
+        hours: teeDate.getHours(),
+        minutes: teeDate.getMinutes()
     }
     return date
 }
@@ -147,7 +151,7 @@ const DELETE_TEE_TIME = {
 }
 
 export const addUser = (user) => {
-    fetch(`${!isDev ? DB_URL : ''}/register`, {
+    fetch(`/register`, {
         method: 'post',
         credentials: 'include',
         body: JSON.stringify(user),
@@ -162,7 +166,7 @@ export const addUser = (user) => {
 } 
 
 export const loginUser = (user) => {
-    fetch(`${!isDev ? DB_URL : ''}/login`, {
+    fetch(`/login`, {
         method: 'post',
         credentials: 'include',
         body: JSON.stringify(user),
@@ -177,7 +181,7 @@ export const loginUser = (user) => {
 }
 
 export const logoutUser = () => {
-    fetch(`${!isDev ? DB_URL : ''}/logout`, {
+    fetch(`/logout`, {
         method: 'get',
         credentials: 'include'
     })
@@ -190,7 +194,7 @@ export const logoutUser = () => {
 }
 
 export const requestData = () => {
-    fetch(`${!isDev ? DB_URL : ''}/data`, {
+    fetch(`/data`, {
         method: 'get',
         credentials: 'include'
     })
@@ -228,7 +232,7 @@ export const receiveData = (data) => {
 }
 
 export const updateUser = (user) => {
-    fetch(`${!isDev ? DB_URL : ''}/updateUser`, {
+    fetch(`/updateUser`, {
         method: 'post',
         credentials: 'include',
         body: JSON.stringify(user),
@@ -250,7 +254,7 @@ export const updateTime = (currentDate) => {
 }
 
 export const addTeeTime = (teeTime) => {
-    fetch(`${!isDev ? DB_URL : ''}/teetime`, {
+    fetch(`/teetime`, {
         method: 'post',
         credentials: 'include',
         body: JSON.stringify({teeTime}),
@@ -272,6 +276,7 @@ export const selectTeeTime = (teeTime) => {
             year: date.getFullYear(),
             month: date.getMonth(),
             day: date.getDate(),
+            dayOfTheWeek: date.getDay(),
             hours: date.getHours(),
             minutes: date.getMinutes()
         }
@@ -283,7 +288,7 @@ export const selectTeeTime = (teeTime) => {
 }
 
 export const updateTeeTime = (teeTime) => {
-    fetch(`${!isDev ? DB_URL : ''}/updateTeeTime`, {
+    fetch(`/updateTeeTime`, {
         method: 'post',
         credentials: 'include',
         body: JSON.stringify({teeTime}),
@@ -318,7 +323,7 @@ export const searchTeeTimes = () => {
 }
 
 export const requestFriend = friends => {
-    fetch(`${!isDev ? DB_URL : ''}/requestFriend`, {
+    fetch(`/requestFriend`, {
         method: 'post',
         credentials: 'include',
         body: JSON.stringify(friends),
@@ -333,7 +338,7 @@ export const requestFriend = friends => {
 }
 export const approveFriend = friends => {
     console.log(friends)
-    fetch(`${!isDev ? DB_URL : ''}/approveFriend`, {
+    fetch(`/approveFriend`, {
         method: 'post',
         credentials: 'include',
         body: JSON.stringify(friends),
@@ -347,7 +352,7 @@ export const approveFriend = friends => {
     }
 }
 export const denyFriend = friends => {
-    fetch(`${!isDev ? DB_URL : ''}/denyFriend`, {
+    fetch(`/denyFriend`, {
         method: 'post',
         credentials: 'include',
         body: JSON.stringify(friends),
@@ -362,7 +367,7 @@ export const denyFriend = friends => {
 }
 
 export const deleteUser = (user) => {
-    fetch(`${!isDev ? DB_URL : ''}/user`, {
+    fetch(`/user`, {
         method: 'delete',
         credentials: 'include',
         body: JSON.stringify({user}),
@@ -377,7 +382,7 @@ export const deleteUser = (user) => {
 }
 
 export const deleteTeeTime = (teeTime) => {
-    fetch(`${!isDev ? DB_URL : ''}/teetime`, {
+    fetch(`/teetime`, {
         method: 'delete',
         credentials: 'include',
         body: JSON.stringify({teeTime}),
@@ -430,16 +435,18 @@ const teeTimes = (state=defaultState, action) => {
             ...state,
             currentDate: action.currentDate,
             // update teeTimeSearch if it is less than currentTime and not currently searching
-            teeTimeSearch: !state.isSearching ? {
+             // and not currently selected tee time
+            teeTimeSearch: !(state.isSearching || state.selectedTeeTime._id)? {
                 ...state.teeTimeSearch,
-                date: {
-                    year: state.teeTimeSearch.date.year < action.currentDate.getFullYear() ? action.currentDate.getFullYear() : state.teeTimeSearch.date.year,
-                    month: state.teeTimeSearch.date.month < action.currentDate.getMonth() ? action.currentDate.getMonth() : state.teeTimeSearch.date.month,
-                    day: state.teeTimeSearch.date.day < action.currentDate.getDate() ? action.currentDate.getDate() : state.teeTimeSearch.date.day,
-                    dayOfTheWeek: state.teeTimeSearch.date.dayOfTheWeek < action.currentDate.getDay() ? action.currentDate.getDay() : state.teeTimeSearch.date.dayOfTheWeek,
-                    hours: state.teeTimeSearch.date.hours< action.currentDate.getHours() ? action.currentDate.getHours() : state.teeTimeSearch.date.hours,
-                    minutes: state.teeTimeSearch.date.minutes < action.currentDate.getMinutes() ? action.currentDate.getMinutes() : state.teeTimeSearch.date.minutes,
-                }
+                date: getTeeTimeDate(state.isAdmin, action.currentDate)
+                // {
+                //     year: state.teeTimeSearch.date.year < action.currentDate.getFullYear() ? action.currentDate.getFullYear() : state.teeTimeSearch.date.year,
+                //     month: state.teeTimeSearch.date.month < action.currentDate.getMonth() ? action.currentDate.getMonth() : state.teeTimeSearch.date.month,
+                //     day: state.teeTimeSearch.date.day < action.currentDate.getDate() ? action.currentDate.getDate() : state.teeTimeSearch.date.day,
+                //     dayOfTheWeek: state.teeTimeSearch.date.dayOfTheWeek < action.currentDate.getDay() ? action.currentDate.getDay() : state.teeTimeSearch.date.dayOfTheWeek,
+                //     hours: state.teeTimeSearch.date.hours< action.currentDate.getHours() ? action.currentDate.getHours() : state.teeTimeSearch.date.hours,
+                //     minutes: state.teeTimeSearch.date.minutes < action.currentDate.getMinutes() ? action.currentDate.getMinutes() : state.teeTimeSearch.date.minutes,
+                // }
             } : state.teeTimeSearch
         }
         case ADD_TEE_TIME.type:
@@ -481,7 +488,15 @@ const teeTimes = (state=defaultState, action) => {
         return {
             ...state,
             teeTimeSearch: !state.isSearching ? 
-                            {teeType: '', date: {year: new Date().getFullYear(), month: 0, day: 0, hours: 0, minutes: -1}, golfers: [], guests: 0} : 
+                            {teeType: '',
+                            date: {year: new Date().getFullYear(),
+                                    month: false, 
+                                    day: false,
+                                    dayOfTheWeek: false, 
+                                    hours: false, 
+                                    minutes: false}, 
+                            golfers: [], 
+                            guests: 0} : 
                             defaultState.teeTimeSearch,
             isSearching: !state.isSearching,
             selectedTeeTime: {}

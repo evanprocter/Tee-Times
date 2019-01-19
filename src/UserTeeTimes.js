@@ -3,8 +3,8 @@ import UserTeeTime from './UserTeeTime'
 
 export default function UserTeeTimes(props) {
     const currentDate = new Date()
+    // if user is admin or app is in search mode, return all tee times, otherwise just the user's tee times
     let userTeeTimes = (props.isAdmin || props.isSearching) ? props.data.allTeeTimes : props.data.userTeeTimes
-    userTeeTimes.sort((teeTimeA, teeTimeB) => new Date(teeTimeA.date).getTime() > new Date(teeTimeB.date).getTime() ? -1 : 1)
     userTeeTimes = props.isSearching ? userTeeTimes.filter(teeTime => {
         for (let dateField in props.teeTimeSearch) {
             // if filtering on date
@@ -17,10 +17,10 @@ export default function UserTeeTimes(props) {
                 const {year, month, day, hours, minutes} = props.teeTimeSearch.date
                 const teeTimeSearchDate = new Date(
                                                     year,
-                                                    month || teeTimeDate.getMonth(), // these will not be 0 or the value of the tee time
-                                                    day || teeTimeDate.getDate(), 
-                                                    hours || teeTimeDate.getHours(), 
-                                                    minutes !== -1 ? minutes : teeTimeDate.getMinutes()
+                                                    month ? month : teeTimeDate.getMonth(), // these will not be 0 or the value of the tee time
+                                                    day ? day : teeTimeDate.getDate(), 
+                                                    hours ? hours : teeTimeDate.getHours(), 
+                                                    minutes ? minutes : teeTimeDate.getMinutes()
                                                 )
                 // if there is a date selected and it matches
                 if (teeTimeSearchDate.getTime() !== new Date(year, 0, 0, 0, 0).getTime()) {
@@ -41,27 +41,31 @@ export default function UserTeeTimes(props) {
         return true
     }) : userTeeTimes
     const futureTeeTimes = userTeeTimes.filter(teeTime => new Date(teeTime.date) > currentDate)
+        .sort((teeTimeA, teeTimeB) => new Date(teeTimeA.date).getTime() > new Date(teeTimeB.date).getTime() ? 1 : -1)
     const pastTeeTimes = userTeeTimes.filter(teeTime => new Date(teeTime.date) <= currentDate)
+        .sort((teeTimeA, teeTimeB) => new Date(teeTimeA.date).getTime() > new Date(teeTimeB.date).getTime() ? -1 : 1)
     let selectedDate
     if (props.selectedTeeTime._id) {
-        const {year, month, day, hours, minutes} = props.selectedTeeTime.date
-        selectedDate = new Date(year, month, day, hours, minutes)
+        // if the selectedTeeTime date is not in the correct format
+        if (props.selectedTeeTime.date.year) {
+            const {year, month, day, hours, minutes} = props.selectedTeeTime.date
+            selectedDate = new Date(year, month, day, hours, minutes)
+        } else {
+            selectedDate = new Date(props.selectedTeeTime.date)
+        }
     }
     return (
         props.selectedTeeTime._id ? 
         <UserTeeTime teeTime={{...props.selectedTeeTime, date: selectedDate}} {...props}/> : 
         (<div className={`UserTeeTimes`}>
-                <div className={`teeSearchButton${props.isSearching ? ' searchingTeeTimes' : ''}`}>
-                    <input type="button" value="Tee Time Search" onClick={props.searchTeeTimes}/>
-                </div>
                 <div className={`upcomingTeeTimes${props.isSearching ? ' searchingTeeTimes' : ''}`}>
-                    <h4>Here is a list of your upcoming tee times!</h4>
+                    <h4>{'Upcoming Tee Times'}</h4>
                     {futureTeeTimes.map(teeTime => {
                         return <UserTeeTime key={teeTime._id} isPast={false} teeTime={teeTime} {...props}/>
                     })}
                 </div>
                 <div className={`completedTeeTimes${props.isSearching ? ' searchingTeeTimes' : ''}`}>
-                    <h4>Here are your completed tee times!</h4>
+                    <h4>{'Completed Tee Times'}</h4>
                     {pastTeeTimes.map(teeTime => {
                         return <UserTeeTime key={teeTime._id} isPast={true} teeTime={teeTime} {...props}/>
                     })}

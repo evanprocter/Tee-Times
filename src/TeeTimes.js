@@ -5,9 +5,9 @@ import LoginPage from './LoginPage'
 import Dashboard from './Dashboard'
 
 export default class TeeTimes extends Component {
-    componentDidMount() {
-        this.props.requestData()
-    }
+    // componentDidMount() {
+    //     this.props.requestData()
+    // }
 
     render() {
         const {props} = this
