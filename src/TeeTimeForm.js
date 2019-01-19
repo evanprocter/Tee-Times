@@ -118,7 +118,7 @@ export default function TeeTimeForm(props){
                 </label>
             </div>
             <div className='teeFormButtons'>
-                {!props.selectedTeeTime._id && <div className={`teeSearchButton${props.isSearching ? ' searchingTeeTimes' : ''}`}>
+                {!props.selectedTeeTime._id && <div className={`teeSearchButton`}>
                     <input type="button" value={`${props.isSearching ? 'Disable ' : 'Enable '}Tee Time Search`} onClick={props.searchTeeTimes}/>
                 </div>}
                 {!(props.selectedTeeTime._id || 

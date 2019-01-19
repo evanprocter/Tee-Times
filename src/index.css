@@ -19,7 +19,6 @@ html, body, #root, .App, .TeeTimes {
   overflow: hidden;
 }
 
-
 *, ::before, ::after {
   margin: 0;
   padding: 0;
