@@ -33,6 +33,7 @@ export default function LoginPage(props) {
                     }}
                 />
             </div>
+            {/* admin part of the form */}
             <div className='adminLogin'>
                 <input type='password' placeholder='admin password' name='adminPassword' /> 
                 <input type='button' value='register as admin' 
