@@ -2,6 +2,7 @@ import React from 'react'
 
 export default function LoginPage(props) {
     return (
+        // Login Page
         <form className="LoginPage" 
             onSubmit={event => {
                 event.preventDefault()
