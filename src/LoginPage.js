@@ -23,6 +23,7 @@ export default function LoginPage(props) {
                 <input type='submit' value='login'/>
                 <input type='button' value='register' 
                     onClick={event => {
+                        {/* adding a user on click */}
                         if (!props.data.allUsers.map(user => user.name).includes(event.target.form[0].value)) {
                             props.addUser({
                                 name: event.target.form[0].value, 
