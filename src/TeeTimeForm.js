@@ -214,6 +214,7 @@ const updateForm = (event, props) => {
 
     // Guests
     const memberCount = golfers.length
+    // max guest allowed
     const guestMax = props.isAdmin ? 5 - memberCount : 4 - memberCount
     const guestCount = parseInt(event.target.form.guests.value)
     const guests = guestCount > guestMax ? guestMax : guestCount
