@@ -12,6 +12,7 @@ export default function LoginPage(props) {
                 })
             }}
         >
+            {/* users login and register */}
             <label value='name' name='name'> 
                 <input type='text' name='name' placeholder='name'/>
             </label>
@@ -34,6 +35,7 @@ export default function LoginPage(props) {
                     }}
                 />
             </div>
+            {/* admin login section */}
             <div className='adminLogin'>
                 <input type='password' placeholder='admin password' name='adminPassword' /> 
                 <input type='button' value='register as admin' 
