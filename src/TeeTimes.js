@@ -19,6 +19,7 @@ export default class TeeTimes extends Component {
             <div className="TeeTimes" >
                 {!isLoggedIn && <h1>Tee Times</h1>}
                 {props.isLoading && <LoadingPage />}
+                {/* determines which route/path to go towards */}
                 <Switch>
                     <Route 
                         exact
