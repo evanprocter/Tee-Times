@@ -79,6 +79,7 @@ const ADD_USER = {
     type: 'ADD_USER'
 }
 
+// ADDING A TEE TIME
 const ADD_TEE_TIME = {
     type: 'ADD_TEE_TIME'
 }
