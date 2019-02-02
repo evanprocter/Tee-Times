@@ -84,6 +84,7 @@ const ADD_TEE_TIME = {
     type: 'ADD_TEE_TIME'
 }
 
+// LOGGING IN A USER
 const LOGIN_USER = {
     type: 'LOGIN_USER'
 }
