@@ -89,6 +89,7 @@ const LOGIN_USER = {
     type: 'LOGIN_USER'
 }
 
+// LOGGING OUT A USER
 const LOGOUT_USER = {
     type: 'LOGOUT_USER'
 }
