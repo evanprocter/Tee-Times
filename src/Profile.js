@@ -140,7 +140,7 @@ export default class Profile extends Component {
                                 usernameSearchTerm: event.target.value,
                             })
                         }}
-                        {/* require password on submit */}
+                        /* require password on submit */
                         autoComplete='off'
                         onFocus={event => {
                             this.setState({
