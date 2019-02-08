@@ -113,11 +113,12 @@ const SELECT_TEE_TIME = {
     type: 'SELECT_TEE_TIME'
 }
 
-// UPDATING A TEE TIME
+// UPDATING TIME
 const UPDATE_TIME = {
     type: 'UPDATE_TIME'
 }
 
+// UPDATING TEE TIME
 const UPDATE_TEE_TIME = {
     type: 'UPDATE_TEE_TIME'
 }
