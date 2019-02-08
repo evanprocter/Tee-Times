@@ -113,6 +113,7 @@ const SELECT_TEE_TIME = {
     type: 'SELECT_TEE_TIME'
 }
 
+// UPDATING A TEE TIME
 const UPDATE_TIME = {
     type: 'UPDATE_TIME'
 }
