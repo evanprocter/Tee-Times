@@ -148,6 +148,7 @@ const APPROVE_FRIEND = {
     type: 'APPROVE_FRIEND'
 }
 
+// DENYING A FRIEND
 const DENY_FRIEND = {
     type: 'DENY_FRIEND'
 }
