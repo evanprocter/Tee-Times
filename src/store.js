@@ -138,6 +138,7 @@ const SEARCH_TEE_TIMES = {
     type: 'SEARCH_TEE_TIMES'
 }
 
+// REQUESTING A NEW FRIEND
 const REQUEST_FRIEND = {
     type: 'REQUEST_FRIEND'
 }
