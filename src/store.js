@@ -143,6 +143,7 @@ const REQUEST_FRIEND = {
     type: 'REQUEST_FRIEND'
 }
 
+// APPROVING A FRIEND
 const APPROVE_FRIEND = {
     type: 'APPROVE_FRIEND'
 }
