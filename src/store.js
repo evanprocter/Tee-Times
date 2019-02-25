@@ -158,6 +158,7 @@ const DELETE_USER = {
     type: 'DELETE_USER'
 }
 
+// DELETING A TEE TIME
 const DELETE_TEE_TIME = {
     type: 'DELETE_TEE_TIME'
 }
