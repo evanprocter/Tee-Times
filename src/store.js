@@ -55,6 +55,7 @@ const defaultState = {
         allUsers: [],
         allTeeTimes: [],
     },
+    // automatically set admin to false
     isAdmin: false,
     selectedTeeTime: {
         _id: '',
