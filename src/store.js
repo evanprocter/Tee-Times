@@ -193,6 +193,7 @@ export const loginUser = (user) => {
     .then(res => res.json())
     .then(data => store.dispatch(receiveData(data)))
     return {
+        // sprinkle in the login user
         ...LOGIN_USER,
         isLoading: true
     }
