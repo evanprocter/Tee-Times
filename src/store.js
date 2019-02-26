@@ -33,7 +33,7 @@ export const getTeeTimeDate = (isAdmin, teeDate) => {
             teeDate.setHours(8)
             teeDate.setMinutes(0)
         }
-    // }
+    // holds all the values for the date object
     const date = {
         year: teeDate.getFullYear(),
         month: teeDate.getMonth(),
