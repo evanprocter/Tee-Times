@@ -165,6 +165,7 @@ const DELETE_TEE_TIME = {
     type: 'DELETE_TEE_TIME'
 }
 
+// exporting adding a user
 export const addUser = (user) => {
     fetch(`/register`, {
         method: 'post',
@@ -175,6 +176,7 @@ export const addUser = (user) => {
     .then(res => res.json())
     .then(data => store.dispatch(receiveData(data)))
     return {
+        // sprinkle in the added user
         ...ADD_USER, 
         isLoading: true
     }
