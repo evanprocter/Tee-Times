@@ -95,6 +95,7 @@ const LOGOUT_USER = {
     type: 'LOGOUT_USER'
 }
 
+// REQUESTING DATA
 const REQUEST_DATA = {
     type: 'REQUEST_DATA'
 }
