@@ -182,6 +182,7 @@ export const addUser = (user) => {
     }
 } 
 
+// export logging in a user
 export const loginUser = (user) => {
     fetch(`/login`, {
         method: 'post',
