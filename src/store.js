@@ -227,6 +227,7 @@ export const requestData = () => {
     }
 }
 
+// recieving data
 export const receiveData = (data) => {
     const userFriends = data.allUsers.filter(golfer => {
         if (golfer._id === data.user._id) {
