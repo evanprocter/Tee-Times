@@ -199,6 +199,7 @@ export const loginUser = (user) => {
     }
 }
 
+// logging out a user
 export const logoutUser = () => {
     fetch(`/logout`, {
         method: 'get',
