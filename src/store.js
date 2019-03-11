@@ -213,6 +213,7 @@ export const logoutUser = () => {
     }
 }
 
+// requesting data
 export const requestData = () => {
     fetch(`/data`, {
         method: 'get',
