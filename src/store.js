@@ -269,6 +269,7 @@ export const updateUser = (user) => {
     }
 }
 
+// updating time to the current date
 export const updateTime = (currentDate) => {
     return {
         ...UPDATE_TIME,
