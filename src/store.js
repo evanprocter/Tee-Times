@@ -253,6 +253,7 @@ export const receiveData = (data) => {
     }
 }
 
+// updating a user
 export const updateUser = (user) => {
     fetch(`/updateUser`, {
         method: 'post',
