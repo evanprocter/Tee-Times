@@ -313,6 +313,7 @@ export const selectTeeTime = (teeTime) => {
     }
 }
 
+// updated tee time for editing
 export const updateTeeTime = (teeTime) => {
     fetch(`/updateTeeTime`, {
         method: 'post',
