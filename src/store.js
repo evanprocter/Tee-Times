@@ -293,6 +293,7 @@ export const addTeeTime = (teeTime) => {
     }
 }
 
+// selecting a tee time using date and time
 export const selectTeeTime = (teeTime) => {
     const date = new Date(teeTime.date)
     const formattedTeeTime = {
