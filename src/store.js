@@ -277,6 +277,7 @@ export const updateTime = (currentDate) => {
     }
 }
 
+// adding a tee time
 export const addTeeTime = (teeTime) => {
     fetch(`/teetime`, {
         method: 'post',
