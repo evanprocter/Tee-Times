@@ -345,6 +345,7 @@ export const updateTeeTimeSearch = teeTimeSearch => {
     }
 }
 
+// searching for available tee times
 export const searchTeeTimes = () => {
     return {
         ...SEARCH_TEE_TIMES
