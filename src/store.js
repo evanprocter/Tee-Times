@@ -352,6 +352,7 @@ export const searchTeeTimes = () => {
     }
 }
 
+// requesting a friend
 export const requestFriend = friends => {
     fetch(`/requestFriend`, {
         method: 'post',
