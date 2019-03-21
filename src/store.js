@@ -329,6 +329,7 @@ export const updateTeeTime = (teeTime) => {
     }
 }
 
+// updating friend search
 export const updateFriendSearch = friendSearchTerm => {
     return {
         ...UPDATE_FRIEND_SEARCH,
