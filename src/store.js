@@ -367,6 +367,8 @@ export const requestFriend = friends => {
         isLoading: true
     }
 }
+
+// approving a friend request
 export const approveFriend = friends => {
     console.log(friends)
     fetch(`/approveFriend`, {
