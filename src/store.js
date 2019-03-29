@@ -401,6 +401,7 @@ export const denyFriend = friends => {
     }
 }
 
+// deleting a user
 export const deleteUser = (user) => {
     fetch(`/user`, {
         method: 'delete',
