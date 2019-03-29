@@ -384,6 +384,8 @@ export const approveFriend = friends => {
         isLoading: true
     }
 }
+
+// denying a friend
 export const denyFriend = friends => {
     fetch(`/denyFriend`, {
         method: 'post',
