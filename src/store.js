@@ -417,6 +417,7 @@ export const deleteUser = (user) => {
     }
 }
 
+// export deleting a tee time
 export const deleteTeeTime = (teeTime) => {
     fetch(`/teetime`, {
         method: 'delete',
