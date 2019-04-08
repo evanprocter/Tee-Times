@@ -459,6 +459,7 @@ const teeTimes = (state=defaultState, action) => {
             ...defaultState,
             isLoading: action.isLoading
         }
+        // UPDATE USER
         case UPDATE_USER.type:
         return {
             ...state,
