@@ -453,6 +453,7 @@ const teeTimes = (state=defaultState, action) => {
             ...defaultState,
             isLoading: action.isLoading
         }
+        // LOGOUT
         case LOGOUT_USER.type:
         return {
             ...defaultState,
