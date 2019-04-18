@@ -504,6 +504,7 @@ const teeTimes = (state=defaultState, action) => {
             selectedTeeTime: action.teeTime._id !== state.selectedTeeTime._id ? action.teeTime : defaultState.teeTimeSearch,
             teeTimeSearch: action.teeTime._id !== state.selectedTeeTime._id ? action.teeTime : defaultState.teeTimeSearch
         }
+        // updating current tee time state
         case UPDATE_TEE_TIME.type:
         return {
             ...state,
