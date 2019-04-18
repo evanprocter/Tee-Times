@@ -496,7 +496,7 @@ const teeTimes = (state=defaultState, action) => {
             teeTimeSearch: defaultState.teeTimeSearch,
             isLoading: action.isLoading
         }
-        // bringing 
+        // bringing in current state of select tee time
         case SELECT_TEE_TIME.type:
         return {
             ...state,
