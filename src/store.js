@@ -489,6 +489,7 @@ const teeTimes = (state=defaultState, action) => {
                 // }
             } : state.teeTimeSearch
         }
+        // bringing in current state of tee time
         case ADD_TEE_TIME.type:
         return {
             ...state,
