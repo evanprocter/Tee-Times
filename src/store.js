@@ -510,6 +510,7 @@ const teeTimes = (state=defaultState, action) => {
             ...state,
             isLoading: action.isLoading
         }
+        // updating current state of tee time once deleted
         case DELETE_TEE_TIME.type:
         return {
             ...state,
